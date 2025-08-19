@@ -24,15 +24,15 @@
       <div
         v-for="(range, idx) in quickAcreageRanges"
         :key="idx"
-        class="flex items-center space-x-2 cursor-pointer hover:text-teal-500"
+        class="flex items-center space-x-2 cursor-pointer hover:text-sky-500"
         @click.prevent="applyQuickAcreage(range)"
-        :class="{ 'text-teal-500': isQuickRangeSelected(range) }"
+        :class="{ 'text-sky-500': isQuickRangeSelected(range) }"
       >
         <div class="relative">
           <div
             class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center"
             :class="{
-              'bg-teal-500 border-teal-500': isQuickRangeSelected(range),
+              'bg-sky-500 border-sky-500': isQuickRangeSelected(range),
             }"
           >
             <CheckIcon

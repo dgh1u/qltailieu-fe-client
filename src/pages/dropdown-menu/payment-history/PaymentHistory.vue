@@ -1,7 +1,7 @@
 <template>
   <ProfileLayout>
     <div class="block items-center pb-8 justify-center flex">
-      <span class="font-bold text-2xl md:text-3xl text-teal-500 text-center"
+      <span class="font-bold text-2xl md:text-3xl text-sky-500 text-center"
         >Lịch sử nạp tiền</span
       >
     </div>
@@ -41,7 +41,7 @@
         <div class="text-center sm:text-right">
           <span class="text-gray-700 text-sm md:text-base font-medium">
             Tổng:
-            <span class="text-teal-600 font-bold"
+            <span class="text-sky-600 font-bold"
               >{{ formatCurrency(totalDeposited) }}₫</span
             >
           </span>
@@ -79,7 +79,7 @@
                 </div>
               </div>
               <div class="text-right">
-                <div class="text-lg font-bold text-teal-600">
+                <div class="text-lg font-bold text-sky-600">
                   {{ formatCurrency(item.amount) }}₫
                 </div>
               </div>
@@ -198,7 +198,7 @@ const columns = [
     customRender: ({ text }) =>
       h(
         "span",
-        { class: "font-semibold text-teal-600" },
+        { class: "font-semibold text-sky-600" },
         `${formatCurrency(text)}₫`
       ),
   },

@@ -38,8 +38,8 @@
         <div
           v-for="(district, idx) in districtOptions"
           :key="idx"
-          class="flex items-center p-2 rounded-lg cursor-pointer hover:text-teal-500"
-          :class="{ 'text-teal-500': selectedDistrict === district.value }"
+          class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
+          :class="{ 'text-sky-500': selectedDistrict === district.value }"
           @click="selectDistrict(district.value)"
         >
           <div class="relative">
@@ -52,7 +52,7 @@
             <div
               class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center"
               :class="{
-                'bg-teal-500 border-teal-500':
+                'bg-sky-500 border-sky-500':
                   selectedDistrict === district.value,
               }"
             >
@@ -76,8 +76,8 @@
         <div
           v-for="(feature, idx) in featureOptions"
           :key="idx"
-          class="flex items-center p-2 rounded-lg cursor-pointer hover:text-teal-500"
-          :class="{ 'text-teal-500': isFeatureSelected(feature.value) }"
+          class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
+          :class="{ 'text-sky-500': isFeatureSelected(feature.value) }"
           @click="toggleFeature(feature.value)"
         >
           <div class="relative">
@@ -90,7 +90,7 @@
             <div
               class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center"
               :class="{
-                'bg-teal-500 border-teal-500': isFeatureSelected(feature.value),
+                'bg-sky-500 border-sky-500': isFeatureSelected(feature.value),
               }"
             >
               <CheckIcon

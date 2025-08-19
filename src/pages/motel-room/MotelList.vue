@@ -4,7 +4,7 @@
       <div
         class="text-3xl font-bold flex flex-col items-center justify-center flex-wrap space-y-2"
       >
-        <span class="text-teal-500"> CHO THUÊ PHÒNG TRỌ </span>
+        <span class="text-sky-500"> CHO THUÊ PHÒNG TRỌ </span>
         <span class="text-lg font-normal">
           Kênh thông tin phòng trọ Giá Rẻ, Chính Chủ, Mới Nhất khu vực Học viện
           Nông nghiệp Việt Nam
@@ -39,7 +39,7 @@
             <!-- Dropdown Button -->
             <button
               @click="showSortDropdown = !showSortDropdown"
-              class="flex items-center space-x-2 px-4 py-3 bg-teal-100 border border-teal-300 rounded-xl text-teal-700 hover:bg-teal-200 focus:outline-none min-w-[140px]"
+              class="flex items-center space-x-2 px-4 py-3 bg-sky-100 border border-sky-300 rounded-xl text-sky-700 hover:bg-sky-200 focus:outline-none min-w-[140px]"
             >
               <span class="text-sm font-medium">{{ getSortLabel() }}</span>
               <svg
@@ -75,9 +75,9 @@
                   <label
                     v-for="option in sortOptions"
                     :key="option.value"
-                    class="flex items-center px-4 py-2 hover:bg-gray-50 cursor-pointer hover:text-teal-500"
+                    class="flex items-center px-4 py-2 hover:bg-gray-50 cursor-pointer hover:text-sky-500"
                     :class="{
-                      'text-teal-500': sortOption === option.value,
+                      'text-sky-500': sortOption === option.value,
                     }"
                   >
                     <div class="relative">
@@ -91,7 +91,7 @@
                       <div
                         class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center"
                         :class="{
-                          'bg-teal-500 border-teal-500':
+                          'bg-sky-500 border-sky-500':
                             sortOption === option.value,
                         }"
                       >

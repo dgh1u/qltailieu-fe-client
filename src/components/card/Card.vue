@@ -104,7 +104,7 @@
           class="flex items-center justify-between sm:justify-end gap-2 sm:gap-4"
         >
           <div
-            class="flex items-center gap-1 sm:gap-2 bg-teal-500 hover:bg-teal-600 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition text-xs sm:text-sm"
+            class="flex items-center gap-1 sm:gap-2 bg-sky-500 hover:bg-sky-600 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition text-xs sm:text-sm"
           >
             <PhoneIcon
               class="w-3 h-3 sm:w-4 sm:h-4 text-white"

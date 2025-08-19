@@ -76,7 +76,7 @@
         <!-- Nút liên hệ điện thoại -->
         <div class="flex items-center gap-2 ml-auto">
           <div
-            class="flex gap-2 bg-teal-500 hover:bg-teal-600 text-white px-3 py-1.5 rounded-full transition"
+            class="flex gap-2 bg-sky-500 hover:bg-sky-600 text-white px-3 py-1.5 rounded-full transition"
           >
             <PhoneIcon class="w-4 h-4 mt-0.5 text-white" fill="currentColor" />
             <span class="text-sm font-medium">{{

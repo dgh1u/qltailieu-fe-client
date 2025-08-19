@@ -227,19 +227,19 @@ function actionColor(type) {
                 <p>
                   <template v-if="action.action === 'CREATE'">
                     <strong>Bạn</strong> đã tạo bài đăng
-                    <span class="text-teal-500">{{ action.postTitle }}</span>
+                    <span class="text-sky-500">{{ action.postTitle }}</span>
                     (ID: <span class="text-amber-400">{{ action.postId }}</span>
                     ) đang chờ kiểm duyệt.
                   </template>
                   <template v-else-if="action.action === 'APPROVE'">
                     <strong>ADMIN</strong> đã duyệt bài đăng
-                    <span class="text-teal-500">{{ action.postTitle }}</span>
+                    <span class="text-sky-500">{{ action.postTitle }}</span>
                     (ID: <span class="text-amber-400">{{ action.postId }}</span>
                     ).
                   </template>
                   <template v-else-if="action.action === 'BLOCK'">
                     <strong>ADMIN</strong> đã khóa bài đăng
-                    <span class="text-teal-500">{{ action.postTitle }}</span>
+                    <span class="text-sky-500">{{ action.postTitle }}</span>
                     (ID: <span class="text-amber-400">{{ action.postId }}</span>
                     ).
                   </template>

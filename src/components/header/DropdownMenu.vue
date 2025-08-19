@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <!-- Mobile Balance Info -->
+      <!-- Mobile Balance Info
       <div
         class="mb-4 px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-xl flex items-center justify-between"
       >
@@ -47,13 +47,13 @@
           <CreditCard size="16" />
           <span class="text-sm font-bold">Nạp tiền</span>
         </button>
-      </div>
+      </div> -->
 
       <!-- Mobile Menu Links -->
       <div class="space-y-4">
         <a
           href="/profile"
-          class="block pt-1 pb-1.5 text-base hover:text-teal-500 transition duration-150 flex items-center space-x-3"
+          class="block pt-1 pb-1.5 text-base hover:text-sky-500 transition duration-150 flex items-center space-x-3"
           @click="closeMobileMenuIfNeeded"
         >
           <User size="20" />
@@ -61,7 +61,7 @@
         </a>
         <a
           href="/my-posts"
-          class="block py-1.5 text-base hover:text-teal-500 transition duration-150 flex items-center space-x-3"
+          class="block py-1.5 text-base hover:text-sky-500 transition duration-150 flex items-center space-x-3"
           @click="closeMobileMenuIfNeeded"
         >
           <Folder size="20" />
@@ -69,7 +69,7 @@
         </a>
         <a
           href="/payment-history"
-          class="block py-1.5 text-base hover:text-teal-500 transition duration-150 flex items-center space-x-3"
+          class="block py-1.5 text-base hover:text-sky-500 transition duration-150 flex items-center space-x-3"
           @click="closeMobileMenuIfNeeded"
         >
           <Clock size="20" />
@@ -112,7 +112,7 @@
           </div>
         </div>
 
-        <div
+        <!-- <div
           class="mt-4 px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-xl flex items-center justify-between whitespace-nowrap"
         >
           <div class="flex flex-col mr-2">
@@ -126,31 +126,31 @@
             <CreditCard size="16" />
             <span class="text-sm font-bold">Nạp tiền</span>
           </button>
-        </div>
+        </div> -->
       </div>
 
       <!-- Danh sách tùy chọn -->
       <a
         href="/profile"
-        class="block px-4 pt-1 pb-1.5 ml-2 text-base hover:text-teal-500 transition duration-150 flex items-center space-x-2"
+        class="block px-4 pt-1 pb-1.5 ml-2 text-base hover:text-sky-500 transition duration-150 flex items-center space-x-2"
       >
         <User size="18" />
-        <span>Thông tin</span>
+        <span>Thông tin tài khoản</span>
       </a>
       <a
         href="/my-posts"
-        class="block px-4 py-1.5 ml-2 text-base hover:text-teal-500 transition duration-150 flex items-center space-x-2"
+        class="block px-4 py-1.5 ml-2 text-base hover:text-sky-500 transition duration-150 flex items-center space-x-2"
       >
         <Folder size="18" />
-        <span>Danh sách tin đăng</span>
+        <span>Tài liệu của tôi</span>
       </a>
-      <a
+      <!-- <a
         href="/payment-history"
-        class="block px-4 py-1.5 ml-2 text-base hover:text-teal-500 transition duration-150 flex items-center space-x-2"
+        class="block px-4 py-1.5 ml-2 text-base hover:text-sky-500 transition duration-150 flex items-center space-x-2"
       >
         <Clock size="18" />
         <span>Lịch sử nạp tiền</span>
-      </a>
+      </a> -->
 
       <!-- Thanh ngăn cách -->
       <div class="w-5/6 mx-auto border-t my-2"></div>

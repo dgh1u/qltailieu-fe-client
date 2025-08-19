@@ -48,12 +48,11 @@
         </div>
 
         <!-- Bộ lọc hình thức -->
-        <div class="flex items-center space-x-2">
+        <!-- <div class="flex items-center space-x-2">
           <label class="font-bold">Hình thức:</label>
           <div
             class="inline-flex items-center space-x-2 rounded-md border border-gray-200 bg-gray-100 p-1 overflow-x-auto"
           >
-            <!-- Tab "Phòng trọ" -->
             <button
               @click="
                 (selectedMotelType = 'PHONG_TRO'), resetPage(), fetchPosts()
@@ -66,7 +65,7 @@
             >
               Phòng trọ
             </button>
-            <!-- Tab "Ở ghép" -->
+
             <button
               @click="(selectedMotelType = 'O_GHEP'), resetPage(), fetchPosts()"
               :class="
@@ -77,7 +76,7 @@
             >
               Ở ghép
             </button>
-            <!-- Tab "Quán ăn" -->
+
             <button
               @click="
                 (selectedMotelType = 'QUAN_AN'), resetPage(), fetchPosts()
@@ -90,7 +89,7 @@
             >
               Quán ăn
             </button>
-            <!-- Tab "Quán nước" -->
+
             <button
               @click="
                 (selectedMotelType = 'QUAN_NUOC'), resetPage(), fetchPosts()
@@ -103,7 +102,7 @@
             >
               Quán nước
             </button>
-            <!-- Tab "Cửa hàng" -->
+
             <button
               @click="
                 (selectedMotelType = 'CUA_HANG'), resetPage(), fetchPosts()
@@ -116,7 +115,7 @@
             >
               Cửa hàng
             </button>
-            <!-- Tab "Tiện ích" -->
+
             <button
               @click="
                 (selectedMotelType = 'TIEN_ICH'), resetPage(), fetchPosts()
@@ -129,7 +128,7 @@
             >
               Tiện ích
             </button>
-            <!-- Tab "Tiện ích" -->
+
             <button
               @click="
                 (selectedMotelType = 'TAI_LIEU'), resetPage(), fetchPosts()
@@ -143,7 +142,7 @@
               Tài liệu
             </button>
           </div>
-        </div>
+        </div> -->
 
         <!-- Bộ lọc Hiển thị -->
         <div class="flex items-center space-x-2">
@@ -196,7 +195,7 @@
                 ? 'UtilityDetail'
                 : selectedMotelType === 'TAI_LIEU'
                 ? 'DocumentDetail'
-                : 'MotelDetail',
+                : 'DocumentDetail',
             params: { id: post.id },
           }"
           class="block"
@@ -262,7 +261,7 @@ import DocumentCard from "../../../components/card/DocumentCard.vue";
 const posts = ref([]);
 const userId = ref(null);
 const selectedStatus = ref("APPROVED");
-const selectedMotelType = ref("PHONG_TRO");
+const selectedMotelType = ref("TAI_LIEU");
 const selectedDel = ref(false);
 
 // State phân trang

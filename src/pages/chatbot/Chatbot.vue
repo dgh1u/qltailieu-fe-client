@@ -14,7 +14,7 @@
       </div>
       <button
         @click="openChat"
-        class="bg-teal-400 hover:bg-teal-600 p-4 rounded-full shadow-lg transition"
+        class="bg-sky-400 hover:bg-sky-600 p-4 rounded-full shadow-lg transition"
       >
         <BotMessageSquare class="w-6 h-6 text-white" />
       </button>
@@ -35,7 +35,7 @@
       >
         <!-- Phần header -->
         <div
-          class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-teal-400 to-blue-300 rounded-t-xl"
+          class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-400 to-blue-300 rounded-t-xl"
         >
           <div class="flex items-center space-x-2">
             <img src="@/assets/vnua-logo.png" alt="VNUA Chat" class="w-8 h-8" />

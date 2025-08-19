@@ -3,7 +3,7 @@
     <div class="create-post max-w-3xl mx-auto p-4 space-y-4">
       <!-- Tiêu đề trang -->
       <div class="block p-4 items-center justify-center flex">
-        <span class="font-bold text-3xl text-teal-500">Cập nhật tin đăng</span>
+        <span class="font-bold text-3xl text-sky-500">Cập nhật tin đăng</span>
       </div>
 
       <!-- PHẦN HÌNH THỨC -->
@@ -456,8 +456,8 @@
           <div
             v-for="(feature, idx) in featureOptionsMotel"
             :key="idx"
-            class="flex items-center p-2 rounded-lg cursor-pointer hover:text-teal-500"
-            :class="{ 'text-teal-500': formData.accomodation[feature.value] }"
+            class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
+            :class="{ 'text-sky-500': formData.accomodation[feature.value] }"
             @click="toggleFeature(feature.value)"
           >
             <div class="relative">
@@ -470,7 +470,7 @@
               <div
                 class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center"
                 :class="{
-                  'bg-teal-500 border-teal-500':
+                  'bg-sky-500 border-sky-500':
                     formData.accomodation[feature.value],
                 }"
               >
@@ -499,8 +499,8 @@
           <div
             v-for="(feature, idx) in featureOptionsStore"
             :key="idx"
-            class="flex items-center p-2 rounded-lg cursor-pointer hover:text-teal-500"
-            :class="{ 'text-teal-500': formData.accomodation[feature.value] }"
+            class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
+            :class="{ 'text-sky-500': formData.accomodation[feature.value] }"
             @click="toggleFeature(feature.value)"
           >
             <div class="relative">
@@ -513,7 +513,7 @@
               <div
                 class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center"
                 :class="{
-                  'bg-teal-500 border-teal-500':
+                  'bg-sky-500 border-sky-500':
                     formData.accomodation[feature.value],
                 }"
               >
@@ -538,9 +538,9 @@
         <div class="grid grid-cols-2 gap-4 mb-4">
           <!-- Box 1 -->
           <div
-            class="relative border-2 border-dashed border-teal-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-teal-50 transition"
+            class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition"
           >
-            <FolderUp class="w-12 h-12 text-teal-500" />
+            <FolderUp class="w-12 h-12 text-sky-500" />
             <span class="mt-2 text-gray-500">
               {{
                 formData.accomodation.motel === "PHONG_TRO" ||
@@ -573,9 +573,9 @@
 
           <!-- Box 2 -->
           <div
-            class="relative border-2 border-dashed border-teal-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-teal-50 transition"
+            class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition"
           >
-            <FolderUp class="w-12 h-12 text-teal-500" />
+            <FolderUp class="w-12 h-12 text-sky-500" />
             <span class="mt-2 text-gray-500">
               {{
                 formData.accomodation.motel === "PHONG_TRO" ||
@@ -608,9 +608,9 @@
 
           <!-- Box 3 -->
           <div
-            class="relative border-2 border-dashed border-teal-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-teal-50 transition"
+            class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition"
           >
-            <FolderUp class="w-12 h-12 text-teal-500" />
+            <FolderUp class="w-12 h-12 text-sky-500" />
             <span class="mt-2 text-gray-500">
               {{
                 formData.accomodation.motel === "PHONG_TRO" ||
@@ -643,9 +643,9 @@
 
           <!-- Box 4 -->
           <div
-            class="relative border-2 border-dashed border-teal-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-teal-50 transition"
+            class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition"
           >
-            <FolderUp class="w-12 h-12 text-teal-500" />
+            <FolderUp class="w-12 h-12 text-sky-500" />
             <span class="mt-2 text-gray-500">Tải ảnh Mặt tiền</span>
             <input
               type="file"
@@ -799,7 +799,7 @@
       <!-- NÚT SUBMIT VÀ TRỞ VỀ -->
       <div class="text-white font-semibold">
         <button
-          class="submit-btn bg-teal-500 px-4 py-2 rounded hover:bg-teal-600 w-full flex items-center justify-center"
+          class="submit-btn bg-sky-500 px-4 py-2 rounded hover:bg-sky-600 w-full flex items-center justify-center"
           :disabled="loading"
           @click="handleUpdatePost"
         >

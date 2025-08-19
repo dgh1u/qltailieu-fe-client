@@ -14,7 +14,7 @@
         <textarea
           v-model="newComment"
           rows="2"
-          class="w-full bg-gray-100 rounded-3xl px-6 py-4 pr-12 focus:ring-2 focus:ring-teal-300 resize-none"
+          class="w-full bg-gray-100 rounded-3xl px-6 py-4 pr-12 focus:ring-2 focus:ring-sky-300 resize-none"
           placeholder="Viết bình luận..."
         />
 
@@ -102,7 +102,7 @@
             <textarea
               v-model="editingComment.content"
               rows="2"
-              class="w-full bg-gray-100 rounded-3xl px-6 py-4 pr-12 focus:ring-2 focus:ring-teal-300 resize-none"
+              class="w-full bg-gray-100 rounded-3xl px-6 py-4 pr-12 focus:ring-2 focus:ring-sky-300 resize-none"
             />
             <button
               @click="cancelEditing"

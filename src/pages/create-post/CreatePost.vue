@@ -6,123 +6,11 @@
       </div>
       <div class="block bg-white p-4 pb-6 rounded-xl">
         <div class="py-2">
-          <span class="font-bold text-base">Hình thức</span>
-        </div>
-
-        <label>Loại hình <span class="text-red-500">*</span> </label>
-        <div class="flex rounded-lg mt-1">
-          <a-select
-            v-model:value="formData.accomodation.motel"
-            placeholder="Chọn hình thức"
-            class="w-full"
-          >
-            <a-select-option value="PHONG_TRO"
-              >Cho thuê phòng trọ</a-select-option
-            >
-            <a-select-option value="O_GHEP">Tìm người ở ghép</a-select-option>
-            <a-select-option value="QUAN_AN">Quán ăn</a-select-option>
-            <a-select-option value="QUAN_NUOC">Quán nước</a-select-option>
-            <a-select-option value="CUA_HANG">Cửa hàng</a-select-option>
-            <a-select-option value="TIEN_ICH">Tiện ích</a-select-option>
-            <a-select-option value="TAI_LIEU">Tài liệu</a-select-option>
-          </a-select>
+          <span class="font-bold text-base">Phân loại</span>
         </div>
 
         <!-- Selection phụ cho QUAN_AN -->
-        <div v-if="formData.accomodation.motel === 'QUAN_AN'" class="mt-3">
-          <label>Loại quán ăn <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.secondMotel"
-              placeholder="Chọn loại quán ăn"
-              class="w-full"
-            >
-              <a-select-option value="Cơm">Cơm</a-select-option>
-              <a-select-option value="Món nước">Món nước</a-select-option>
-              <a-select-option value="Xôi và Bánh mì"
-                >Xôi và Bánh mì</a-select-option
-              >
-              <a-select-option value="Cháo">Cháo</a-select-option>
-              <a-select-option value="Ăn vặt">Ăn vặt</a-select-option>
-              <a-select-option value="Đồ ăn nhanh">Đồ ăn nhanh</a-select-option>
-              <a-select-option value="Quán nhậu">Quán nhậu</a-select-option>
-            </a-select>
-          </div>
-        </div>
-
-        <!-- Selection phụ cho QUán nước -->
-        <div v-if="formData.accomodation.motel === 'QUAN_NUOC'" class="mt-3">
-          <label>Loại quán nước <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.secondMotel"
-              placeholder="Chọn loại quán nước"
-              class="w-full"
-            >
-              <a-select-option value="Quán Cà phê">Quán Cà phê</a-select-option>
-              <a-select-option value="Quán Trà chanh"
-                >Quán Trà chanh</a-select-option
-              >
-              <a-select-option value="Trà đá vỉa hè"
-                >Trà đá vỉa hè</a-select-option
-              >
-              <a-select-option value="Quán Trà sữa"
-                >Quán Trà sữa</a-select-option
-              >
-            </a-select>
-          </div>
-        </div>
-
-        <!-- Selection phụ cho CUA_HANG -->
-        <div v-if="formData.accomodation.motel === 'CUA_HANG'" class="mt-3">
-          <label>Loại cửa hàng <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.secondMotel"
-              placeholder="Chọn loại cửa hàng"
-              class="w-full"
-            >
-              <a-select-option value="Tạp hóa">Tạp hóa</a-select-option>
-              <a-select-option value="Cửa hàng tiện lợi"
-                >Cửa hàng tiện lợi</a-select-option
-              >
-              <a-select-option value="Văn phòng phẩm"
-                >Văn phòng phẩm</a-select-option
-              >
-              <a-select-option value="Điện lạnh">Điện lạnh</a-select-option>
-              <a-select-option value="Gia dụng">Gia dụng</a-select-option>
-              <a-select-option value="Hiệu thuốc">Hiệu thuốc</a-select-option>
-              <a-select-option value="Quần áo">Quần áo</a-select-option>
-              <a-select-option value="Hiệu sách">Hiệu sách</a-select-option>
-              <a-select-option value="Điện thoại">Điện thoại</a-select-option>
-              <a-select-option value="Máy tính">Máy tính</a-select-option>
-              <a-select-option value="Đồng hồ">Đồng hồ</a-select-option>
-              <a-select-option value="Kính mắt">Kính mắt</a-select-option>
-            </a-select>
-          </div>
-        </div>
-
-        <!-- Selection phụ cho Tiện ích -->
-        <div v-if="formData.accomodation.motel === 'TIEN_ICH'" class="mt-3">
-          <label>Loại Tiện ích <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.secondMotel"
-              placeholder="Chọn loại Tiện ích"
-              class="w-full"
-            >
-              <a-select-option value="Photocopy">Photocopy</a-select-option>
-              <a-select-option value="Giặt là">Giặt là</a-select-option>
-              <a-select-option value="Học ngoại ngữ"
-                >Học ngoại ngữ</a-select-option
-              >
-              <a-select-option value="Chụp ảnh">Chụp ảnh</a-select-option>
-            </a-select>
-          </div>
-        </div>
-
-        <!-- Selection phụ cho QUAN_AN -->
-        <div v-if="formData.accomodation.motel === 'TAI_LIEU'" class="mt-3">
+        <div v-if="formData.accomodation.motel === 'TAI_LIEU'" >
           <label>Loại tài liệu <span class="text-red-500">*</span> </label>
           <div class="flex rounded-lg mt-1">
             <a-select
@@ -190,27 +78,6 @@
               <a-select-option value="Sư phạm">Sư phạm</a-select-option>
             </a-select>
           </div>
-        </div>
-      </div>
-
-      <div
-        v-if="formData.accomodation.motel === 'O_GHEP'"
-        class="block bg-white p-4 rounded-xl"
-      >
-        <div class="py-2">
-          <span class="font-bold text-base">Giới tính</span>
-        </div>
-        <label>Giới tính yêu cầu</label>
-        <div class="flex rounded-lg mt-1">
-          <a-select
-            v-model:value="formData.accomodation.gender"
-            placeholder="Chọn giới tính"
-            class="w-full"
-          >
-            <a-select-option :value="true">Nam</a-select-option>
-            <a-select-option :value="false">Nữ</a-select-option>
-            <a-select-option :value="null">Không yêu cầu</a-select-option>
-          </a-select>
         </div>
       </div>
 
@@ -865,17 +732,6 @@
           file.
         </small>
 
-        <div class="py-4">
-          <label class="block text-gray-700">Link tham khảo (nếu có)</label>
-          <div class="flex items-center border border-gray-300 rounded-lg mt-1">
-            <input
-              v-model.number="formData.accomodation.referenceUrl"
-              type="text"
-              placeholder="Nhập link tham khảo (nếu có)"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-          </div>
-        </div>
       </div>
 
       <div class="text-white font-semibold mt-4">
@@ -972,7 +828,7 @@ const formData = reactive({
   title: "",
   content: "",
   accomodation: {
-    motel: "",
+    motel: "TAI_LIEU",
     price: "",
     acreage: "",
     electricPrice: "",
@@ -1302,7 +1158,7 @@ const resetForm = () => {
     title: "",
     content: "",
     accomodation: {
-      motel: "",
+      motel: "TAI_LIEU",
       price: "",
       acreage: "",
       electricPrice: "",

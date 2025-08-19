@@ -28,14 +28,25 @@
         </div>
 
         <!-- Navigation ở cột 3-8 -->
+
         <div class="col-span-6 flex items-center space-x-6 lg:space-x-12">
-          <div
+          <router-link
+            data-aos="zoom-out"
+            data-aos-duration="800"
+            to="/home"
+            exact-active-class="text-blue-500"
+            class="hover:text-sky-500 transition duration-150 text-sm lg:text-base flex items-center gap-2"
+          >
+            <Home class="w-5 h-5 lg:w-5 lg:h-5" />
+            Trang chủ
+          </router-link>
+          <!-- <div
             class="relative"
             @mouseenter="showRoomMenu"
             @mouseleave="hideRoomMenu"
           >
             <span
-              class="flex items-center text-gray-700 hover:text-teal-500 transition duration-150 cursor-pointer text-sm lg:text-base"
+              class="flex items-center text-gray-700 hover:text-sky-500 transition duration-150 cursor-pointer text-sm lg:text-base"
               data-aos="zoom-out"
               data-aos-duration="800"
             >
@@ -48,13 +59,13 @@
             >
               <router-link
                 to="/post/motel"
-                class="block px-4 py-2 pt-4 font-medium text-gray-700 hover:text-teal-500 transition duration-150 text-sm lg:text-base"
+                class="block px-4 py-2 pt-4 font-medium text-gray-700 hover:text-sky-500 transition duration-150 text-sm lg:text-base"
               >
                 Tìm phòng trọ
               </router-link>
               <router-link
                 to="/post/roommate"
-                class="block px-4 py-2 pb-4 text-gray-700 hover:text-teal-500 transition duration-150 text-sm lg:text-base"
+                class="block px-4 py-2 pb-4 text-gray-700 hover:text-sky-500 transition duration-150 text-sm lg:text-base"
               >
                 Tìm người ở ghép
               </router-link>
@@ -67,7 +78,7 @@
             @mouseleave="hideServiceMenu"
           >
             <span
-              class="flex items-center text-gray-700 hover:text-teal-500 transition duration-150 cursor-pointer text-sm lg:text-base"
+              class="flex items-center text-gray-700 hover:text-sky-500 transition duration-150 cursor-pointer text-sm lg:text-base"
               data-aos="zoom-out"
               data-aos-duration="800"
             >
@@ -80,13 +91,13 @@
             >
               <router-link
                 to="/post/restaurant"
-                class="block px-4 py-2 pt-4 font-medium text-gray-700 hover:text-teal-500 transition duration-150 text-sm lg:text-base"
+                class="block px-4 py-2 pt-4 font-medium text-gray-700 hover:text-sky-500 transition duration-150 text-sm lg:text-base"
               >
                 Quán ăn
               </router-link>
               <router-link
                 to="/post/beverage"
-                class="block px-4 py-2 pb-4 text-gray-700 hover:text-teal-500 transition duration-150 text-sm lg:text-base"
+                class="block px-4 py-2 pb-4 text-gray-700 hover:text-sky-500 transition duration-150 text-sm lg:text-base"
               >
                 Quán nước
               </router-link>
@@ -99,7 +110,7 @@
             @mouseleave="hideShopMenu"
           >
             <span
-              class="flex items-center text-gray-700 hover:text-teal-500 transition duration-150 cursor-pointer text-sm lg:text-base"
+              class="flex items-center text-gray-700 hover:text-sky-500 transition duration-150 cursor-pointer text-sm lg:text-base"
               data-aos="zoom-out"
               data-aos-duration="800"
             >
@@ -114,26 +125,27 @@
             >
               <router-link
                 to="/post/store"
-                class="block px-4 py-2 pt-4 font-medium text-gray-700 hover:text-teal-500 transition duration-150 text-sm lg:text-base"
+                class="block px-4 py-2 pt-4 font-medium text-gray-700 hover:text-sky-500 transition duration-150 text-sm lg:text-base"
               >
                 Cửa hàng
               </router-link>
               <router-link
                 to="/post/utility"
-                class="block px-4 py-2 pb-4 text-gray-700 hover:text-teal-500 transition duration-150 text-sm lg:text-base"
+                class="block px-4 py-2 pb-4 text-gray-700 hover:text-sky-500 transition duration-150 text-sm lg:text-base"
               >
                 Tiện ích
               </router-link>
             </div>
-          </div>
+          </div> -->
           <router-link
             data-aos="zoom-out"
             data-aos-duration="800"
             to="/post/document"
             exact-active-class="text-blue-500"
-            class="hover:text-teal-500 transition duration-150 text-sm lg:text-base"
+            class="hover:text-sky-500 transition duration-150 text-sm lg:text-base flex items-center gap-2"
           >
-            Tài liệu
+            <Search class="w-4 h-4 lg:w-5 lg:h-5" />
+            Tìm kiếm
           </router-link>
 
           <router-link
@@ -141,8 +153,9 @@
             data-aos-duration="800"
             to="/contact"
             exact-active-class="text-blue-500"
-            class="hover:text-teal-500 transition duration-150 text-sm lg:text-base"
+            class="hover:text-sky-500 transition duration-150 text-sm lg:text-base flex items-center gap-2"
           >
+            <Mail class="w-4 h-4 lg:w-5 lg:h-5" />
             Liên hệ
           </router-link>
         </div>
@@ -159,7 +172,7 @@
               class="flex items-center bg-red-500 hover:bg-red-600 text-white px-2 py-1 md:px-3 md:py-2 rounded-xl transition duration-150 text-xs md:text-sm lg:text-base"
             >
               <Edit size="16" class="mr-1 md:mr-2" />
-              <span class="hidden sm:inline">Đăng tin</span>
+              <span class="hidden sm:inline">Đăng tải tài liệu</span>
             </router-link>
 
             <!-- Component thông báo -->
@@ -216,7 +229,7 @@
         <!-- Mobile menu button -->
         <button
           @click="toggleMobileMenu"
-          class="z-20 text-gray-700 hover:text-teal-500 focus:outline-none"
+          class="z-20 text-gray-700 hover:text-sky-500 focus:outline-none"
           aria-label="Toggle mobile menu"
         >
           <Menu v-if="!mobileMenuOpen" size="24" />
@@ -274,14 +287,14 @@
               <router-link
                 to="/post/motel"
                 @click="closeMobileMenu"
-                class="block py-2 text-gray-700 hover:text-teal-500 text-base"
+                class="block py-2 text-gray-700 hover:text-sky-500 text-base"
               >
                 Tìm phòng trọ
               </router-link>
               <router-link
                 to="/post/roommate"
                 @click="closeMobileMenu"
-                class="block py-2 text-gray-700 hover:text-teal-500 text-base"
+                class="block py-2 text-gray-700 hover:text-sky-500 text-base"
               >
                 Tìm người ở ghép
               </router-link>
@@ -308,14 +321,14 @@
               <router-link
                 to="/post/restaurant"
                 @click="closeMobileMenu"
-                class="block py-2 text-gray-700 hover:text-teal-500 text-base"
+                class="block py-2 text-gray-700 hover:text-sky-500 text-base"
               >
                 Quán ăn
               </router-link>
               <router-link
                 to="/post/beverage"
                 @click="closeMobileMenu"
-                class="block py-2 text-gray-700 hover:text-teal-500 text-base"
+                class="block py-2 text-gray-700 hover:text-sky-500 text-base"
               >
                 Quán nước
               </router-link>
@@ -342,14 +355,14 @@
               <router-link
                 to="/post/store"
                 @click="closeMobileMenu"
-                class="block py-2 text-gray-700 hover:text-teal-500 text-base"
+                class="block py-2 text-gray-700 hover:text-sky-500 text-base"
               >
                 Cửa hàng
               </router-link>
               <router-link
                 to="/post/utility"
                 @click="closeMobileMenu"
-                class="block py-2 text-gray-700 hover:text-teal-500 text-base"
+                class="block py-2 text-gray-700 hover:text-sky-500 text-base"
               >
                 Tiện ích
               </router-link>
@@ -359,7 +372,7 @@
           <router-link
             to="/post/document"
             @click="closeMobileMenu"
-            class="block py-2 text-gray-700 hover:text-teal-500 font-medium text-lg"
+            class="block py-2 text-gray-700 hover:text-sky-500 font-medium text-lg"
           >
             Tài liệu
           </router-link>
@@ -367,7 +380,7 @@
           <router-link
             to="/contact"
             @click="closeMobileMenu"
-            class="block py-2 text-gray-700 hover:text-teal-500 font-medium text-lg"
+            class="block py-2 text-gray-700 hover:text-sky-500 font-medium text-lg"
           >
             Liên hệ
           </router-link>
@@ -377,7 +390,7 @@
             <router-link
               to="/list-notifications"
               @click="closeMobileMenu"
-              class="flex items-center text-gray-700 hover:text-teal-500 font-medium text-lg"
+              class="flex items-center text-gray-700 hover:text-sky-500 font-medium text-lg"
             >
               <span>Thông báo</span>
             </router-link>
@@ -432,7 +445,16 @@ import { ref, onMounted, onUnmounted, watch } from "vue";
 import { useAuthStore } from "@/stores/store";
 import logo from "@/assets/vnua-sv-logo.jpg";
 import DropdownMenu from "@/components/header/DropdownMenu.vue";
-import { Bell, Edit, ChevronDown, Menu, X } from "lucide-vue-next";
+import {
+  Bell,
+  Edit,
+  ChevronDown,
+  Menu,
+  X,
+  Home,
+  Search,
+  Mail,
+} from "lucide-vue-next";
 import ActionNotificationsDropdown from "@/components//notifications/Notification.vue";
 
 const authStore = useAuthStore();

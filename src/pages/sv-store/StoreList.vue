@@ -4,7 +4,7 @@
       <div
         class="text-3xl font-bold flex flex-col items-center justify-center flex-wrap space-y-2"
       >
-        <span class="text-teal-500"> CỬA HÀNG </span>
+        <span class="text-sky-500"> CỬA HÀNG </span>
         <span class="text-lg font-normal">
           Kênh thông tin Dịch vụ khu vực Học viện Nông nghiệp Việt Nam
         </span>

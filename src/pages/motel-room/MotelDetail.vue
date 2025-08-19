@@ -8,7 +8,7 @@
       data-aos-duration="800"
     >
       <div class="text-sm text-gray-500 flex items-center flex-wrap space-x-1">
-        <router-link to="/post/motel" class="text-teal-500 hover:underline">
+        <router-link to="/post/motel" class="text-sky-500 hover:underline">
           Cho thuê phòng trọ
         </router-link>
         <span>/</span>
@@ -412,14 +412,14 @@
               :href="post?.accomodationDTO?.referenceUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center p-4 bg-gradient-to-r from-teal-50 to-green-50 rounded-lg border border-teal-200 hover:border-teal-300 hover:shadow-md transition-all cursor-pointer group"
+              class="flex items-center p-4 bg-gradient-to-r from-sky-50 to-green-50 rounded-lg border border-sky-200 hover:border-sky-300 hover:shadow-md transition-all cursor-pointer group"
             >
               <!-- Link Icon -->
               <div
                 class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-3"
               >
                 <svg
-                  class="w-6 h-6 text-teal-600"
+                  class="w-6 h-6 text-sky-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -436,7 +436,7 @@
               <!-- Link Info -->
               <div class="flex-1 min-w-0">
                 <span
-                  class="block text-teal-600 group-hover:text-teal-800 font-medium text-sm mb-1"
+                  class="block text-sky-600 group-hover:text-sky-800 font-medium text-sm mb-1"
                 >
                   Đường dẫn tới tài liệu tham khảo
                 </span>
@@ -446,7 +446,7 @@
               <!-- External Link Icon -->
               <div class="flex-shrink-0 ml-2">
                 <svg
-                  class="w-4 h-4 text-teal-500"
+                  class="w-4 h-4 text-sky-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -515,7 +515,7 @@
           <!-- Nút gọi điện -->
           <div class="text-white pt-2">
             <button
-              class="bg-teal-500 w-full py-2 sm:py-3 rounded-xl mt-4 flex items-center justify-center text-sm sm:text-base"
+              class="bg-sky-500 w-full py-2 sm:py-3 rounded-xl mt-4 flex items-center justify-center text-sm sm:text-base"
             >
               <Phone class="w-4 h-4 sm:w-5 sm:h-6 mr-1.5" fill="currentColor" />
               <span class="font-medium">{{ post.userDTO.phone }}</span>

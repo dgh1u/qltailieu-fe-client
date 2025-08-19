@@ -63,7 +63,7 @@
               <div class="flex flex-col sm:flex-row gap-4 mt-6 text-white">
                 <router-link
                   to="/post/motel"
-                  class="hover:scale-103 flex-1 bg-teal-500 hover:bg-teal-600 font-medium py-2.5 px-4 rounded-xl transition duration-300"
+                  class="hover:scale-103 flex-1 bg-sky-500 hover:bg-sky-600 font-medium py-2.5 px-4 rounded-xl transition duration-300"
                 >
                   Tìm phòng trọ
                 </router-link>
@@ -245,7 +245,7 @@
 
     <!-- Testimonials Slider Section -->
     <div class="py-16">
-      <div class="py-8 bg-teal-500 rounded-2xl text-white">
+      <div class="py-8 bg-sky-500 rounded-2xl text-white">
         <div class="container mx-auto px-4">
           <div class="pb-3" data-aos="zoom-out">
             <span class="text-3xl font-bold text-center mb-4">

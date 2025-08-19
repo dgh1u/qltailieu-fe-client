@@ -2,7 +2,7 @@
   <ProfileLayout>
     <!-- Container của giao diện nạp tiền -->
     <div class="block items-center pb-8 justify-center flex">
-      <span class="font-bold text-3xl text-teal-500"
+      <span class="font-bold text-3xl text-sky-500"
         >Nạp tiền vào tài khoản</span
       >
     </div>
@@ -21,7 +21,7 @@
           class="flex items-center gap-2 px-4 py-2 w-32 rounded-md cursor-pointer transition-colors border"
           :class="
             selectedAmount === amount
-              ? 'bg-gray-200  border-teal-400'
+              ? 'bg-gray-200  border-sky-400'
               : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
           "
         >
@@ -38,7 +38,7 @@
             class="w-4 h-4 border rounded-full flex items-center justify-center"
             :class="
               selectedAmount === amount
-                ? 'bg-teal-500 border-teal-500'
+                ? 'bg-sky-500 border-sky-500'
                 : 'bg-white border-gray-300'
             "
           >
@@ -104,7 +104,7 @@
           {{ formatMoney(price) }}₫
         </span>
       </div>
-      <hr class="border-teal-300 my-2" />
+      <hr class="border-sky-300 my-2" />
       <div class="flex items-center justify-between mb-4">
         <span class="text-sm text-gray-600">Lời nhắn</span>
         <span class="text-sm text-gray-800">

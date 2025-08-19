@@ -31,7 +31,7 @@
               href="/contact"
               data-scroll
               data-scroll-offset="250"
-              class="hover:scale-103 inline-block px-6 py-3 bg-teal-500 text-white font-bold rounded-xl hover:bg-teal-600 transition"
+              class="hover:scale-103 inline-block px-6 py-3 bg-sky-500 text-white font-bold rounded-xl hover:bg-sky-600 transition"
             >
               Liên hệ với chúng tôi
             </a>

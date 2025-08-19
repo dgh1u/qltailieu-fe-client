@@ -13,9 +13,9 @@
         <div
           v-for="(secondMotel, idx) in secondMotelOptions"
           :key="idx"
-          class="flex items-center p-2 rounded-lg cursor-pointer hover:text-teal-500"
+          class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
           :class="{
-            'text-teal-500': selectedSecondMotel === secondMotel.value,
+            'text-sky-500': selectedSecondMotel === secondMotel.value,
           }"
           @click="selectSecondMotel(secondMotel.value)"
         >
@@ -29,7 +29,7 @@
             <div
               class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center"
               :class="{
-                'bg-teal-500 border-teal-500':
+                'bg-sky-500 border-sky-500':
                   selectedSecondMotel === secondMotel.value,
               }"
             >
@@ -53,8 +53,8 @@
         <div
           v-for="(district, idx) in districtOptions"
           :key="idx"
-          class="flex items-center p-2 rounded-lg cursor-pointer hover:text-teal-500"
-          :class="{ 'text-teal-500': selectedDistrict === district.value }"
+          class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
+          :class="{ 'text-sky-500': selectedDistrict === district.value }"
           @click="selectDistrict(district.value)"
         >
           <div class="relative">
@@ -67,7 +67,7 @@
             <div
               class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center"
               :class="{
-                'bg-teal-500 border-teal-500':
+                'bg-sky-500 border-sky-500':
                   selectedDistrict === district.value,
               }"
             >
