@@ -1,137 +1,73 @@
 <template>
-  <section
-    class="relative flex items-start pt-20 min-h-screen bg-white overflow-hidden"
-  >
-    <div
-      class="container mx-auto relative mb-12 pb-3"
-      data-aos="zoom-out"
-      data-aos-duration="800"
-    >
-      <div class="grid grid-cols-1 gap-y-10 lg:grid-cols-2">
-        <!-- Cột trái: Nội dung chính -->
-        <div>
-          <div class="relative z-20 text-center lg:text-left">
-            <span class="text-7xl mb-4 lg:pb-3 font-extrabold">
-              Kênh thông tin
-              <span class="text-blue-500 font-extrabold">Dịch vụ</span> khu vực
-              <span class="text-green-400 font-extrabold">
-                Học viện Nông nghiệp Việt Nam
-              </span>
-            </span>
+  
+    <!-- Banner Slider -->
+    <div class="relative w-full h-[500px] overflow-hidden">
+      <!-- Image Slides -->
+      <div
+        v-for="(image, index) in images"
+        :key="index"
+        class="absolute inset-0 w-full h-full transition-transform duration-500"
+        :class="{ 
+          'translate-x-0': currentIndex === index,
+          'translate-x-full': currentIndex < index,
+          '-translate-x-full': currentIndex > index
+        }"
+      >
+        <img
+          :src="image"
+          :alt="`Banner ${index + 1}`"
+          class="w-full h-full object-cover"
+        />
+      </div>
 
-            <p class="mb-4 lg:pb-3 md:pb-2 pt-10">
-              <span class="mr-2 text-gray-600 text-base">
-                Bạn là tân sinh viên đang tìm nhà trọ? Hay bạn đang muốn tìm một
-                cửa hàng?
-                <br />Kênh thông tin sẽ cung cấp cho bạn thông tin dịch vụ tại
-                khu vực Học viện Nông nghiệp Việt Nam.
-              </span>
-            </p>
-            <a
-              href="/contact"
-              data-scroll
-              data-scroll-offset="250"
-              class="hover:scale-103 inline-block px-6 py-3 bg-sky-500 text-white font-bold rounded-xl hover:bg-sky-600 transition"
-            >
-              Liên hệ với chúng tôi
-            </a>
-          </div>
-        </div>
-
-        <!-- Cột phải: Hình ảnh & các box thông điệp -->
-        <div class="lg:ml-8">
-          <div class="relative lg:ml-4">
-            <!-- Hình ảnh nền với hiệu ứng xoay -->
-            <div
-              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[125%] max-w-[49.75rem]"
-            >
-              <div class="p-5 md:p-0">
-                <img
-                  src="@/assets/banner-bg.png"
-                  alt="Shape"
-                  class="hero-animation-spin p-5 md:p-0"
-                />
-              </div>
-            </div>
-
-            <!-- Các box thông điệp -->
-            <div class="relative grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <div
-                  class="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-3 xl:gap-4"
-                >
-                  <div
-                    class="flex items-center justify-center bg-gray-100 rounded-lg min-h-[176px]"
-                    style="backdrop-filter: blur(6px)"
-                  >
-                    <div
-                      class="p-2 sm:p-3 xl:p-4 text-center text-xl font-bold"
-                    >
-                      <span class="hero-animation-fade text-gray-500">
-                        Tôi cần tìm phòng trọ
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="flex items-center justify-center bg-gray-100 rounded-lg min-h-[176px]"
-                    style="backdrop-filter: blur(6px)"
-                  >
-                    <div
-                      class="p-2 sm:p-3 xl:p-4 text-center text-xl font-bold"
-                    >
-                      <span
-                        class="hero-animation-fade hero-animation-delay-2 text-gray-500"
-                      >
-                        Khu vực Học viện Nông Nghiệp Việt Nam
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-2 sm:mt-5 pt-5">
-                <div
-                  class="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-3 xl:gap-4"
-                >
-                  <div
-                    class="flex items-center justify-center bg-gray-100 rounded-lg min-h-[176px]"
-                    style="backdrop-filter: blur(6px)"
-                  >
-                    <div
-                      class="p-2 sm:p-3 xl:p-4 text-center text-xl font-semibold"
-                    >
-                      <span
-                        class="hero-animation-fade hero-animation-delay-1 text-gray-500"
-                      >
-                        Tôi cần tìm người ở ghép
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="flex items-center justify-center bg-gray-100 rounded-lg min-h-[176px]"
-                    style="backdrop-filter: blur(6px)"
-                  >
-                    <div
-                      class="p-2 sm:p-3 xl:p-4 text-center text-xl font-semibold"
-                    >
-                      <span
-                        class="hero-animation-fade hero-animation-delay-3 text-gray-500"
-                      >
-                        Tôi cần tìm cửa hàng
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Navigation Dots -->
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 z-10">
+        <button
+          v-for="(_, index) in images"
+          :key="index"
+          @click="setCurrentIndex(index)"
+          class="w-3 h-3 rounded-full transition-all duration-300"
+          :class="currentIndex === index ? 'bg-white scale-125' : 'bg-white/50'"
+        ></button>
       </div>
     </div>
-  </section>
+ 
 </template>
 
 <script setup>
-// Component trang chủ hiển thị kênh thông tin dịch vụ cho Học viện Nông nghiệp Việt Nam
+import { ref, onMounted, onUnmounted } from 'vue';
+
+// Banner images array
+const images = [
+  '/src/assets/banner/img-banner1.jpg',
+  '/src/assets/banner/img-banner2.jpg',
+  '/src/assets/banner/img-banner3.jpg',
+  '/src/assets/banner/img-banner4.jpg'
+
+];
+
+const currentIndex = ref(0);
+let intervalId = null;
+
+// Function to move to next slide
+const nextSlide = () => {
+  currentIndex.value = (currentIndex.value + 1) % images.length;
+};
+
+// Function to set specific slide
+const setCurrentIndex = (index) => {
+  currentIndex.value = index;
+};
+
+// Start auto-sliding when component mounts
+onMounted(() => {
+  intervalId = setInterval(nextSlide, 5000); // Change slide every 2 seconds
+});
+
+// Clean up interval when component unmounts
+onUnmounted(() => {
+  if (intervalId) clearInterval(intervalId);
+});
 </script>
 
 <style scoped>
@@ -175,5 +111,14 @@
   50% {
     opacity: 1;
   }
+}
+
+.transition-transform {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optional: Add hover pause functionality */
+section:hover .banner-slider {
+  animation-play-state: paused;
 }
 </style>

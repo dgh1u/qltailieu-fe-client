@@ -1,13 +1,13 @@
 <template>
-  <aside class="hidden md:block w-100 bg-gray-100 shadow-lg rounded-2xl p-4">
-    <span class="font-extrabold text-lg mb-4 flex items-center">
-      <FilterIcon class="w-5 h-5 mr-2" />
-      <span>Bộ lọc</span>
+  <aside class="hidden md:block w-90 bg-white shadow-lg rounded-xl p-4">
+    <span class="font-bold text-lg mb-4 flex items-center">
+      <SlidersHorizontal class="w-5 h-5 mr-2" />
+      <span class="text-xl">Bộ lọc tìm kiếm</span>
     </span>
     <!-- Lựa chọn loại quán nước - Chỉ cho phép chọn một tùy chọn -->
     <div class="mb-6">
       <div class="p-3 text-left">
-        <span class="font-bold text-lg mb-2">Loại tài liệu</span>
+        <span class="font-bold text-base mb-2">Loại tài liệu</span>
       </div>
       <div class="grid grid-cols-2">
         <div
@@ -39,7 +39,7 @@
               ></div>
             </div>
           </div>
-          <span class="ml-2 text-sm">{{ secondMotel.label }}</span>
+          <span class="ml-2 text-xs">{{ secondMotel.label }}</span>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
     <!-- Lựa chọn khu vực - Chỉ cho phép chọn một tùy chọn -->
     <div class="mb-6">
       <div class="p-3 text-left">
-        <span class="font-bold text-lg mb-2">Chuyên ngành</span>
+        <span class="font-bold text-base mb-2">Chuyên ngành</span>
       </div>
       <div class="grid grid-cols-2">
         <div
@@ -76,7 +76,7 @@
               ></div>
             </div>
           </div>
-          <span class="ml-2 text-sm">{{ major.label }}</span>
+          <span class="ml-2 text-xs">{{ major.label }}</span>
         </div>
       </div>
     </div>
@@ -95,12 +95,14 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
+import { ref, onMounted } from "vue";
+import { useFilterStore } from '@/stores/filterStore';
 
 import {
   Filter as FilterIcon,
   Check as CheckIcon,
   RefreshCw as ResetIcon,
+  SlidersHorizontal,
 } from "lucide-vue-next";
 
 // Định nghĩa sự kiện để gửi dữ liệu bộ lọc cho component cha
@@ -136,8 +138,21 @@ const secondMotelOptions = [
 ];
 
 // Khai báo trạng thái cho các lựa chọn
+const filterStore = useFilterStore();
 const selectedMajor = ref(null); // Lưu khu vực được chọn
 const selectedSecondMotel = ref(null); // Lưu loại quán nước được chọn
+
+onMounted(() => {
+  const activeFilter = filterStore.activeFilter;
+  if (activeFilter.type && activeFilter.value) {
+    if (activeFilter.type === 'major') {
+      selectedMajor.value = activeFilter.value;
+    } else if (activeFilter.type === 'docType') {
+      selectedSecondMotel.value = activeFilter.value;
+    }
+    updateFilters();
+  }
+});
 
 // Hàm xử lý chọn khu vực (chỉ một tùy chọn được chọn)
 function selectMajor(value) {

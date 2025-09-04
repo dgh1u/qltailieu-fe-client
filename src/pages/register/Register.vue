@@ -123,69 +123,27 @@ const clearError = (field) => {
       </div>
     </div>
 
-    <!-- Layout 2 cột -->
-    <div class="min-h-screen flex">
-      <!-- Cột phải: Nền gradient -->
+    <!-- New centered layout -->
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-400 to-sky-300 p-4">
+      <!-- Form Container -->
       <div
-        class="hidden xl:flex w-1/2 bg-gradient-to-br from-sky-400 to-sky-300 items-center justify-center"
-      >
-        <div class="text-center text-white px-8">
-          <!-- Tên trường -->
-
-          <h2 class="text-xl font-bold">HỌC VIỆN NÔNG NGHIỆP VIỆT NAM</h2>
-          <h3 class="text-2xl font-semibold">KHOA CÔNG NGHỆ THÔNG TIN</h3>
-
-          <!-- Logo -->
-          <!-- Logo -->
-
-          <div class="flex items-center justify-center gap-8">
-            <img
-              src="@/assets/marquee-items/vnua-logo.png"
-              alt="VNUA Logo"
-              class="w-22 h-22 object-contain"
-            />
-            <img
-              src="@/assets/vnua-services-logo.png"
-              alt="Second Logo"
-              class="w-48 h-48 object-contain"
-            />
-          </div>
-
-          <!-- Tên dịch vụ -->
-          <div class="mb-6">
-            <h4 class="text-3xl font-bold mb-4">VNUA Services</h4>
-            <p class="text-xl">
-              Kênh thông tin dịch vụ khu vực Học viện Nông nghiệp Việt Nam
-            </p>
-          </div>
-
-          <!-- Thông tin sinh viên -->
-          <div class="text-lg">
-            <p>(*) Dương Minh Hiếu - 6667537</p>
-          </div>
-        </div>
-      </div>
-      <!-- Cột trái: Form đăng ký -->
-      <div
-        class="w-full xl:w-1/2 flex flex-col items-center px-8 py-8 bg-white relative"
-        data-aos="fade-right"
+        class="w-full max-w-xl bg-white rounded-xl shadow-2xl p-8"
+        data-aos="fade-up"
         data-aos-duration="800"
       >
-        <div class="flex-grow flex flex-col items-center justify-center w-full">
-          <div class="max-w-lg w-full text-center md:text-left">
-            <!-- Tiêu đề + Link đăng nhập -->
-            <div class="mb-12">
-              <h1 class="text-3xl md:text-4xl font-bold mb-4">Tạo tài khoản</h1>
-              <p class="text-gray-600 text-base md:text-base">
-                Đã có tài khoản?
-                <router-link to="/login" class="text-blue-500 hover:font-bold">
-                  Đăng nhập.
-                </router-link>
-              </p>
-            </div>
+        <div class="flex flex-col items-center w-full">
+          <!-- Form content -->
+          <div class="w-full text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Tạo tài khoản</h1>
+            <p class="text-gray-600 text-base md:text-base mb-12">
+              Đã có tài khoản?
+              <router-link to="/login" class="text-blue-500 hover:font-bold">
+                Đăng nhập.
+              </router-link>
+            </p>
 
-            <!-- Form đăng ký -->
-            <form @submit.prevent="handleRegister" class="space-y-5">
+            <!-- Keep existing form -->
+            <form @submit.prevent="handleRegister" class="space-y-5 text-left">
               <!-- Họ tên và Email trên cùng 1 dòng -->
               <div class="flex flex-col md:flex-row md:gap-4">
                 <!-- Họ tên -->
@@ -346,10 +304,10 @@ const clearError = (field) => {
         </div>
 
         <!-- Footer -->
-        <div class="text-sm text-gray-500 text-center">
+        <div class="text-sm text-gray-500 text-center mt-6">
           &copy; Toàn bộ bản quyền thuộc
           <router-link to="/home" class="text-blue-500 text-sm hover:font-bold">
-            Duong Minh Hieu
+            Nguyen Khac Duong
           </router-link>
         </div>
       </div>

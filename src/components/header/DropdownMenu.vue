@@ -3,8 +3,7 @@
     <!-- Desktop Dropdown Trigger Button -->
     <div
       class="hidden md:flex items-center px-5 py-2 rounded-lg cursor-pointer"
-      data-aos="zoom-out"
-      data-aos-duration="800"
+    
     >
       <div class="w-10 h-10 relative ml-4">
         <img
@@ -137,6 +136,13 @@
         <User size="18" />
         <span>Thông tin tài khoản</span>
       </a>
+          <a
+        href="/create-post"
+        class="block px-4 py-1.5 ml-2 text-base hover:text-sky-500 transition duration-150 flex items-center space-x-2"
+      >
+        <Edit size="18" />
+        <span>Đăng tải tài liệu</span>
+      </a>
       <a
         href="/my-posts"
         class="block px-4 py-1.5 ml-2 text-base hover:text-sky-500 transition duration-150 flex items-center space-x-2"
@@ -171,7 +177,7 @@
 import { ref, computed, onMounted, defineProps } from "vue";
 import { useAuthStore } from "@/stores/store";
 import { useRouter } from "vue-router";
-import { Clock, User, LogOut, CreditCard, Folder } from "lucide-vue-next";
+import { Clock, User, LogOut, CreditCard, Folder, Edit } from "lucide-vue-next";
 import { getProfile } from "@/apis/authService";
 
 // Nhận props từ component cha

@@ -9,19 +9,17 @@
         >
           <div class="flex flex-col mb-4">
             <img
-              src="@/assets/vnua-sv-logo.jpg"
-              width="100"
+              src="@/assets/logo.png"
+              width="80"
               alt="Logo"
               class="mb-3"
             />
-            <span class="flex text-lg text-black font-semibold">
-              Kênh thông tin Dịch vụ VNUA SERVICES
+            <span class=" text-lg text-black font-semibold">
+              Phần mềm Quản lý tài liệu - VNUA
             </span>
           </div>
           <p class="text-black text-base leading-relaxed mb-4">
-            VNUA Services là Website kênh thông tin cung cấp tất cả các thông
-            tin về Dịch vụ xung quanh khu vực Học viện Nông Nghiệp Việt Nam
-            (VNUA).
+            Đây là Website phần mềm quản lý tài liệu phục vụ cho sinh viên, giảng viên hiện đang học tập, công tác tại Học viện Nông nghiệp Việt Nam.
           </p>
         </div>
 
@@ -104,10 +102,10 @@
             </li>
             <li>
               <a
-                href="/payment"
+                href="/contact"
                 class="hover:text-blue-400 transition-colors duration-200"
               >
-                Nạp tiền
+                Liên hệ
               </a>
             </li>
             <li>
@@ -121,53 +119,7 @@
           </ul>
         </div>
 
-        <!-- Các đường dẫn nhanh -->
-        <div class="md:col-span-2" 
-        >
-          <h6 class="text-lg text-black font-semibold mb-4">Link nhanh</h6>
-          <ul class="space-y-2 text-base text-black">
-            <li>
-              <a
-                href="/post/motel"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Tìm nhà trọ
-              </a>
-            </li>
-            <li>
-              <a
-                href="/post/roommate"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Tìm người ở ghép
-              </a>
-            </li>
-            <li>
-              <a
-                href="/create-post"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Cửa hàng
-              </a>
-            </li>
-            <li>
-              <a
-                href="/payment"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Giao hàng
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Liên hệ
-              </a>
-            </li>
-          </ul>
-        </div>
+        
 
         <!-- Thông tin liên hệ -->
         <div class="md:col-span-3" >
@@ -179,7 +131,7 @@
                 href="tel:0981266403"
                 class="hover:text-blue-400 transition-colors duration-200"
               >
-                +849 8126 6403
+                +849 3636 3636
               </a>
             </li>
             <li class="flex items-center">
@@ -188,12 +140,12 @@
                 href="mailto:hieutkhd03@gmail.com"
                 class="hover:text-blue-400 transition-colors duration-200"
               >
-                hieutkhd03@gmail.com
+                nkduong@gmail.com
               </a>
             </li>
             <li class="flex items-center">
               <MapPin class="w-5 h-5 mr-3 text-blue-400" />
-              <span>36 Trâu Quỳ, Tp Hà Nội</span>
+              <span>36 Đan Phượng, Tp Hà Nội</span>
             </li>
           </ul>
 
@@ -223,7 +175,7 @@
 
       <!-- Thông tin bản quyền -->
       <div class="border-gray-700 mt-8 text-center text-base text-gray-400">
-        Copyright © 2025. Toàn bộ bản quyền thuộc Dương Minh Hiếu.
+        Copyright © 2025. Toàn bộ bản quyền thuộc Nguyễn Khắc Dương.
       </div>
     </div>
   </footer>

@@ -3,7 +3,7 @@
     <!-- Header -->
     <Header class="bg-gray-300 p-2" />
 
-    <main class="px-4 md:px-2 lg:px-12 xl:px-30">
+    <main class="px-4 bg-sky-50 md:px-2 lg:px-16 xl:px-40">
       <slot />
       <!-- Khu vực hiển thị nội dung trang -->
     </main>

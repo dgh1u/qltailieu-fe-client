@@ -48,11 +48,7 @@ function goToPost(action) {
 
 // Điều hướng tới trang chi tiết bài đăng theo loại
 function navigateToPostDetail(action) {
-  if (action.motel === "O_GHEP") {
-    router.push(`/post/roommate/${action.postId}`);
-  } else {
-    router.push(`/post/motel/${action.postId}`);
-  }
+router.push(`/post/document/${action.postId}`);
 }
 
 // Lấy danh sách thông báo

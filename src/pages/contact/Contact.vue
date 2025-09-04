@@ -22,9 +22,9 @@
             href="mailto:hieutkhd03@gmail.com"
             class="underline hover:text-blue-400 mt-10 mb-4 text-left text-2xl"
           >
-            hieutkhd03@gmail.com
+            nkduong2003@gmail.com
           </a>
-          <div class="text-gray-800 text-left text-2xl">+84 981 266 403</div>
+          <div class="text-gray-800 text-left text-2xl">+84 921 231 231</div>
         </div>
 
         <!-- Cột phải: Form liên hệ -->

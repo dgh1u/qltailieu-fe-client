@@ -1,33 +1,24 @@
 <template>
   <DefaultWhiteLayout>
-    <div class="pt-6 px-6 bg-white">
-      <div
-        class="text-3xl font-bold flex flex-col items-center justify-center flex-wrap space-y-2"
-      >
-        <span class="text-sky-500"> TÀI LIỆU CHO SINH VIÊN </span>
-        <span class="text-lg font-normal">
-          Kênh thông tin Dịch vụ khu vực Học viện Nông nghiệp Việt Nam
-        </span>
-      </div>
-    </div>
+  
     <!-- Wrapper toàn trang: hướng cột trên mobile, hướng hàng ngang từ md trở lên -->
-    <div class="flex flex-col md:flex-row min-h-screen py-6 bg-white">
+    <div class="flex flex-col md:flex-row min-h-screen py-6 bg-sky-50">
       <!-- Bộ lọc: chiếm toàn bộ chiều rộng trên mobile, tự động shrink trên desktop -->
-      <div class="w-full md:w-auto md:mr-4 mb-4 md:mb-0">
+      <div class="w-full md:w-auto md:mr-10 mb-4 md:mb-0">
         <DocumentFilter @update:filters="handleFilterUpdate" />
       </div>
       <!-- Nội dung chính: chiếm phần còn lại -->
-      <div class="flex-1 flex flex-col bg-white">
+      <div class="flex-1 flex flex-col bg-sky-50">
         <!-- Thanh tìm kiếm từ khóa -->
         <div class="mb-1 relative">
           <input
             v-model="filters.keywords"
             type="text"
             placeholder="Nhập tên tài liệu muốn tìm..."
-            class="w-full p-3 pl-10 bg-green-50 rounded-xl shadow hover:shadow-2xl"
+            class="w-full p-3 pl-10 bg-white text-sky-400 rounded-3xl shadow hover:shadow-3xl placeholder:text-blue-200 placeholder:font-semibold"
           />
           <Search
-            class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
+            class="w-5 h-5 text-sky-400 absolute left-3 top-1/2 transform -translate-y-1/2"
           />
         </div>
         <!-- Hiển thị thông báo lỗi nếu có -->
@@ -38,7 +29,7 @@
         <div class="p-2 pb-20 flex-1 overflow-y-auto">
           <template v-if="posts.length">
             <!-- Grid 1 cột trên mobile, 2 cột từ md trở lên -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <router-link
                 v-for="post in posts"
                 :key="post.id"
@@ -77,15 +68,20 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
+import { useRouter } from 'vue-router';
 import DefaultWhiteLayout from "../../layouts/DefaultWhiteLayout.vue";
 import { getListPost } from "@/apis/postService.js";
 import { Empty } from "ant-design-vue";
-import RestaurantCard from "../../components/card/RestaurantCard.vue";
-import BeverageFilter from "../../components/filter/BeverageFilter.vue";
+
 import { Search } from "lucide-vue-next";
 import DocumentFilter from "../../components/filter/DocumentFilter.vue";
 import DocumentCard from "../../components/card/DocumentCard.vue";
+import { useFilterStore } from '@/stores/filterStore';
+
+const router = useRouter();
+const filterStore = useFilterStore();
+const initialFilter = ref(null);
 
 // Khởi tạo bộ lọc
 const filters = ref({
@@ -141,7 +137,7 @@ function buildQueryParams() {
 
   // Thêm khu vực
   if (filters.value.majorSelected) {
-    params.majorName = filters.value.majorSelected;
+    params.major = filters.value.majorSelected;
   }
 
   // Thêm loại quán
@@ -187,6 +183,14 @@ function handlePageChange(page) {
 
 // Khởi tạo dữ liệu khi component được mount
 onMounted(() => {
+  const activeFilter = filterStore.activeFilter;
+  if (activeFilter.type && activeFilter.value) {
+    if (activeFilter.type === 'major') {
+      filters.value.majorSelected = activeFilter.value;
+    } else if (activeFilter.type === 'docType') {
+      filters.value.secondMotelSelected = activeFilter.value;
+    }
+  }
   fetchPosts();
 });
 
@@ -198,6 +202,10 @@ watch(
   },
   { deep: true }
 );
+
+onUnmounted(() => {
+  filterStore.clearFilter();
+});
 </script>
 
 <style scoped>

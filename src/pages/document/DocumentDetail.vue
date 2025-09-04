@@ -18,89 +18,95 @@
       </div>
     </div>
 
-    <!-- Bố cục trang 2 cột - responsive -->
-    <div class="flex min-h-screen flex-col lg:flex-row">
-      <!-- Cột trái (nội dung chính) -->
-      <div class="flex-1 p-4 bg-gray-100">
-        <!-- Thư viện ảnh -->
-        <div class="bg-white rounded-xl p-4 text-4xl shadow-lg">
-          <div
-            v-if="galleryImages.length > 0"
-            class="relative w-full h-64 sm:h-80 lg:h-96 bg-black text-white flex items-center justify-center mb-4 rounded-xl"
-          >
-            <button
-              class="absolute left-0 px-2 sm:px-4 py-2 text-2xl sm:text-3xl z-10"
-              @click="prevImage"
-              :disabled="galleryImages.length === 0"
-            >
-              &lt;
-            </button>
-
-            <img
-              :src="galleryImages[currentImageIndex]"
-              alt="gallery image"
-              class="max-w-full max-h-full object-contain"
-            />
-
-            <button
-              class="absolute right-0 px-2 sm:px-4 py-2 text-2xl sm:text-3xl z-10"
-              @click="nextImage"
-              :disabled="galleryImages.length === 0"
-            >
-              &gt;
-            </button>
-          </div>
-          <!-- Các hình thu nhỏ -->
-          <div
-            class="flex space-x-2 overflow-x-auto mb-6 items-center justify-center"
-          >
-            <div
-              v-for="(img, index) in galleryImages"
-              :key="index"
-              @click="currentImageIndex = index"
-              class="cursor-pointer flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded overflow-hidden"
-              :class="{
-                'border-3 border-red-500': currentImageIndex === index,
-                'border border-gray-300': currentImageIndex !== index,
-              }"
-            >
+    <!-- Main container - change to flex column -->
+    <div class="flex flex-col min-h-screen">
+      <!-- Content columns wrapper -->
+      <div class="flex flex-col lg:flex-row  flex-1">
+        <!-- Left column (Image) -->
+        <div class="w-full lg:w-96 mx-auto mr-20 p-4 bg-sky-50"> <!-- Changed from lg:w-120 to lg:w-96 -->
+          <!-- Image Section -->
+          <div class="rounded-xl border border-gray-200 my-6">
+            <div class="relative w-full aspect-[3/4] rounded-xl overflow-hidden">
               <img
-                :src="img"
-                alt="Thumbnail"
+                :src="mainImage"
+                alt="Document Image"
                 class="w-full h-full object-cover"
+                @error="handleImageError"
               />
+            </div>
+          </div>
+
+          <!-- Các nút thao tác dành cho chủ bài đăng -->
+          <div class="py-4 sm:py-8">
+            <div v-if="isOwner" class="p-4 rounded-xl ">
+              <div class="text-center">
+                <span class="font-semibold text-base sm:text-lg">Thao tác</span>
+              </div>
+              <div class="pt-4">
+                <div
+                  class="w-full py-2 rounded-xl flex items-center justify-center font-medium bg-sky-100 text-sm sm:text-base"
+                >
+                  <span class="font-normal">Trạng thái:&nbsp;</span>
+                  <span
+                    :class="{
+                      'text-green-500': displayStatus === 'Đã duyệt',
+                      'text-yellow-500': displayStatus === 'Chờ duyệt',
+                      'text-red-500': displayStatus === 'Bị khóa',
+                    }"
+                  >
+                    {{ displayStatus }}
+                  </span>
+                </div>
+              </div>
+              <div class="py-2">
+                <router-link
+                  :to="`/update-post/${post.id}`"
+                  class="bg-yellow-500 hover:bg-yellow-600 w-full py-2 sm:py-3 rounded-xl flex items-center justify-center text-white text-sm sm:text-base"
+                >
+                  <span class="font-medium">Cập nhật</span>
+                </router-link>
+              </div>
+              <div class="text-white">
+                <button
+                  @click="toggleHidePost"
+                  :class="
+                    post.del === false
+                      ? 'bg-red-400 hover:bg-red-500'
+                      : 'bg-green-400 hover:bg-green-500'
+                  "
+                  class="w-full py-2 sm:py-3 rounded-xl mt-2 flex items-center justify-center text-white text-sm sm:text-base"
+                >
+                  <span class="font-medium">
+                    {{ post.del === false ? "Ẩn tin đăng" : "Hiện tin đăng" }}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Hiển thị thông báo lỗi -->
-        <div v-if="errorMsg" class="text-red-600">{{ errorMsg }}</div>
-
-        <!-- Chi tiết bài đăng -->
-        <div v-else-if="post" class="pt-4">
-          <div class="bg-white rounded-xl p-4 text-left shadow-lg">
+        <!-- Right column (Details) -->
+        <div class="flex-1 p-4 bg-sky-50 order-1 lg:order-2">
+          <!-- Chi tiết bài đăng -->
+          <div v-if="post" class="  rounded-xl p-4 text-left ">
             <div>
               <div>
-                <div
-                  class="bg-gray-200 w-15 rounded-lg flex items-center justify-center"
-                >
-                  <span class="text-sm">#{{ post.id }}</span>
-                </div>
-                <div class="py-2">
-                  <span class="text-xl sm:text-2xl font-bold">{{
+              
+                
+                  <span class="text-xl sm:text-3xl font-bold ">{{
                     post.title
                   }}</span>
-                </div>
+                
 
                 <!-- Địa chỉ và thông tin khu vực -->
                 <div
-                  class="flex flex-col sm:flex-row sm:justify-between text-sm mb-2 gap-2"
+                  class="flex flex-col sm:flex-row sm:justify-between text-sm my-2 mt-4 gap-2"
                 >
                   <div class="flex items-center flex-wrap">
                     <Tag class="w-4 h-4 mr-1 mt-0.5 flex-shrink-0" />
 
                     <span class="text-sm sm:text-base">
-                      Loại tài liệu:<span class="ml-2 text-gray-600">
+                      Loại tài liệu:<span class="ml-2 font-medium text-sky-600">
                         {{ post.accomodationDTO.secondMotel }}</span
                       >
                     </span>
@@ -116,7 +122,7 @@
                         class="w-5 h-5 mr-1 mt-0.5 flex-shrink-0"
                       />
                       <span class="text-sm sm:text-base">
-                        Chuyên ngành:<span class="ml-2 text-gray-600">
+                        Chuyên ngành:<span class="ml-2 font-medium text-sky-600">
                           {{ post.accomodationDTO.major }}</span
                         >
                       </span>
@@ -133,316 +139,194 @@
               </div>
 
               <hr class="my-3 mx-2 sm:mx-6 border-gray-100" />
-
+              <span class="text-lg font-semibold">Thông tin người đăng</span>
               <!-- Nội dung chi tiết -->
               <div class="py-2">
-                <span class="text-lg font-semibold">Thông tin chi tiết</span>
-                <span class="block py-2 break-words text-sm sm:text-base">{{
-                  post.content
-                }}</span>
+                <!-- User Info - New Position -->
+                <div class="flex items-start gap-4 mb-4">
+                  <!-- Avatar -->
+                  <div class="w-12 h-12 rounded-full overflow-hidden bg-sky-50 flex-shrink-0">
+                    <img
+                      v-if="finalAvatar"
+                      :src="finalAvatar"
+                      alt="avatar"
+                      class="object-cover w-full h-full"
+                    />
+                  </div>
+
+                  <!-- Contact Info - Two rows -->
+                  <div class="flex flex-col font-medium">
+                    <!-- Name Row -->
+                    <div class="text-base font-semibold text-gray-800">
+                      {{ post.userDTO.fullName }}
+                    </div>
+
+                    <!-- Contact Details Row -->
+                    <div class="flex items-center gap-4">
+                      <!-- Email -->
+                      <div class="flex items-center gap-1">
+                        <Mail class="w-4 h-4 text-gray-500" />
+                        <span class="text-sm text-gray-600">{{
+                          post.userDTO.email
+                        }}</span>
+                      </div>
+
+                      <!-- Phone -->
+                      <div class="flex items-center gap-1">
+                        <Phone class="w-4 h-4 text-gray-500" />
+                        <span class="text-sm text-gray-600">{{
+                          post.userDTO.phone
+                        }}</span>
+                      </div>
+
+                      <!-- Zalo -->
+                      <a
+                        :href="`https://zalo.me/${post.userDTO.phone}`"
+                        target="_blank"
+                        class="inline-flex items-center justify-center p-1 rounded-full bg-sky-400 hover:bg-blue-600 transition-colors"
+                      >
+                        <img
+                          src="@/assets/zalo-icon.svg"
+                          alt="Zalo"
+                          class="w-5 h-5"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <div class="py-2">
+                  <!-- Description heading with bolder underline -->
+                  <div class="border-b-2 border-blue-500 inline-block">
+                    <span class="text-lg font-semibold">Mô tả</span>
+                  </div>
+                  <span class="block py-2 break-words text-sm sm:text-base">
+                    {{ post.content }}
+                  </span>
+                </div>
               </div>
 
               <!-- Các đặc điểm của quán -->
             </div>
           </div>
-        </div>
-        <!-- PHẦN TÀI LIỆU -->
-        <div v-if="documents && documents.length > 0" class="pt-4">
-          <div class="bg-white rounded-xl p-4 text-left shadow-lg">
-            <div class="pb-4">
-              <span class="text-xl font-bold">Tài liệu đính kèm</span>
-            </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div
-                v-for="doc in documents"
-                :key="doc.id"
-                class="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:border-green-300 hover:shadow-md transition-all cursor-pointer group"
-                @click="handleDocumentClick(doc)"
-              >
-                <!-- File Icon -->
+          <!-- PHẦN TÀI LIỆU -->
+          <div v-if="documents && documents.length > 0" class="pt-4">
+            <div class=" rounded-xl p-4 text-left ">
+              <div class="pb-4">
+                <span class="text-xl font-bold">Tài liệu đính kèm</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div
-                  class="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-3"
+                  v-for="doc in documents"
+                  :key="doc.id"
+                  class="flex items-center p-4  bg-white rounded-lg border border-gray-200 hover:border-green-300 hover:shadow-md transition-all cursor-pointer group"
+                  @click="handleDocumentClick(doc)"
                 >
-                  <!-- PDF Icon -->
-                  <img
-                    v-if="doc.fileType && doc.fileType.includes('pdf')"
-                    src="@/assets/fileLogo/pdf.svg"
-                    alt="PDF"
-                    class="w-6 h-6"
-                  />
-                  <!-- Word Icon -->
-                  <img
-                    v-else-if="
-                      doc.fileType &&
-                      (doc.fileType.includes('word') ||
-                        doc.fileName.includes('.docx') ||
-                        doc.fileName.includes('.doc'))
-                    "
-                    src="@/assets/fileLogo/word.svg"
-                    alt="Word Document"
-                    class="w-6 h-6"
-                  />
-                  <!-- PowerPoint Icon -->
-                  <img
-                    v-else-if="
-                      doc.fileType &&
-                      (doc.fileType.includes('presentation') ||
-                        doc.fileName.includes('.ppt') ||
-                        doc.fileName.includes('.pptx'))
-                    "
-                    src="@/assets/fileLogo/pp.svg"
-                    alt="PowerPoint Presentation"
-                    class="w-6 h-6"
-                  />
-                  <!-- Excel Icon -->
-                  <img
-                    v-else-if="
-                      doc.fileType &&
-                      (doc.fileType.includes('excel') ||
-                        doc.fileType.includes('spreadsheet') ||
-                        doc.fileName.includes('.xlsx') ||
-                        doc.fileName.includes('.xls'))
-                    "
-                    src="@/assets/fileLogo/excel.svg"
-                    alt="Excel Spreadsheet"
-                    class="w-6 h-6"
-                  />
-
-                  <!-- Zip Icon -->
-                  <img
-                    v-else-if="
-                      doc.fileType && doc.fileType.includes('x-zip-compressed')
-                    "
-                    src="@/assets/fileLogo/zip.png"
-                    alt="Zip"
-                    class="w-6 h-6"
-                  />
-
-                  <!-- Default File Icon -->
-                  <svg
-                    v-else
-                    class="w-6 h-6 text-gray-600"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
+                  <!-- File Icon -->
+                  <div
+                    class="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-3"
                   >
-                    <path d="M4 18h12V6l-4-4H4v16zm8-14v4h4l-4-4z" />
-                  </svg>
-                </div>
+                    <!-- PDF Icon -->
+                    <img
+                      v-if="doc.fileType && doc.fileType.includes('pdf')"
+                      src="@/assets/fileLogo/pdf.svg"
+                      alt="PDF"
+                      class="w-6 h-6"
+                    />
+                    <!-- Word Icon -->
+                    <img
+                      v-else-if="
+                        doc.fileType &&
+                        (doc.fileType.includes('word') ||
+                          doc.fileName.includes('.docx') ||
+                          doc.fileName.includes('.doc'))
+                      "
+                      src="@/assets/fileLogo/word.svg"
+                      alt="Word Document"
+                      class="w-6 h-6"
+                    />
+                    <!-- PowerPoint Icon -->
+                    <img
+                      v-else-if="
+                        doc.fileType &&
+                        (doc.fileType.includes('presentation') ||
+                          doc.fileName.includes('.ppt') ||
+                          doc.fileName.includes('.pptx'))
+                      "
+                      src="@/assets/fileLogo/pp.svg"
+                      alt="PowerPoint Presentation"
+                      class="w-6 h-6"
+                    />
+                    <!-- Excel Icon -->
+                    <img
+                      v-else-if="
+                        doc.fileType &&
+                        (doc.fileType.includes('excel') ||
+                          doc.fileType.includes('spreadsheet') ||
+                          doc.fileName.includes('.xlsx') ||
+                          doc.fileName.includes('.xls'))
+                      "
+                      src="@/assets/fileLogo/excel.svg"
+                      alt="Excel Spreadsheet"
+                      class="w-6 h-6"
+                    />
 
-                <!-- File Info -->
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm font-semibold text-gray-900 truncate mb-1">
-                    {{ doc.fileName }}
-                  </p>
-                  <span
-                    class="text-xs text-gray-500 mb-1 flex justify-between items-center"
-                  >
-                    <span>{{
-                      getFileTypeText(doc.fileType || doc.fileName)
-                    }}</span>
-                    <!-- Download hint hiện sát phải khi hover -->
-                    <span
-                      class="text-green-600 opacity-0 group-hover:opacity-100 transition-opacity font-medium"
+                    <!-- Zip Icon -->
+                    <img
+                      v-else-if="
+                        doc.fileType && doc.fileType.includes('x-zip-compressed')
+                      "
+                      src="@/assets/fileLogo/zip.png"
+                      alt="Zip"
+                      class="w-6 h-6"
+                    />
+
+                    <!-- Default File Icon -->
+                    <svg
+                      v-else
+                      class="w-6 h-6 text-gray-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
                     >
-                      Click để tải về
+                      <path d="M4 18h12V6l-4-4H4v16zm8-14v4h4l-4-4z" />
+                    </svg>
+                  </div>
+
+                  <!-- File Info -->
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-semibold text-gray-900 truncate mb-1">
+                      {{ doc.fileName }}
+                    </p>
+                    <span
+                      class="text-xs text-gray-500 mb-1 flex justify-between items-center"
+                    >
+                      <span>{{
+                        getFileTypeText(doc.fileType || doc.fileName)
+                      }}</span>
+                      <!-- Download hint hiện sát phải khi hover -->
+                      <span
+                        class="text-green-600 opacity-0 group-hover:opacity-100 transition-opacity font-medium"
+                      >
+                        Click để tải về
+                      </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PHẦN LINK THAM KHẢO -->
-        <div
-          v-if="
-            post && post.accomodationDTO && post.accomodationDTO.referenceUrl
-          "
-          class="pt-4"
-        >
-          <div class="bg-white rounded-xl p-4 text-left shadow-lg">
-            <div class="pb-4">
-              <span class="text-xl font-bold">Link tham khảo</span>
-            </div>
-
-            <a
-              :href="post?.accomodationDTO?.referenceUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center p-4 bg-gradient-to-r from-sky-50 to-green-50 rounded-lg border border-sky-200 hover:border-sky-300 hover:shadow-md transition-all cursor-pointer group"
-            >
-              <!-- Link Icon -->
-              <div
-                class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-3"
-              >
-                <svg
-                  class="w-6 h-6 text-sky-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                  ></path>
-                </svg>
-              </div>
-
-              <!-- Link Info -->
-              <div class="flex-1 min-w-0">
-                <span
-                  class="block text-sky-600 group-hover:text-sky-800 font-medium text-sm mb-1"
-                >
-                  Đường dẫn tới tài liệu tham khảo
-                </span>
-                <p class="text-xs text-gray-500">Click để xem chi tiết</p>
-              </div>
-
-              <!-- External Link Icon -->
-              <div class="flex-shrink-0 ml-2">
-                <svg
-                  class="w-4 h-4 text-sky-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  ></path>
-                </svg>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <!-- Phần bình luận -->
-        <div class="mt-4">
-          <div v-if="post">
-            <div class="mt-4 shadow-lg">
-              <Comment v-if="post && post.id" :postId="post.id" />
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Cột phải (thông tin người đăng) -->
-      <div class="w-full lg:w-80 p-4 bg-gray-100">
-        <!-- Thông tin người đăng -->
-        <div
-          v-if="post && post.userDTO"
-          class="rounded-md p-4 shadow-md text-center bg-white"
-        >
-          <!-- Avatar -->
-          <div
-            class="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 sm:mb-6 rounded-full overflow-hidden bg-gray-100"
-          >
-            <img
-              v-if="finalAvatar"
-              :src="finalAvatar"
-              alt="avatar"
-              class="object-cover w-full h-full"
-            />
-          </div>
-          <!-- Thông tin cá nhân -->
-          <span class="text-base sm:text-lg font-semibold block">
-            {{ post.userDTO.fullName }}
-          </span>
-          <span class="text-xs flex items-center justify-center mb-2">
-            <span
-              class="inline-block w-2 h-2 bg-green-500 rounded-full mr-1"
-            ></span>
-            Đang hoạt động
-          </span>
-          <div class="flex pt-2 items-center justify-center">
-            <MapPin class="w-4 h-4 mr-1 flex-shrink-0" />
-            <span class="text-sm text-gray-500 break-words">
-              {{ post.userDTO.address }}
-            </span>
-          </div>
-          <div class="flex pb-3 items-center justify-center">
-            <Mail class="w-4 h-4 mr-1 flex-shrink-0" />
-            <span class="text-sm text-gray-500 break-words">
-              {{ post.userDTO.email }}
-            </span>
-          </div>
-          <!-- Các nút liên hệ -->
-          <div class="text-white pt-2">
-            <button
-              class="bg-sky-500 w-full py-2 sm:py-3 rounded-xl mt-4 flex items-center justify-center text-sm sm:text-base"
-            >
-              <Phone class="w-4 h-4 sm:w-5 sm:h-6 mr-1.5" fill="currentColor" />
-              <span class="font-medium">{{ post.userDTO.phone }}</span>
-            </button>
-          </div>
-          <!-- Liên kết Zalo -->
-          <div class="text-white">
-            <a
-              :href="`https://zalo.me/${post.userDTO.phone}`"
-              target="_blank"
-              class="bg-blue-500 w-full py-2 sm:py-3 rounded-xl mt-2 flex items-center justify-center text-sm sm:text-base"
-            >
-              <img
-                src="@/assets/zalo-icon.svg"
-                alt="Zalo Icon"
-                class="w-5 h-5 sm:w-6 sm:h-6 mr-1.5"
-              />
-              <span class="font-medium">Nhắn Zalo</span>
-            </a>
-          </div>
-        </div>
-        <!-- Các nút thao tác dành cho chủ bài đăng -->
-        <div class="py-4 sm:py-8">
-          <div v-if="isOwner" class="p-4 bg-white rounded-xl shadow-xl">
-            <div class="text-center">
-              <span class="font-semibold text-base sm:text-lg">Thao tác</span>
-            </div>
-            <div class="pt-4">
-              <div
-                class="w-full py-2 rounded-xl flex items-center justify-center font-medium bg-sky-100 text-sm sm:text-base"
-              >
-                <span class="font-normal">Trạng thái:&nbsp;</span>
-                <span
-                  :class="{
-                    'text-green-500': displayStatus === 'Đã duyệt',
-                    'text-yellow-500': displayStatus === 'Chờ duyệt',
-                    'text-red-500': displayStatus === 'Bị khóa',
-                  }"
-                >
-                  {{ displayStatus }}
-                </span>
-              </div>
-            </div>
-            <div class="py-2">
-              <router-link
-                :to="`/update-post/${post.id}`"
-                class="bg-yellow-500 hover:bg-yellow-600 w-full py-2 sm:py-3 rounded-xl flex items-center justify-center text-white text-sm sm:text-base"
-              >
-                <span class="font-medium">Cập nhật</span>
-              </router-link>
-            </div>
-            <div class="text-white">
-              <button
-                @click="toggleHidePost"
-                :class="
-                  post.del === false
-                    ? 'bg-red-400 hover:bg-red-500'
-                    : 'bg-green-400 hover:bg-green-500'
-                "
-                class="w-full py-2 sm:py-3 rounded-xl mt-2 flex items-center justify-center text-white text-sm sm:text-base"
-              >
-                <span class="font-medium">
-                  {{ post.del === false ? "Ẩn tin đăng" : "Hiện tin đăng" }}
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
+      <!-- Comments section - moved outside the columns -->
+      <div class="w-full bg-sky-50 px-4 pb-4">
+        
+        
+          <Comment v-if="post && post.id" :postId="post.id" />
+        
       </div>
     </div>
   </DefaultLayout>
@@ -526,20 +410,7 @@ const finalAvatar = computed(() => {
 });
 
 // Quản lý thư viện ảnh
-const galleryImages = ref([]);
-const currentImageIndex = ref(0);
-
-// Điều hướng ảnh
-function prevImage() {
-  currentImageIndex.value =
-    (currentImageIndex.value - 1 + galleryImages.value.length) %
-    galleryImages.value.length;
-}
-
-function nextImage() {
-  currentImageIndex.value =
-    (currentImageIndex.value + 1) % galleryImages.value.length;
-}
+const mainImage = ref(''); // Will store the primary image URL
 
 // Lấy thông tin chi tiết bài đăng
 async function fetchPost() {
@@ -547,7 +418,7 @@ async function fetchPost() {
   try {
     const { data: result } = await getDetailPost(id);
     post.value = result;
-    await loadGalleryImages(result.id);
+    await loadMainImage(result.id); // Replace loadGalleryImages with loadMainImage
     documents.value = result.documents || [];
   } catch (error) {
     errorMsg.value = "Có lỗi khi tải bài đăng";
@@ -555,14 +426,21 @@ async function fetchPost() {
 }
 
 // Tải các hình ảnh của bài đăng
-async function loadGalleryImages(postId) {
+async function loadMainImage(postId) {
   try {
     const urls = await getImageByPost(postId);
-    galleryImages.value = Array.isArray(urls) ? urls : [];
-    currentImageIndex.value = 0;
+    mainImage.value = Array.isArray(urls) && urls.length > 0 
+      ? urls[0] 
+      : 'https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image';
   } catch (err) {
-    // Xử lý lỗi khi tải ảnh
+    console.error('Error loading image:', err);
+    mainImage.value = 'https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image';
   }
+}
+
+// Add error handler for image
+function handleImageError(e) {
+  e.target.src = 'https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image';
 }
 
 // Hàm tải tài liệu đã được cập nhật để sử dụng API downloadDoc
@@ -709,5 +587,9 @@ onMounted(() => {
 <style scoped>
 .break-words {
   word-break: break-word;
+}
+
+.object-cover {
+  object-fit: cover;
 }
 </style>

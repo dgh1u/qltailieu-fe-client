@@ -4,7 +4,7 @@
     <Header class="bg-gray-300 p-2" />
 
     <!-- Main Content Area with Responsive Grid -->
-    <div class="flex flex-col md:grid md:grid-cols-12 min-h-screen">
+    <div class="flex flex-col md:grid md:grid-cols-15 min-h-screen">
       <!-- Sidebar - Ẩn trên mobile, hiển thị trên md trở lên -->
       <div class="hidden md:block md:col-span-4 lg:col-span-3">
         <ProfileSidebar />
@@ -36,7 +36,7 @@
       </div>
 
       <!-- Main content -->
-      <main class="w-full md:col-span-8 lg:col-span-9 p-4 md:p-6 lg:p-10">
+      <main class="w-full md:col-span-11 lg:col-span-12 p-4 md:p-6 lg:p-10">
         <slot />
       </main>
     </div>

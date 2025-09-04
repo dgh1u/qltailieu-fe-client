@@ -201,31 +201,15 @@
           class="block"
         >
           <div class="py-2">
-            <!-- Sử dụng RestaurantCard cho các loại quán ăn, nước, cửa hàng và tiện ích -->
-            <RestaurantCard
-              v-if="
-                ['QUAN_AN', 'QUAN_NUOC', 'CUA_HANG', 'TIEN_ICH'].includes(
-                  selectedMotelType
-                )
-              "
-              :post="post"
-              data-aos="fade-left"
-              data-aos-duration="800"
-            />
-            <!-- Sử dụng RestaurantCard cho các loại quán ăn, nước, cửa hàng và tiện ích -->
+     
             <DocumentCard
               v-if="['TAI_LIEU'].includes(selectedMotelType)"
               :post="post"
               data-aos="fade-left"
               data-aos-duration="800"
             />
-            <!-- Sử dụng Card cho loại phòng trọ và ở ghép -->
-            <Card
-              v-else
-              :post="post"
-              data-aos="fade-left"
-              data-aos-duration="800"
-            />
+  
+    
           </div>
         </router-link>
 
@@ -250,8 +234,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import ProfileLayout from "../../../layouts/ProfileLayout.vue";
-import Card from "@/components/card/Card.vue";
-import RestaurantCard from "../../../components/card/RestaurantCard.vue";
+
 import { getProfile } from "@/apis/authService";
 import { getPostsByUserId } from "@/apis/postService";
 import { Empty } from "ant-design-vue";

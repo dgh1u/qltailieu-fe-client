@@ -11,28 +11,34 @@
       <!-- Grid layout cho Desktop -->
       <div class="hidden md:grid grid-cols-12 items-center">
         <!-- Logo ở cột 1-2 -->
-        <div class="col-span-2 ml-10">
+        <div class="col-span-3 flex items-center">
           <router-link
             to="/home"
             exact-active-class="text-blue-500"
-            class="block"
+            class="flex items-center gap-3"
           >
             <img
               :src="logo"
               alt="Logo"
-              class="h-12"
-              data-aos="zoom-out"
-              data-aos-duration="800"
+              class="h-10 md:h-12"
+            
             />
+            <!-- Title column -->
+            <div class="flex flex-col">
+              <span class="text-xs md:text-sm font-bold text-gray-800 whitespace-nowrap">
+                HỌC VIỆN NÔNG NGHIỆP VIỆT NAM
+              </span>
+              <span class="text-[10px] md:text-xs text-gray-600 whitespace-nowrap">
+                PHẦN MỀM QUẢN LÝ TÀI LIỆU
+              </span>
+            </div>
           </router-link>
         </div>
 
         <!-- Navigation ở cột 3-8 -->
-
-        <div class="col-span-6 flex items-center space-x-6 lg:space-x-12">
+        <div class="col-span-5 flex items-center justify-center space-x-4 md:space-x-6 lg:space-x-8">
           <router-link
-            data-aos="zoom-out"
-            data-aos-duration="800"
+        
             to="/home"
             exact-active-class="text-blue-500"
             class="hover:text-sky-500 transition duration-150 text-sm lg:text-base flex items-center gap-2"
@@ -138,8 +144,7 @@
             </div>
           </div> -->
           <router-link
-            data-aos="zoom-out"
-            data-aos-duration="800"
+          
             to="/post/document"
             exact-active-class="text-blue-500"
             class="hover:text-sky-500 transition duration-150 text-sm lg:text-base flex items-center gap-2"
@@ -149,8 +154,7 @@
           </router-link>
 
           <router-link
-            data-aos="zoom-out"
-            data-aos-duration="800"
+            
             to="/contact"
             exact-active-class="text-blue-500"
             class="hover:text-sky-500 transition duration-150 text-sm lg:text-base flex items-center gap-2"
@@ -161,19 +165,9 @@
         </div>
 
         <!-- Phần đăng nhập / dropdown user bên phải -->
-        <div class="col-span-4 flex justify-end">
+        <div class="col-span-4 flex justify-end items-center">
           <div v-if="authStore.isAuthenticated" class="flex items-center">
-            <!-- Nút đăng tin -->
-            <router-link
-              to="/create-post"
-              data-aos="zoom-out"
-              data-aos-duration="800"
-              exact-active-class="bg-red-600"
-              class="flex items-center bg-red-500 hover:bg-red-600 text-white px-2 py-1 md:px-3 md:py-2 rounded-xl transition duration-150 text-xs md:text-sm lg:text-base"
-            >
-              <Edit size="16" class="mr-1 md:mr-2" />
-              <span class="hidden sm:inline">Đăng tải tài liệu</span>
-            </router-link>
+         
 
             <!-- Component thông báo -->
             <div class="relative ml-2 md:ml-3 lg:ml-5">
@@ -188,8 +182,7 @@
           <div v-else class="flex items-center">
             <router-link
               to="/create-post"
-              data-aos="zoom-out"
-              data-aos-duration="800"
+             
               exact-active-class="bg-red-600"
               class="flex items-center bg-red-500 hover:bg-red-600 text-white px-2 py-1 md:px-3 md:py-2 rounded-xl transition duration-150 text-xs md:text-sm lg:text-base"
             >
@@ -198,8 +191,7 @@
             </router-link>
             <router-link
               to="/login"
-              data-aos="zoom-out"
-              data-aos-duration="800"
+              
               exact-active-class="bg-blue-600"
               class="px-2 py-1 md:px-3 md:py-2 bg-blue-500 hover:bg-blue-600 text-white rounded ml-2 md:ml-3 lg:ml-5 text-xs md:text-sm lg:text-base"
             >
@@ -210,20 +202,26 @@
       </div>
 
       <!-- Mobile layout -->
-      <div class="flex justify-between items-center md:hidden py-3">
-        <!-- Logo (always visible) -->
+      <div class="flex justify-between items-center md:hidden py-3 px-4">
         <router-link
           to="/home"
           exact-active-class="text-blue-500"
-          class="transition duration-150 z-20"
+          class="flex items-center gap-2"
         >
           <img
             :src="logo"
             alt="Logo"
-            class="h-8 sm:h-10"
-            data-aos="zoom-out"
-            data-aos-duration="800"
+            class="h-8"
+           
           />
+          <div class="flex flex-col">
+            <span class="text-[11px] font-bold text-gray-800 whitespace-nowrap">
+              HỌC VIỆN NÔNG NGHIỆP VIỆT NAM
+            </span>
+            <span class="text-[9px] text-gray-600 whitespace-nowrap">
+              PHẦN MỀM QUẢN LÝ TÀI LIỆU
+            </span>
+          </div>
         </router-link>
 
         <!-- Mobile menu button -->
@@ -443,7 +441,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import { useAuthStore } from "@/stores/store";
-import logo from "@/assets/vnua-sv-logo.jpg";
+import logo from "@/assets/logo.png";
 import DropdownMenu from "@/components/header/DropdownMenu.vue";
 import {
   Bell,
@@ -628,6 +626,15 @@ body.menu-open {
   .space-x-6 {
     column-gap: 1rem;
   }
+  .col-span-3 {
+    grid-column: span 4 / span 4;
+  }
+  .col-span-5 {
+    grid-column: span 4 / span 4;
+  }
+  .col-span-4 {
+    grid-column: span 4 / span 4;
+  }
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) {
@@ -644,4 +651,6 @@ body.menu-open {
     padding-right: 3.75rem;
   }
 }
+
+
 </style>

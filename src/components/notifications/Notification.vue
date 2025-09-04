@@ -58,20 +58,17 @@ function goToPost(action) {
     .then(() => {
       action.isRead = true;
       // Điều hướng theo loại nhà trọ
-      if (action.motel === "O_GHEP") {
-        router.push(`/post/roommate/${action.postId}`);
-      } else {
-        router.push(`/post/motel/${action.postId}`);
-      }
+      
+        router.push(`/post/document/${action.postId}`)
+   
     })
     .catch((error) => {
       console.error("Error marking notification as read:", error);
       // Vẫn chuyển hướng ngay cả khi gặp lỗi
-      if (action.motel === "O_GHEP") {
-        router.push(`/post/roommate/${action.postId}`);
-      } else {
-        router.push(`/post/motel/${action.postId}`);
-      }
+    
+        router.push(`/post/document/${action.postId}`);
+     
+   
     });
 }
 
@@ -177,8 +174,7 @@ function actionColor(type) {
     <!-- Nút hiển thị dropdown thông báo -->
     <button
       class="relative flex items-center py-2 space-x-2 text-sm font-medium"
-      data-aos="zoom-out"
-      data-aos-duration="800"
+    
     >
       <!-- Icon chuông thông báo và badge số lượng -->
       <div class="relative">

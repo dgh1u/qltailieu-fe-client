@@ -1,10 +1,8 @@
 <template>
   <ProfileLayout>
-    <div data-aos="zoom-out" data-aos-duration="800" class="p-10">
+    <div data-aos="zoom-out" data-aos-duration="800" class="p-10 ">
       <span class="text-4xl font-extrabold mb-4">Thông tin tài khoản</span>
-      <span class="block pt-2 text-2xl font-semibold mb-10 text-blue-400"
-        >Cơ bản</span
-      >
+      
 
       <form
         class="space-y-6 max-w-3xl mt-10"

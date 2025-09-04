@@ -9,28 +9,11 @@
       <!-- PHẦN HÌNH THỨC -->
       <div class="block bg-white p-4 pb-6 rounded-xl">
         <div class="py-2">
-          <span class="font-bold text-base">Hình thức</span>
+          <span class="font-bold text-base">Phân loại</span>
         </div>
-        <label>Loại hình <span class="text-red-500">*</span></label>
-        <div class="flex rounded-lg mt-1">
-          <a-select
-            v-model:value="formData.accomodation.motel"
-            placeholder="Chọn hình thức"
-            class="w-full"
-          >
-            <a-select-option value="PHONG_TRO"
-              >Cho thuê phòng trọ</a-select-option
-            >
-            <a-select-option value="O_GHEP">Tìm người ở ghép</a-select-option>
-            <a-select-option value="QUAN_AN">Quán ăn</a-select-option>
-            <a-select-option value="QUAN_NUOC">Quán nước</a-select-option>
-            <a-select-option value="CUA_HANG">Cửa hàng</a-select-option>
-            <a-select-option value="TIEN_ICH">Tiện ích</a-select-option>
-            <a-select-option value="TAI_LIEU">Tài liệu</a-select-option>
-          </a-select>
-        </div>
+       
         <!-- Selection phụ cho QUAN_AN -->
-        <div v-if="formData.accomodation.motel === 'QUAN_AN'" class="mt-3">
+        <div v-if="formData.accomodation.motel === 'QUAN_AN'" >
           <label>Loại quán ăn <span class="text-red-500">*</span> </label>
           <div class="flex rounded-lg mt-1">
             <a-select
@@ -122,7 +105,7 @@
           </div>
         </div>
         <!-- Selection phụ cho QUAN_AN -->
-        <div v-if="formData.accomodation.motel === 'TAI_LIEU'" class="mt-3">
+        <div v-if="formData.accomodation.motel === 'TAI_LIEU'" >
           <label>Loại tài liệu <span class="text-red-500">*</span> </label>
           <div class="flex rounded-lg mt-1">
             <a-select
@@ -534,145 +517,38 @@
           <span class="font-bold text-base">Hình ảnh</span>
         </div>
 
-        <!-- 4 Box hình ảnh riêng biệt -->
-        <div class="grid grid-cols-2 gap-4 mb-4">
-          <!-- Box 1 -->
+        <!-- Single Image Upload Box -->
+        <div class="mb-4">
           <div
+            v-if="!imageBox"
             class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition"
           >
             <FolderUp class="w-12 h-12 text-sky-500" />
-            <span class="mt-2 text-gray-500">
-              {{
-                formData.accomodation.motel === "PHONG_TRO" ||
-                formData.accomodation.motel === "O_GHEP"
-                  ? "Tải ảnh Phòng chính"
-                  : "Tải ảnh Không gian 1"
-              }}
-            </span>
+            <span class="mt-2 text-gray-500">Tải ảnh từ thiết bị</span>
             <input
               type="file"
               accept="image/*"
-              @change="(e) => handleFileChange(e, 0)"
+              @change="handleFileChange"
               class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
-            <!-- Hiển thị ảnh đã chọn cho vị trí này -->
-            <div v-if="imageBoxes[0]" class="absolute inset-0 w-full h-full">
-              <img
-                :src="imageBoxes[0].preview"
-                class="w-full h-full object-cover rounded-lg"
-              />
-              <button
-                @click.stop="removeImage(0)"
-                class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex items-center space-x-1 px-2 py-1 bg-white bg-opacity-70 rounded-md text-red-500 hover:text-red-600"
-              >
-                <Trash2 class="w-4 h-4" />
-                <span class="text-xs">Xóa</span>
-              </button>
-            </div>
           </div>
 
-          <!-- Box 2 -->
-          <div
-            class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition"
-          >
-            <FolderUp class="w-12 h-12 text-sky-500" />
-            <span class="mt-2 text-gray-500">
-              {{
-                formData.accomodation.motel === "PHONG_TRO" ||
-                formData.accomodation.motel === "O_GHEP"
-                  ? "Tải ảnh Nhà bếp"
-                  : "Tải ảnh Không gian 2"
-              }}
-            </span>
-            <input
-              type="file"
-              accept="image/*"
-              @change="(e) => handleFileChange(e, 1)"
-              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          <div v-else class="relative h-40 rounded-lg overflow-hidden">
+            <img
+              :src="imageBox.preview"
+              class="w-full h-full object-cover rounded-lg"
             />
-            <!-- Hiển thị ảnh đã chọn cho vị trí này -->
-            <div v-if="imageBoxes[1]" class="absolute inset-0 w-full h-full">
-              <img
-                :src="imageBoxes[1].preview"
-                class="w-full h-full object-cover rounded-lg"
-              />
-              <button
-                @click.stop="removeImage(1)"
-                class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex items-center space-x-1 px-2 py-1 bg-white bg-opacity-70 rounded-md text-red-500 hover:text-red-600"
-              >
-                <Trash2 class="w-4 h-4" />
-                <span class="text-xs">Xóa</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Box 3 -->
-          <div
-            class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition"
-          >
-            <FolderUp class="w-12 h-12 text-sky-500" />
-            <span class="mt-2 text-gray-500">
-              {{
-                formData.accomodation.motel === "PHONG_TRO" ||
-                formData.accomodation.motel === "O_GHEP"
-                  ? "Tải ảnh Nhà vệ sinh"
-                  : "Tải ảnh Menu"
-              }}
-            </span>
-            <input
-              type="file"
-              accept="image/*"
-              @change="(e) => handleFileChange(e, 2)"
-              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            />
-            <!-- Hiển thị ảnh đã chọn cho vị trí này -->
-            <div v-if="imageBoxes[2]" class="absolute inset-0 w-full h-full">
-              <img
-                :src="imageBoxes[2].preview"
-                class="w-full h-full object-cover rounded-lg"
-              />
-              <button
-                @click.stop="removeImage(2)"
-                class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex items-center space-x-1 px-2 py-1 bg-white bg-opacity-70 rounded-md text-red-500 hover:text-red-600"
-              >
-                <Trash2 class="w-4 h-4" />
-                <span class="text-xs">Xóa</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Box 4 -->
-          <div
-            class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition"
-          >
-            <FolderUp class="w-12 h-12 text-sky-500" />
-            <span class="mt-2 text-gray-500">Tải ảnh Mặt tiền</span>
-            <input
-              type="file"
-              accept="image/*"
-              @change="(e) => handleFileChange(e, 3)"
-              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            />
-            <!-- Hiển thị ảnh đã chọn cho vị trí này -->
-            <div v-if="imageBoxes[3]" class="absolute inset-0 w-full h-full">
-              <img
-                :src="imageBoxes[3].preview"
-                class="w-full h-full object-cover rounded-lg"
-              />
-              <button
-                @click.stop="removeImage(3)"
-                class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex items-center space-x-1 px-2 py-1 bg-white bg-opacity-70 rounded-md text-red-500 hover:text-red-600"
-              >
-                <Trash2 class="w-4 h-4" />
-                <span class="text-xs">Xóa</span>
-              </button>
-            </div>
+            <button
+              @click.stop="removeImage"
+              class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex items-center space-x-1 px-2 py-1 bg-white bg-opacity-70 rounded-md text-red-500 hover:text-red-600"
+            >
+              <Trash2 class="w-4 h-4" />
+              <span class="text-xs">Xóa</span>
+            </button>
           </div>
         </div>
 
-        <small v-if="!isAllBoxesFilled()" class="text-red-500 block mt-2">
-          Vui lòng tải đủ 4 ảnh theo yêu cầu.
-        </small>
+        <small class="text-gray-500">Dung lượng ảnh tối đa 10MB</small>
       </div>
 
       <!-- PHẦN TÀI LIỆU -->
@@ -780,21 +656,7 @@
         </div>
       </div>
 
-      <!-- PHẦN TÀI LIỆU -->
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <div class="py-2">
-          <span class="font-bold text-base">Link tham khảo</span>
-        </div>
-
-        <div class="flex items-center rounded-lg mt-1 w-120">
-          <input
-            v-model="formData.accomodation.referenceUrl"
-            type="text"
-            placeholder="VD: https://abc.com (có thể để trống)"
-            class="w-full p-2 mt-1 border border-gray-300 rounded-lg"
-          />
-        </div>
-      </div>
+    
 
       <!-- NÚT SUBMIT VÀ TRỞ VỀ -->
       <div class="text-white font-semibold">
@@ -884,7 +746,7 @@ const formData = reactive({
   content: "",
   accomodation: {
     id: null,
-    motel: "PHONG_TRO",
+    motel: "TAI_LIEU",
     price: "",
     acreage: "",
     electricPrice: "",
@@ -969,8 +831,8 @@ const route = useRoute();
 const router = useRouter();
 const postId = route.params.id;
 
-// Mảng imageBoxes lưu trạng thái của 4 box ảnh
-const imageBoxes = ref([null, null, null, null]);
+// Replace imageBoxes array with single imageBox
+const imageBox = ref(null);
 
 /**
  * Kiểm tra xem đã đủ 4 ảnh chưa
@@ -1016,27 +878,17 @@ onMounted(async () => {
     const imgRes = await getImageDTOByPost(postId);
     console.log("Response từ getImageDTOByPost:", imgRes);
 
-    const imageArray = imgRes;
-    if (imageArray && Array.isArray(imageArray)) {
-      const processedImages = imageArray.slice(0, 4).map((img) => {
-        const previewUrl = `data:${img.fileType};base64,${img.uri}`;
-        return {
-          id: img.id,
-          fileName: img.fileName,
-          fileType: img.fileType,
-          base64: img.uri,
-          preview: previewUrl,
-          isExisting: true,
-        };
-      });
-
-      for (let i = 0; i < Math.min(processedImages.length, 4); i++) {
-        imageBoxes.value[i] = processedImages[i];
-      }
-
-      console.log("Đã phân bổ ảnh vào các box:", imageBoxes.value);
-    } else {
-      console.warn("API không trả về mảng ImageDTO, data nhận:", imgRes.data);
+    if (imgRes && Array.isArray(imgRes) && imgRes.length > 0) {
+      const img = imgRes[0]; // Get only first image
+      const previewUrl = `data:${img.fileType};base64,${img.uri}`;
+      imageBox.value = {
+        id: img.id,
+        fileName: img.fileName,
+        fileType: img.fileType,
+        base64: img.uri,
+        preview: previewUrl,
+        isExisting: true,
+      };
     }
 
     // ⭐ 3) THÊM PHẦN NÀY - Load documents từ getDetailPost
@@ -1127,28 +979,27 @@ function formatFileSize(bytes) {
 /**
  * Khi user chọn file mới cho một box cụ thể
  */
-function handleFileChange(e, boxIndex) {
+function handleFileChange(e) {
   const file = e.target.files[0];
   if (file) {
-    // Nếu đã có ảnh cũ ở vị trí này, xóa nó
-    if (imageBoxes.value[boxIndex]) {
-      if (
-        imageBoxes.value[boxIndex].preview &&
-        !imageBoxes.value[boxIndex].isExisting
-      ) {
-        URL.revokeObjectURL(imageBoxes.value[boxIndex].preview);
-      }
+    // Check file size (10MB limit)
+    if (file.size > 10 * 1024 * 1024) {
+      message.error("Dung lượng ảnh không được vượt quá 10MB");
+      e.target.value = null;
+      return;
     }
 
-    // Tạo preview và lưu vào vị trí tương ứng
-    file.preview = URL.createObjectURL(file);
-    imageBoxes.value[boxIndex] = {
-      preview: file.preview,
+    // If there's an existing image, revoke its URL
+    if (imageBox.value && !imageBox.value.isExisting) {
+      URL.revokeObjectURL(imageBox.value.preview);
+    }
+
+    // Set new image
+    imageBox.value = {
+      preview: URL.createObjectURL(file),
       file: file,
       isExisting: false,
     };
-
-    console.log(`Đã thêm ảnh mới vào box ${boxIndex}:`, file.name);
   }
   e.target.value = null;
 }
@@ -1156,16 +1007,12 @@ function handleFileChange(e, boxIndex) {
 /**
  * Xóa ảnh ở một box cụ thể
  */
-function removeImage(boxIndex) {
-  if (imageBoxes.value[boxIndex]) {
-    if (
-      imageBoxes.value[boxIndex].preview &&
-      !imageBoxes.value[boxIndex].isExisting
-    ) {
-      URL.revokeObjectURL(imageBoxes.value[boxIndex].preview);
+function removeImage() {
+  if (imageBox.value) {
+    if (imageBox.value.preview && !imageBox.value.isExisting) {
+      URL.revokeObjectURL(imageBox.value.preview);
     }
-    imageBoxes.value[boxIndex] = null;
-    console.log(`Đã xóa ảnh tại box ${boxIndex}`);
+    imageBox.value = null;
   }
 }
 
@@ -1334,8 +1181,8 @@ async function handleUpdatePost() {
   }
 
   // Validate phải có đủ 4 ảnh
-  if (!isAllBoxesFilled()) {
-    message.error("Bạn phải tải đủ 4 ảnh theo yêu cầu");
+  if (!imageBox.value) {
+    message.error("Bạn phải tải ảnh cho bài đăng");
     return;
   }
 
@@ -1348,28 +1195,15 @@ async function handleUpdatePost() {
     // Xoá toàn bộ ảnh cũ trên server
     await deleteImagesByPost(postId);
 
-    // Chuẩn bị file ảnh để upload
-    const filesToUpload = [];
+    // Upload new image
+    if (imageBox.value) {
+      const fileToUpload = imageBox.value.isExisting
+        ? base64ToFile(imageBox.value.base64, imageBox.value.fileName, imageBox.value.fileType)
+        : imageBox.value.file;
 
-    // Xử lý từng vị trí ảnh
-    for (let i = 0; i < 4; i++) {
-      const box = imageBoxes.value[i];
-      if (box) {
-        if (box.isExisting) {
-          // Nếu là ảnh cũ (base64) -> chuyển thành File
-          const file = base64ToFile(box.base64, box.fileName, box.fileType);
-          filesToUpload.push(file);
-        } else if (box.file) {
-          // Nếu là file mới đã upload -> thêm vào mảng
-          filesToUpload.push(box.file);
-        }
-      }
+      await uploadMultipleImages(postId, [fileToUpload]);
     }
 
-    console.log("Upload tất cả ảnh:", filesToUpload);
-    if (filesToUpload.length) {
-      await uploadMultipleImages(postId, filesToUpload);
-    }
     // ⭐ XỬ LÝ TÀI LIỆU: Xóa những file đã đánh dấu
     if (documentsToDelete.value.length > 0) {
       console.log("Xóa các tài liệu:", documentsToDelete.value);

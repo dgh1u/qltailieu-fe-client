@@ -8,15 +8,15 @@
           class="flex items-center bg-white px-4 py-2 rounded-t-xl rounded-bl-xl shadow-md hover:shadow-lg transition"
         >
           <span class="text-gray-800 font-medium whitespace-nowrap">
-            Tôi có thể giúp gì cho bạn?
+            Chatbot hỗ trợ tìm tài liệu
           </span>
         </button>
       </div>
       <button
         @click="openChat"
-        class="bg-sky-400 hover:bg-sky-600 p-4 rounded-full shadow-lg transition"
+        class="bg-sky-400 hover:bg-sky-600  rounded-full shadow-lg transition"
       >
-        <BotMessageSquare class="w-6 h-6 text-white" />
+        <img :src="logo" alt="VNUA Chat" class="w-17 h-17" />
       </button>
     </div>
 
@@ -38,9 +38,9 @@
           class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-400 to-blue-300 rounded-t-xl"
         >
           <div class="flex items-center space-x-2">
-            <img src="@/assets/vnua-logo.png" alt="VNUA Chat" class="w-8 h-8" />
+            <img :src="logo" alt="VNUA Chat" class="w-12 h-12" />
             <span class="text-white font-semibold text-lg">
-              VNUA Services Chatbot
+              Chatbot hỗ trợ tìm tài liệu
             </span>
           </div>
           <div class="flex items-center space-x-2">
@@ -127,6 +127,7 @@
 import { ref, nextTick, onMounted, watch } from "vue";
 import { SendHorizonal, X, RotateCcw, BotMessageSquare } from "lucide-vue-next";
 import { sendQuery } from "@/apis/chatbotService";
+import logo from "@/assets/logo.png"; // Add this import
 
 // Khởi tạo các biến reactive
 const isOpen = ref(false);

@@ -1,36 +1,50 @@
 <template>
-  <div
-    class="rounded-lg p-4 hover:scale-[1.03] hover:shadow-lg hover:bg-white transition flex flex-col w-full"
-  >
-    <div class="w-full flex flex-col gap-2">
-      <div class="w-full h-60 bg-gray-200 rounded-2xl overflow-hidden">
-        <img
-          :src="thumbnailImage"
-          alt="preview"
-          @error="onImgError"
-          class="object-cover w-full h-full"
-        />
-      </div>
+  <div class="bg-white rounded-2xl overflow-hidden hover:shadow-lg transition duration-300 h-[400px] border border-gray-200">
+    <!-- Thumbnail Image Container -->
+    <div class="w-full h-[300px]">
+      <img
+        :src="thumbnailImage"
+        alt="preview"
+        @error="onImgError"
+        class="w-full h-full object-cover"
+      />
     </div>
 
-    <div class="flex-1 flex flex-col py-3">
-      <!-- Hiển thị tiêu đề bài đăng -->
-      <span
-        class="line-clamp-1 text-lg font-bold text-gray-800 mb-1 text-left"
-        >{{ post.title }}</span
-      >
-      <div class="flex items-center text-red-500 mb-2 gap-3 text-left">
-        <!-- Hiển thị giờ mở cửa -->
-        <div class="flex gap-1 text-gray-600 mt-1">
-          <GraduationCap class="w-5 h-5" />
-          <span class="text-sm">{{
-            post.accomodationDTO?.major || "N/A"
-          }}</span>
+    <!-- Content Section -->
+    <div class="flex flex-col p-4">
+      <!-- Title -->
+      <span class="line-clamp-1 text-base font-semibold text-gray-800 mb-1">
+        {{ post.title }}
+      </span>
+
+      <!-- Stats and Avatar Container -->
+      <div class="flex justify-between items-start">
+        <!-- Stats Column -->
+        <div class="flex flex-col text-xs text-gray-500">
+          <!-- Major -->
+          <div class="flex items-center gap-1 mb-1">
+            <GraduationCap class="w-4 h-4" />
+            <span>{{ post.accomodationDTO?.major || "N/A" }}</span>
+          </div>
+          <!-- Type -->
+          <div class="flex items-center gap-1">
+            <Tag class="w-3 h-4" />
+            <span>{{ post.accomodationDTO?.secondMotel }}</span>
+          </div>
         </div>
-        <!-- Hiển thị loại nhà trọ -->
-        <div class="flex gap-1 text-gray-600 mt-1 ml-5">
-          <Tag class="w-4 h-4 mt-1" />
-          <span class="text-sm">{{ post.accomodationDTO?.secondMotel }}</span>
+
+        <!-- Avatar Column -->
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
+            <img
+              v-if="finalAvatar"
+              :src="finalAvatar"
+              alt="avatar"
+              @error="onImgError"
+              class="object-cover w-full h-full"
+            />
+          </div>
+          
         </div>
       </div>
     </div>
@@ -46,6 +60,7 @@ import {
   Truck,
   Tag,
   GraduationCap,
+  Eye
 } from "lucide-vue-next";
 import { getImageByPost } from "@/apis/imageService";
 
@@ -77,15 +92,30 @@ const thumbnailImage = computed(() => {
 function onImgError(event) {
   console.error("⚠️ Image failed to load:", event.target.src);
 }
+
+// Xử lý hiển thị avatar người dùng
+const finalAvatar = computed(() => {
+  const avatar = props.post.userDTO?.b64;
+  return avatar
+    ? avatar.startsWith("data:image")
+      ? avatar
+      : `data:image/png;base64,${avatar}`
+    : null;
+});
+
 </script>
 
 <style scoped>
-/* Giới hạn nội dung text chỉ hiển thị 1 dòng */
+/* Update existing styles */
 .line-clamp-1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: break-word;
+}
+
+.hover\:shadow-lg:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 </style>

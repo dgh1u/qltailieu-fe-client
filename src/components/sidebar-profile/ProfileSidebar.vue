@@ -1,28 +1,23 @@
 <template>
-  <aside class="h-full bg-gray-200 p-4 md:p-6 lg:p-10 shadow-md">
-    <!-- Thông tin người dùng -->
-    <div
-      class="flex flex-col items-center mb-4 md:mb-5"
-      data-aos="zoom-out-right"
-      data-aos-duration="800"
-    >
-      <!-- Khối bọc avatar và các nút thao tác -->
+  <aside class="h-full bg-white p-2 md:p-4 lg:p-6 shadow-md">
+    <!-- Khối thông tin người dùng -->
+    <div class="flex items-center space-x-4 mb-6">
+      <!-- Avatar -->
       <div class="relative">
         <img
           v-if="avatarUrl"
           :src="avatarUrl"
           alt="User Avatar"
-          class="w-20 h-20 md:w-24 md:h-24 lg:w-30 lg:h-30 rounded-full object-cover"
+          class="w-16 h-16 rounded-full object-cover"
         />
         <button
           type="button"
-          class="absolute bottom-0 right-0 bg-white rounded-full p-1 md:p-2 shadow"
+          class="absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow"
           @click="onChangeAvatar"
           title="Chọn ảnh mới"
         >
-          <RefreshCw class="w-3 h-3 md:w-4 md:h-4" />
+          <RefreshCw class="w-3 h-3" />
         </button>
-        <!-- Input file ẩn để chọn ảnh -->
         <input
           ref="avatarInputRef"
           type="file"
@@ -33,20 +28,29 @@
         <button
           v-if="selectedFile"
           type="button"
-          class="absolute bottom-0 right-8 md:right-10 bg-white rounded-full p-1 md:p-2 shadow"
+          class="absolute -bottom-1 right-6 bg-white rounded-full p-1 shadow"
           @click="onSaveAvatar"
           title="Lưu avatar"
         >
-          <Save class="w-3 h-3 md:w-4 md:h-4" />
+          <Save class="w-3 h-3" />
         </button>
       </div>
-    </div>
-    <div
-      class="flex flex-col items-center mt-1 font-semibold mb-4 md:mb-5 text-sm md:text-base"
-      data-aos="zoom-out"
-      data-aos-duration="800"
-    >
-      {{ userEmail }}
+
+      <!-- Thông tin user -->
+      <div class="flex flex-col space-y-1">
+          <div class="flex items-center text-xs">
+          <span class="font-semibold mr-1">Họ tên:</span>
+          <span>{{ fullName}}</span>
+        </div>
+        <div class="flex items-center text-xs">
+          <span class="font-semibold mr-1">Email:</span>
+          <span>{{ userEmail }}</span>
+        </div>
+        <div class="flex items-center text-xs ">
+          <span class="font-semibold mr-1">Mã tài khoản:</span>
+          <span>{{ userId }}</span>
+        </div>
+      </div>
     </div>
 
     <!-- <div
@@ -72,52 +76,34 @@
       </router-link>
     </div> -->
     <!-- Menu điều hướng sidebar -->
-    <nav
-      class="space-y-2 md:space-y-3"
-      data-aos="zoom-out"
-      data-aos-duration="800"
-    >
+    <nav class="space-y-2">
       <router-link
         to="/profile"
-        class="flex items-center block py-1.5 md:py-2 px-4 md:px-10 rounded hover:text-sky-500 font-medium text-gray-700 text-xs md:text-sm lg:text-base"
-        active-class="bg-sky-400 text-white"
+        class="flex pt-4 py-1.5 items-center text-gray-500 hover:text-black"
+        :class="{ 'font-bold !text-sky-600': $route.path === '/profile' }"
         exact
       >
-        <User class="inline-block w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2" />
-        Thông tin tài khoản
+        <User class="w-5 h-4 mr-2" />
+        <span class="text-base font-medium">Thông tin tài khoản</span>
       </router-link>
+      
       <router-link
         to="/create-post"
-        class="flex items-center block py-1.5 md:py-2 px-4 md:px-10 rounded hover:text-sky-500 font-medium text-gray-700 text-xs md:text-sm lg:text-base"
-        active-class="bg-sky-400 text-white"
+        class="flex py-1.5 items-center text-gray-500 hover:text-black"
+        :class="{ 'font-bold !text-sky-600': $route.path === '/create-post' }"
       >
-        <FolderPen class="inline-block w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2" />
-        Đăng tải tài liệu
+        <FolderPen class="w-5 h-4 mr-2" />
+        <span class="text-base font-medium">Đăng tải tài liệu</span>
       </router-link>
+      
       <router-link
         to="/my-posts"
-        class="flex items-center block py-1.5 md:py-2 px-4 md:px-10 rounded hover:text-sky-500 font-medium text-gray-700 text-xs md:text-sm lg:text-base"
-        active-class="bg-sky-400 text-white"
+        class="flex py-1.5 items-center text-gray-500 hover:text-black"
+        :class="{ 'font-bold !text-sky-600': $route.path === '/my-posts' }"
       >
-        <Folder class="inline-block w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2" />
-        Tài liệu của tôi
+        <Folder class="w-5 h-4 mr-2" />
+        <span class="text-base font-medium">Tài liệu của tôi</span>
       </router-link>
-      <!-- <router-link
-        to="/payment"
-        class="flex items-center block py-1.5 md:py-2 px-4 md:px-10 rounded hover:text-sky-500 font-medium text-gray-700 text-xs md:text-sm lg:text-base"
-        active-class="bg-sky-400 text-white"
-      >
-        <CreditCard class="inline-block w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2" />
-        Nạp tiền
-      </router-link>
-      <router-link
-        to="/payment-history"
-        class="flex items-center block py-1.5 md:py-2 px-4 md:px-10 rounded hover:text-sky-500 font-medium text-gray-700 text-xs md:text-sm lg:text-base"
-        active-class="bg-sky-400 text-white"
-      >
-        <Clock class="inline-block w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2" />
-        Lịch sử nạp tiền
-      </router-link> -->
     </nav>
   </aside>
 </template>
@@ -143,12 +129,16 @@ const authStore = useAuthStore();
 // Biến lưu thông tin người dùng
 const userEmail = ref("");
 const balance = ref(0);
+const userId = ref("");
+const fullName = ref("");
 
 // Lấy thông tin người dùng khi component được tạo
 onMounted(async () => {
   try {
     const profileRes = await getProfile();
+    fullName.value = profileRes.data.fullName;
     userEmail.value = profileRes.data.email;
+    userId.value = profileRes.data.id;
     balance.value = profileRes.data.balance;
   } catch (error) {
     console.error("Error fetching profile:", error);
