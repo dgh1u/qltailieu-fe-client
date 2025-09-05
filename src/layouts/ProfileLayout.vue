@@ -36,7 +36,7 @@
       </div>
 
       <!-- Main content -->
-      <main class="w-full md:col-span-11 lg:col-span-12 p-4 md:p-6 lg:p-10">
+      <main class="w-full md:col-span-11 lg:col-span-12">
         <slot />
       </main>
     </div>

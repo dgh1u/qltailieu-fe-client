@@ -58,17 +58,14 @@ function goToPost(action) {
     .then(() => {
       action.isRead = true;
       // Điều hướng theo loại nhà trọ
-      
-        router.push(`/post/document/${action.postId}`)
-   
+
+      router.push(`/post/document/${action.postId}`);
     })
     .catch((error) => {
       console.error("Error marking notification as read:", error);
       // Vẫn chuyển hướng ngay cả khi gặp lỗi
-    
-        router.push(`/post/document/${action.postId}`);
-     
-   
+
+      router.push(`/post/document/${action.postId}`);
     });
 }
 
@@ -173,16 +170,16 @@ function actionColor(type) {
   >
     <!-- Nút hiển thị dropdown thông báo -->
     <button
-      class="relative flex items-center py-2 space-x-2 text-sm font-medium"
-    
+      class="relative flex items-center justify-center text-sm font-medium"
     >
       <!-- Icon chuông thông báo và badge số lượng -->
       <div class="relative">
-        <Bell size="22" class="mr-1" />
+        <Bell size="20" className="text-black" fill="currentColor" />
         <!-- Badge hiển thị số thông báo chưa đọc -->
         <span
           v-if="unreadCount > 0"
-          class="absolute -top-1.5 -right-0.5 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center"
+          class="absolute -top-4 -right-4 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white shadow-md"
+          style="box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1)"
         >
           {{ unreadCount }}
         </span>

@@ -1,181 +1,110 @@
 <template>
-  <footer class="bg-white text-white pt-8 pb-4">
-    <div class="container mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-14 gap-4">
-        <!-- Thông tin công ty (chiếm 5 cột) -->
-        <div
-          class="md:col-span-5 pl-4"
-          
-        >
-          <div class="flex flex-col mb-4">
-            <img
-              src="@/assets/logo.png"
-              width="80"
-              alt="Logo"
-              class="mb-3"
-            />
-            <span class=" text-lg text-black font-semibold">
-              Phần mềm Quản lý tài liệu - VNUA
-            </span>
+  <footer class="bg-sky-50 border-t border-sky-50 font-medium">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Main Footer Content -->
+      <div class="py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div class="lg:col-span-2">
+            <div class="flex items-center mb-4">
+              <img src="@/assets/logo.png" width="50" alt="Logo" class="mr-3" />
+              <div>
+                <h3 class="text-xl font-bold text-gray-900">VNUA Documents</h3>
+                <p class="text-base text-gray-600">Quản lý tài liệu</p>
+              </div>
+            </div>
+            <p class="text-gray-600 leading-relaxed mb-6 max-w-md">
+              Hệ thống quản lý tài liệu dành cho sinh viên và giảng viên Học
+              viện Nông nghiệp Việt Nam. Chia sẻ và tìm kiếm tài liệu học tập
+              hiệu quả.
+            </p>
           </div>
-          <p class="text-black text-base leading-relaxed mb-4">
-            Đây là Website phần mềm quản lý tài liệu phục vụ cho sinh viên, giảng viên hiện đang học tập, công tác tại Học viện Nông nghiệp Việt Nam.
-          </p>
-        </div>
 
-        <!-- Chính sách bảo mật -->
-        <div class="md:col-span-2" >
-          <h6 class="text-lg text-black font-semibold mb-4">
-            Chính sách bảo mật
-          </h6>
-          <ul class="space-y-2 text-base text-black">
-            <li>
-              <a
-                href="/privacy-policy#intro"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Chính sách
-              </a>
-            </li>
-            <li>
-              <a
-                href="/privacy-policy#data-collection"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Thu thập dữ liệu
-              </a>
-            </li>
-            <li>
-              <a
-                href="/privacy-policy#data-usage"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Tiếp thị trực tiếp
-              </a>
-            </li>
-            <li>
-              <a
-                href="/privacy-policy#direct-marketing"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Truyền và chia sẻ dữ liệu
-              </a>
-            </li>
-            <li>
-              <a
-                href="/privacy-policy#data-transfer"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Bảo mật dữ liệu
-              </a>
-            </li>
-            <li>
-              <a
-                href="/privacy-policy#data-security"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Lưu giữ dữ liệu cá nhân
-              </a>
-            </li>
-          </ul>
-        </div>
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-4">
+              Liên kết nhanh
+            </h4>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="/profile"
+                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  Thông tin tài khoản
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/create-post"
+                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  Đăng tài liệu
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/contact"
+                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  Liên hệ
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/privacy-policy"
+                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  Chính sách bảo mật
+                </a>
+              </li>
+            </ul>
+          </div>
 
-        <!-- Các tính năng của website -->
-        <div class="md:col-span-2" >
-          <h6 class="text-lg text-black font-semibold mb-4">Tính năng</h6>
-          <ul class="space-y-2 text-base text-black">
-            <li>
-              <a
-                href="/profile"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Thông tin tài khoản
-              </a>
-            </li>
-            <li>
-              <a
-                href="/create-post"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Đăng tin
-              </a>
-            </li>
-            <li>
-              <a
-                href="/contact"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Liên hệ
-              </a>
-            </li>
-            <li>
-              <a
-                href="/list-notifications"
-                class="hover:text-blue-400 transition-colors duration-200"
-              >
-                Thông báo
-              </a>
-            </li>
-          </ul>
-        </div>
+          <!-- Contact Info -->
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-4">Liên hệ</h4>
+            <div class="space-y-3">
+              <div class="flex items-center">
+                <Phone class="w-4 h-4 mr-3 text-gray-500" />
+                <span class="text-gray-600">+849 3636 3636</span>
+              </div>
+              <div class="flex items-center">
+                <Mail class="w-4 h-4 mr-3 text-gray-500" />
+                <span class="text-gray-600">nkduong@gmail.com</span>
+              </div>
+              <div class="flex items-start">
+                <MapPin class="w-4 h-4 mr-3 text-gray-500 mt-0.5" />
+                <span class="text-gray-600">36 Đan Phượng, Hà Nội</span>
+              </div>
+            </div>
 
-        
-
-        <!-- Thông tin liên hệ -->
-        <div class="md:col-span-3" >
-          <h6 class="text-lg text-black font-semibold mb-4">Liên Hệ</h6>
-          <ul class="space-y-3 text-base text-black">
-            <li class="flex items-center">
-              <Phone class="w-5 h-5 mr-3 text-blue-400" />
+            <!-- Social Links -->
+            <div class="flex space-x-3 mt-6">
               <a
-                href="tel:0981266403"
-                class="hover:text-blue-400 transition-colors duration-200"
+                href="https://www.facebook.com/ngao.hieu.16100?locale=vi_VN"
+                class="w-8 h-8 bg-blue-600 flex items-center justify-center rounded-full hover:bg-blue-700 transition-colors"
               >
-                +849 3636 3636
+                <Facebook class="w-4 h-4 text-white" />
               </a>
-            </li>
-            <li class="flex items-center">
-              <Mail class="w-5 h-5 mr-3 text-blue-400" />
               <a
-                href="mailto:hieutkhd03@gmail.com"
-                class="hover:text-blue-400 transition-colors duration-200"
+                href="mailto:nkduong@gmail.com"
+                class="w-8 h-8 bg-gray-600 flex items-center justify-center rounded-full hover:bg-gray-700 transition-colors"
               >
-                nkduong@gmail.com
+                <Mail class="w-4 h-4 text-white" />
               </a>
-            </li>
-            <li class="flex items-center">
-              <MapPin class="w-5 h-5 mr-3 text-blue-400" />
-              <span>36 Đan Phượng, Tp Hà Nội</span>
-            </li>
-          </ul>
-
-          <!-- Liên kết mạng xã hội -->
-          <div class="flex space-x-4 mt-6">
-            <a
-              href="https://www.facebook.com/ngao.hieu.16100?locale=vi_VN"
-              class="w-10 h-10 bg-blue-600 flex items-center justify-center rounded-full hover:bg-blue-700 transition-colors duration-200"
-            >
-              <Facebook class="w-5 h-5 text-white" />
-            </a>
-            <a
-              href="#"
-              class="w-10 h-10 bg-green-500 flex items-center justify-center rounded-full hover:bg-green-600 transition-colors duration-200"
-            >
-              <MessageSquare class="w-5 h-5 text-white" />
-            </a>
-            <a
-              href="mailto:hieutkhd03@gmail.com"
-              class="w-10 h-10 bg-red-500 flex items-center justify-center rounded-full hover:bg-red-600 transition-colors duration-200"
-            >
-              <Mail class="w-5 h-5 text-white" />
-            </a>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Thông tin bản quyền -->
-      <div class="border-gray-700 mt-8 text-center text-base text-gray-400">
-        Copyright © 2025. Toàn bộ bản quyền thuộc Nguyễn Khắc Dương.
+      <!-- Copyright -->
+      <div class="border-t border-gray-200 py-6">
+        <div class="text-center">
+          <p class="text-gray-500 text-sm">
+            © 2025 Nguyễn Khắc Dương. Tất cả quyền được bảo lưu.
+          </p>
+        </div>
       </div>
     </div>
   </footer>
@@ -183,5 +112,5 @@
 
 <script setup>
 // Import các biểu tượng từ thư viện lucide-vue-next
-import { Facebook, MessageSquare, Mail, Phone, MapPin } from "lucide-vue-next";
+import { Facebook, Mail, Phone, MapPin } from "lucide-vue-next";
 </script>

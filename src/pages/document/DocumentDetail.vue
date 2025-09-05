@@ -21,12 +21,15 @@
     <!-- Main container - change to flex column -->
     <div class="flex flex-col min-h-screen">
       <!-- Content columns wrapper -->
-      <div class="flex flex-col lg:flex-row  flex-1">
+      <div class="flex flex-col lg:flex-row flex-1">
         <!-- Left column (Image) -->
-        <div class="w-full lg:w-96 mx-auto mr-20 p-4 bg-sky-50"> <!-- Changed from lg:w-120 to lg:w-96 -->
+        <div class="w-full lg:w-96 mx-auto mr-20 p-4 bg-sky-50">
+          <!-- Changed from lg:w-120 to lg:w-96 -->
           <!-- Image Section -->
           <div class="rounded-xl border border-gray-200 my-6">
-            <div class="relative w-full aspect-[3/4] rounded-xl overflow-hidden">
+            <div
+              class="relative w-full aspect-[3/4] rounded-xl overflow-hidden"
+            >
               <img
                 :src="mainImage"
                 alt="Document Image"
@@ -38,7 +41,7 @@
 
           <!-- Các nút thao tác dành cho chủ bài đăng -->
           <div class="py-4 sm:py-8">
-            <div v-if="isOwner" class="p-4 rounded-xl ">
+            <div v-if="isOwner" class="p-4 rounded-xl">
               <div class="text-center">
                 <span class="font-semibold text-base sm:text-lg">Thao tác</span>
               </div>
@@ -88,15 +91,12 @@
         <!-- Right column (Details) -->
         <div class="flex-1 p-4 bg-sky-50 order-1 lg:order-2">
           <!-- Chi tiết bài đăng -->
-          <div v-if="post" class="  rounded-xl p-4 text-left ">
+          <div v-if="post" class="rounded-xl p-4 text-left">
             <div>
               <div>
-              
-                
-                  <span class="text-xl sm:text-3xl font-bold ">{{
-                    post.title
-                  }}</span>
-                
+                <span class="text-xl sm:text-3xl font-bold">{{
+                  post.title
+                }}</span>
 
                 <!-- Địa chỉ và thông tin khu vực -->
                 <div
@@ -107,7 +107,7 @@
 
                     <span class="text-sm sm:text-base">
                       Loại tài liệu:<span class="ml-2 font-medium text-sky-600">
-                        {{ post.accomodationDTO.secondMotel }}</span
+                        {{ post.criteriaDTO.secondMotel }}</span
                       >
                     </span>
                   </div>
@@ -122,8 +122,10 @@
                         class="w-5 h-5 mr-1 mt-0.5 flex-shrink-0"
                       />
                       <span class="text-sm sm:text-base">
-                        Chuyên ngành:<span class="ml-2 font-medium text-sky-600">
-                          {{ post.accomodationDTO.major }}</span
+                        Chuyên ngành:<span
+                          class="ml-2 font-medium text-sky-600"
+                        >
+                          {{ post.criteriaDTO.major }}</span
                         >
                       </span>
                     </div>
@@ -145,7 +147,9 @@
                 <!-- User Info - New Position -->
                 <div class="flex items-start gap-4 mb-4">
                   <!-- Avatar -->
-                  <div class="w-12 h-12 rounded-full overflow-hidden bg-sky-50 flex-shrink-0">
+                  <div
+                    class="w-12 h-12 rounded-full overflow-hidden bg-sky-50 flex-shrink-0"
+                  >
                     <img
                       v-if="finalAvatar"
                       :src="finalAvatar"
@@ -213,7 +217,7 @@
 
           <!-- PHẦN TÀI LIỆU -->
           <div v-if="documents && documents.length > 0" class="pt-4">
-            <div class=" rounded-xl p-4 text-left ">
+            <div class="rounded-xl p-4 text-left">
               <div class="pb-4">
                 <span class="text-xl font-bold">Tài liệu đính kèm</span>
               </div>
@@ -222,7 +226,7 @@
                 <div
                   v-for="doc in documents"
                   :key="doc.id"
-                  class="flex items-center p-4  bg-white rounded-lg border border-gray-200 hover:border-green-300 hover:shadow-md transition-all cursor-pointer group"
+                  class="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:border-green-300 hover:shadow-md transition-all cursor-pointer group"
                   @click="handleDocumentClick(doc)"
                 >
                   <!-- File Icon -->
@@ -277,7 +281,8 @@
                     <!-- Zip Icon -->
                     <img
                       v-else-if="
-                        doc.fileType && doc.fileType.includes('x-zip-compressed')
+                        doc.fileType &&
+                        doc.fileType.includes('x-zip-compressed')
                       "
                       src="@/assets/fileLogo/zip.png"
                       alt="Zip"
@@ -297,7 +302,9 @@
 
                   <!-- File Info -->
                   <div class="flex-1 min-w-0">
-                    <p class="text-sm font-semibold text-gray-900 truncate mb-1">
+                    <p
+                      class="text-sm font-semibold text-gray-900 truncate mb-1"
+                    >
                       {{ doc.fileName }}
                     </p>
                     <span
@@ -323,10 +330,7 @@
 
       <!-- Comments section - moved outside the columns -->
       <div class="w-full bg-sky-50 px-4 pb-4">
-        
-        
-          <Comment v-if="post && post.id" :postId="post.id" />
-        
+        <Comment v-if="post && post.id" :postId="post.id" />
       </div>
     </div>
   </DefaultLayout>
@@ -380,8 +384,8 @@ function formatDate(dateStr) {
 
 // Tạo URL Google Maps
 const mapUrl = computed(() => {
-  if (!post.value?.accomodationDTO?.address) return "";
-  const encodedAddress = encodeURIComponent(post.value.accomodationDTO.address);
+  if (!post.value?.criteriaDTO?.address) return "";
+  const encodedAddress = encodeURIComponent(post.value.criteriaDTO.address);
   return `https://maps.google.com/maps?q=${encodedAddress}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
 });
 
@@ -410,7 +414,7 @@ const finalAvatar = computed(() => {
 });
 
 // Quản lý thư viện ảnh
-const mainImage = ref(''); // Will store the primary image URL
+const mainImage = ref(""); // Will store the primary image URL
 
 // Lấy thông tin chi tiết bài đăng
 async function fetchPost() {
@@ -429,18 +433,21 @@ async function fetchPost() {
 async function loadMainImage(postId) {
   try {
     const urls = await getImageByPost(postId);
-    mainImage.value = Array.isArray(urls) && urls.length > 0 
-      ? urls[0] 
-      : 'https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image';
+    mainImage.value =
+      Array.isArray(urls) && urls.length > 0
+        ? urls[0]
+        : "https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image";
   } catch (err) {
-    console.error('Error loading image:', err);
-    mainImage.value = 'https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image';
+    console.error("Error loading image:", err);
+    mainImage.value =
+      "https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image";
   }
 }
 
 // Add error handler for image
 function handleImageError(e) {
-  e.target.src = 'https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image';
+  e.target.src =
+    "https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image";
 }
 
 // Hàm tải tài liệu đã được cập nhật để sử dụng API downloadDoc

@@ -1,547 +1,553 @@
 <template>
   <ProfileLayout>
-    <div class="create-post max-w-3xl mx-auto space-y-4">
-      <div class="block items-center pb-4 justify-center flex">
-        <span class="font-bold text-3xl text-black">Đăng tải tài liệu</span>
-      </div>
-      <div class="block bg-white p-4 pb-6 rounded-xl">
-        <div class="py-2">
-          <span class="font-bold text-base">Phân loại</span>
-        </div>
-
-        <!-- Selection phụ cho QUAN_AN -->
-        <div v-if="formData.accomodation.motel === 'TAI_LIEU'" >
-          <label>Loại tài liệu <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.secondMotel"
-              placeholder="Chọn loại tài liệu"
-              class="w-full"
+    <div class="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 p-6">
+      <div class="max-w-5xl mx-auto">
+        <!-- Header Section -->
+        <div
+          class="text-center mb-8"
+          data-aos="fade-down"
+          data-aos-duration="600"
+        >
+          <div
+            class="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center"
+          >
+            <svg
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <a-select-option value="Giáo trình">Giáo trình</a-select-option>
-              <a-select-option value="Sách tham khảo"
-                >Sách tham khảo</a-select-option
-              >
-              <a-select-option value="Khóa luận tốt nghiệp"
-                >Khóa luận tốt nghiệp</a-select-option
-              >
-              <a-select-option value="Báo cáo thực tập"
-                >Báo cáo thực tập</a-select-option
-              >
-              <a-select-option value="Nghiên cứu khoa học"
-                >Nghiên cứu khoa học</a-select-option
-              >
-              <a-select-option value="Bài báo khoa học"
-                >Bài báo khoa học</a-select-option
-              >
-              <a-select-option value="Tài liệu khác"
-                >Tài liệu khác</a-select-option
-              >
-            </a-select>
-          </div>
-        </div>
-        <!-- Selection phụ cho QUAN_AN -->
-        <div v-if="formData.accomodation.motel === 'TAI_LIEU'" class="mt-3">
-          <label>Chuyên ngành <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.major"
-              placeholder="Chọn chuyên ngành"
-              class="w-full"
-            >
-              <a-select-option value="Thú y">Thú y</a-select-option>
-              <a-select-option value="Chăn nuôi - Thủy sản"
-                >Chăn nuôi - Thủy sản</a-select-option
-              >
-              <a-select-option value="Cơ điện">Cơ điện</a-select-option>
-              <a-select-option value="Công nghệ thông tin"
-                >Công nghệ thông tin</a-select-option
-              >
-              <a-select-option value="Kinh tế">Kinh tế</a-select-option>
-              <a-select-option value="Công nghệ sinh học"
-                >Công nghệ sinh học</a-select-option
-              >
-              <a-select-option value="Công nghệ thực phẩm"
-                >Công nghệ thực phẩm</a-select-option
-              >
-              <a-select-option value="Nông học">Nông học</a-select-option>
-              <a-select-option value="Khoa học môi trường"
-                >Khoa học môi trường</a-select-option
-              >
-              <a-select-option value="Xã hội học">Xã hội học</a-select-option>
-              <a-select-option value="Ngôn ngữ">Ngôn ngữ</a-select-option>
-              <a-select-option value="Du lịch">Du lịch</a-select-option>
-              <a-select-option value="Sư phạm">Sư phạm</a-select-option>
-              <a-select-option value="Quản lý đất đai"
-                >Quản lý đất đai</a-select-option
-              >
-              <a-select-option value="Sư phạm">Sư phạm</a-select-option>
-            </a-select>
-          </div>
-        </div>
-      </div>
-
-      <div class="block bg-white p-4 rounded-xl">
-        <div class="py-2">
-          <span class="font-bold text-base">Thông tin mô tả</span>
-        </div>
-        <div class="py-2">
-          <label>Tiêu đề <span class="text-red-500">*</span></label>
-          <div class="flex border border-gray-300 rounded-lg mt-1">
-            <input
-              v-model="formData.title"
-              type="text"
-              placeholder="Nhập tiêu đề"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-          </div>
-        </div>
-
-        <div class="py-2">
-          <span class="block"
-            >Nội dung mô tả <span class="text-red-500">*</span></span
-          >
-          <div class="flex border border-gray-300 rounded-lg mt-1">
-            <textarea
-              v-model="formData.content"
-              placeholder="Nhập nội dung mô tả"
-              rows="4"
-              class="w-full p-2 mt-1 border-none outline-none rounded-lg"
-            />
-          </div>
-        </div>
-
-        <div
-          v-if="
-            formData.accomodation.motel === 'PHONG_TRO' ||
-            formData.accomodation.motel === 'O_GHEP'
-          "
-          class="py-2"
-        >
-          <label>Giá cho thuê <span class="text-red-500">*</span></label>
-          <div class="flex border border-gray-300 rounded-lg mt-1 w-120">
-            <input
-              v-model.number="formData.accomodation.price"
-              type="number"
-              placeholder="VD: 1000000 (cho 1 triệu)"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-            <span class="p-2 border-l border-gray-300">đồng/tháng</span>
-          </div>
-          <small class="text-gray-500"
-            >Nhập đầy đủ số, ví dụ 1 triệu thì nhập là 1000000</small
-          >
-        </div>
-
-        <div
-          v-if="
-            formData.accomodation.motel === 'PHONG_TRO' ||
-            formData.accomodation.motel === 'O_GHEP'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700"
-            >Diện tích <span class="text-red-500">*</span></label
-          >
-          <div
-            class="flex items-center border border-gray-300 rounded-lg mt-1 w-120"
-          >
-            <input
-              v-model.number="formData.accomodation.acreage"
-              type="number"
-              placeholder="Nhập diện tích"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-            <span class="p-2 border-l border-gray-300">m²</span>
-          </div>
-        </div>
-
-        <div
-          v-if="
-            formData.accomodation.motel === 'PHONG_TRO' ||
-            formData.accomodation.motel === 'O_GHEP'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700"
-            >Giá điện <span class="text-red-500">*</span></label
-          >
-          <div
-            class="flex items-center border border-gray-300 rounded-lg mt-1 w-120"
-          >
-            <input
-              v-model.number="formData.accomodation.electricPrice"
-              type="number"
-              placeholder="VD: 3500"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-            <span class="p-2 border-l border-gray-300">đồng/kWh</span>
-          </div>
-        </div>
-
-        <div
-          v-if="
-            formData.accomodation.motel === 'PHONG_TRO' ||
-            formData.accomodation.motel === 'O_GHEP'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700"
-            >Giá nước <span class="text-red-500">*</span></label
-          >
-          <div
-            class="flex items-center border border-gray-300 rounded-lg mt-1 w-120"
-          >
-            <input
-              v-model.number="formData.accomodation.waterPrice"
-              type="number"
-              placeholder="VD: 30000"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-            <span class="p-2 border-l border-gray-300">đồng/m³</span>
-          </div>
-        </div>
-
-        <div
-          v-if="
-            formData.accomodation.motel === 'QUAN_AN' ||
-            formData.accomodation.motel === 'QUAN_NUOC' ||
-            formData.accomodation.motel === 'CUA_HANG' ||
-            formData.accomodation.motel === 'TIEN_ICH'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700"
-            >Giờ mở cửa <span class="text-red-500">*</span></label
-          >
-          <div
-            class="flex items-center border border-gray-300 rounded-lg mt-1 w-36"
-          >
-            <a-time-range-picker
-              v-model.number="formData.accomodation.openHours"
-              type="number"
-              format="HH:mm"
-              placeholder="Nhập giờ mở cửa"
-              class="w-full border-none outline-none rounded-lg"
-              @change="handleTimeChange"
-            />
-          </div>
-        </div>
-
-        <div
-          v-if="
-            formData.accomodation.motel === 'QUAN_AN' ||
-            formData.accomodation.motel === 'QUAN_NUOC'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700"
-            >Link ShopeeFood <span class="text-red-500">*</span></label
-          >
-          <div class="flex items-center border border-gray-300 rounded-lg mt-1">
-            <input
-              v-model.number="formData.accomodation.linkShopeeFood"
-              type="text"
-              placeholder="Nhập link ShopeeFood (nếu có)"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div
-        v-if="
-          formData.accomodation.motel === 'PHONG_TRO' ||
-          formData.accomodation.motel === 'O_GHEP' ||
-          formData.accomodation.motel === 'QUAN_AN' ||
-          formData.accomodation.motel === 'QUAN_NUOC' ||
-          formData.accomodation.motel === 'CUA_HANG' ||
-          formData.accomodation.motel === 'TIEN_ICH'
-        "
-        class="block bg-white p-4 rounded-xl"
-      >
-        <div class="py-2">
-          <span class="font-bold text-base">Khu vực</span>
-        </div>
-        <div class="py-2">
-          <label>Khu vực <span class="text-red-500">*</span></label>
-
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.idDistrict"
-              placeholder="Chọn khu vực"
-              class="w-full"
-            >
-              <a-select-option
-                v-for="district in districtList"
-                :key="district.id"
-                :value="district.id"
-              >
-                {{ district.name }}
-              </a-select-option>
-            </a-select>
-          </div>
-        </div>
-
-        <div class="py-2">
-          <label class="block text-gray-700"
-            >Địa chỉ <span class="text-red-500">*</span></label
-          >
-          <div class="flex items-center rounded-lg mt-1 w-120">
-            <input
-              v-model="formData.accomodation.address"
-              type="text"
-              placeholder="VD: Số 12, Ngõ 34..."
-              class="w-full p-2 mt-1 border border-gray-300 rounded-lg"
-            />
-          </div>
-        </div>
-
-        <div class="map-wrapper py-2">
-          <label class="block text-gray-700">Bản đồ</label>
-          <div class="flex items-center border border-gray-300 rounded-lg mt-1">
-            <iframe
-              width="100%"
-              height="300"
-              class="border-0"
-              :src="`https://www.google.com/maps?q=${encodeURIComponent(
-                displayMapAddress
-              )}&output=embed`"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
-          </div>
-        </div>
-      </div>
-
-      <div
-        v-if="
-          formData.accomodation.motel === 'PHONG_TRO' ||
-          formData.accomodation.motel === 'O_GHEP'
-        "
-        class="block bg-white p-4 rounded-xl"
-      >
-        <div class="py-2">
-          <span class="font-bold text-base">Đặc điểm nổi bật</span>
-        </div>
-        <div class="grid grid-cols-2 gap-y-3">
-          <div
-            v-for="(feature, idx) in featureOptionsMotel"
-            :key="idx"
-            class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
-            :class="{ 'text-sky-500': formData.accomodation[feature.value] }"
-            @click="toggleFeature(feature.value)"
-          >
-            <div class="relative">
-              <input
-                type="checkbox"
-                class="hidden"
-                :checked="formData.accomodation[feature.value]"
-                readonly
-              />
-              <div
-                class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center"
-                :class="{
-                  'bg-sky-500 border-sky-500':
-                    formData.accomodation[feature.value],
-                }"
-              >
-                <CheckIcon
-                  v-if="formData.accomodation[feature.value]"
-                  class="w-3 h-3 text-white"
-                />
-              </div>
-            </div>
-            <span class="ml-2 text-sm">{{ feature.label }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div
-        v-if="
-          formData.accomodation.motel === 'QUAN_AN' ||
-          formData.accomodation.motel === 'QUAN_NUOC'
-        "
-        class="block bg-white p-4 rounded-xl"
-      >
-        <div class="py-2">
-          <span class="font-bold text-base">Đặc điểm nổi bật</span>
-        </div>
-        <div class="grid grid-cols-2 gap-y-3">
-          <div
-            v-for="(feature, idx) in featureOptionsStore"
-            :key="idx"
-            class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
-            :class="{ 'text-sky-500': formData.accomodation[feature.value] }"
-            @click="toggleFeature(feature.value)"
-          >
-            <div class="relative">
-              <input
-                type="checkbox"
-                class="hidden"
-                :checked="formData.accomodation[feature.value]"
-                readonly
-              />
-              <div
-                class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center"
-                :class="{
-                  'bg-sky-500 border-sky-500':
-                    formData.accomodation[feature.value],
-                }"
-              >
-                <CheckIcon
-                  v-if="formData.accomodation[feature.value]"
-                  class="w-3 h-3 text-white"
-                />
-              </div>
-            </div>
-            <span class="ml-2 text-sm">{{ feature.label }}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hình ảnh -->
-      <div class="block bg-white p-4 rounded-xl">
-        <div class="py-2 pb-6">
-          <span class="font-bold text-base">Hình ảnh</span>
-        </div>
-
-        <!-- Single Image Upload Box -->
-        <div class="mb-4">
-          <div v-if="!file" class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition">
-            <FolderUp class="w-10 h-10 text-sky-500" />
-            <span class="mt-2 text-gray-500 text-sm text-center">
-              Tải ảnh từ thiết bị
-            </span>
-            <input
-              type="file"
-              accept="image/*"
-              @change="handleFileChange"
-              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            />
-          </div>
-          <div v-else class="relative h-40 rounded-lg overflow-hidden">
-            <img
-              :src="file.preview"
-              alt="preview"
-              class="w-full h-full object-cover"
-            />
-            <button
-              @click="removeImage"
-              class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex items-center space-x-1 px-2 py-1 bg-white bg-opacity-70 rounded-md text-red-500 hover:text-red-600"
-            >
-              <Trash2 class="w-4 h-4" />
-              <span class="text-xs">Xóa</span>
-            </button>
-          </div>
-        </div>
-
-        <small class="text-gray-500">
-          Dung lượng ảnh tối đa 10MB
-        </small>
-      </div>
-
-      <!-- PHẦN TÀI LIỆU -->
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <div class="py-2 pb-6">
-          <span class="font-bold text-base">Tài liệu đính kèm</span>
-        </div>
-
-        <div class="mb-4">
-          <label
-            class="flex items-center justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none"
-            @dragover="handleDragOver"
-            @drop="handleDrop"
-          >
-            <span class="flex items-center space-x-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-6 h-6 text-gray-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                />
-              </svg>
-              <span class="font-medium text-gray-600">
-                Chọn tài liệu để tải lên hoặc kéo thả vào đây
-              </span>
-            </span>
-            <input
-              type="file"
-              name="documents"
-              class="hidden"
-              multiple
-              accept=".pdf,.docx,.ppt,.pptx"
-              @change="handleDocumentChange"
-            />
-          </label>
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              ></path>
+            </svg>
+          </div>
+          <h1 class="text-4xl font-bold text-gray-800 mb-2">
+            Đăng tải tài liệu
+          </h1>
+          <p class="text-gray-600 text-lg">
+            Chia sẻ tài liệu học tập với cộng đồng VNUA
+          </p>
         </div>
 
-        <!-- Hiển thị tài liệu đã chọn -->
-        <div v-if="selectedDocuments.length > 0" class="grid grid-cols-1 gap-2">
-          <div
-            v-for="(doc, index) in selectedDocuments"
-            :key="index"
-            class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
-          >
-            <div class="flex items-center space-x-3">
-              <div
-                class="w-8 h-8 bg-blue-100 rounded flex items-center justify-center"
-              >
-                <svg
-                  class="w-4 h-4 text-blue-600"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Main Content - Left Side -->
+          <div class="lg:col-span-2 space-y-6">
+            <!-- Document Category Card -->
+            <div
+              class="bg-white rounded-3xl shadow-xl p-8"
+              data-aos="fade-up"
+              data-aos-duration="800"
+            >
+              <div class="flex items-center mb-6">
+                <div
+                  class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4"
                 >
-                  <path d="M4 18h12V6l-4-4H4v16z" />
-                </svg>
+                  <svg
+                    class="w-6 h-6 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                    ></path>
+                  </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">
+                  Phân loại tài liệu
+                </h2>
               </div>
-              <div>
-                <span class="text-sm font-medium text-gray-900">{{
-                  doc.name
-                }}</span>
-                <span class="text-xs text-gray-500 block">
-                  {{ formatFileSize(doc.size) }}
-                </span>
+
+              <div
+                v-if="formData.criteria.motel === 'TAI_LIEU'"
+                class="space-y-6"
+              >
+                <div>
+                  <label
+                    class="flex items-center text-sm font-semibold text-gray-700 mb-3"
+                  >
+                    <svg
+                      class="w-4 h-4 mr-2 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      ></path>
+                    </svg>
+                    Loại tài liệu <span class="text-red-500">*</span>
+                  </label>
+                  <a-select
+                    v-model:value="formData.criteria.secondMotel"
+                    placeholder="Chọn loại tài liệu"
+                    class="w-full"
+                    size="large"
+                  >
+                    <a-select-option value="Giáo trình"
+                      >📚 Giáo trình</a-select-option
+                    >
+                    <a-select-option value="Sách tham khảo"
+                      >📖 Sách tham khảo</a-select-option
+                    >
+                    <a-select-option value="Khóa luận tốt nghiệp"
+                      >🎓 Khóa luận tốt nghiệp</a-select-option
+                    >
+                    <a-select-option value="Báo cáo thực tập"
+                      >📝 Báo cáo thực tập</a-select-option
+                    >
+                    <a-select-option value="Nghiên cứu khoa học"
+                      >🔬 Nghiên cứu khoa học</a-select-option
+                    >
+                    <a-select-option value="Bài báo khoa học"
+                      >📄 Bài báo khoa học</a-select-option
+                    >
+                    <a-select-option value="Tài liệu khác"
+                      >📋 Tài liệu khác</a-select-option
+                    >
+                  </a-select>
+                </div>
+
+                <div>
+                  <label
+                    class="flex items-center text-sm font-semibold text-gray-700 mb-3"
+                  >
+                    <svg
+                      class="w-4 h-4 mr-2 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                      ></path>
+                    </svg>
+                    Chuyên ngành <span class="text-red-500">*</span>
+                  </label>
+                  <a-select
+                    v-model:value="formData.criteria.major"
+                    placeholder="Chọn chuyên ngành"
+                    class="w-full"
+                    size="large"
+                  >
+                    <a-select-option value="Thú y">🐾 Thú y</a-select-option>
+                    <a-select-option value="Chăn nuôi - Thủy sản"
+                      >🐄 Chăn nuôi - Thủy sản</a-select-option
+                    >
+                    <a-select-option value="Cơ điện"
+                      >⚙️ Cơ điện</a-select-option
+                    >
+                    <a-select-option value="Công nghệ thông tin"
+                      >💻 Công nghệ thông tin</a-select-option
+                    >
+                    <a-select-option value="Kinh tế"
+                      >💰 Kinh tế</a-select-option
+                    >
+                    <a-select-option value="Công nghệ sinh học"
+                      >🧬 Công nghệ sinh học</a-select-option
+                    >
+                    <a-select-option value="Công nghệ thực phẩm"
+                      >🍎 Công nghệ thực phẩm</a-select-option
+                    >
+                    <a-select-option value="Nông học"
+                      >🌱 Nông học</a-select-option
+                    >
+                    <a-select-option value="Khoa học môi trường"
+                      >🌍 Khoa học môi trường</a-select-option
+                    >
+                    <a-select-option value="Xã hội học"
+                      >👥 Xã hội học</a-select-option
+                    >
+                    <a-select-option value="Ngôn ngữ"
+                      >🌐 Ngôn ngữ</a-select-option
+                    >
+                    <a-select-option value="Du lịch"
+                      >✈️ Du lịch</a-select-option
+                    >
+                    <a-select-option value="Sư phạm"
+                      >👨‍🏫 Sư phạm</a-select-option
+                    >
+                    <a-select-option value="Quản lý đất đai"
+                      >🗺️ Quản lý đất đai</a-select-option
+                    >
+                  </a-select>
+                </div>
               </div>
             </div>
-            <button
-              @click="removeDocument(index)"
-              class="text-red-500 hover:text-red-700"
+
+            <!-- Document Information Card -->
+            <div
+              class="bg-white rounded-3xl shadow-xl p-8"
+              data-aos="fade-up"
+              data-aos-duration="900"
             >
-              <Trash2 class="w-4 h-4" />
-            </button>
+              <div class="flex items-center mb-6">
+                <div
+                  class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4"
+                >
+                  <svg
+                    class="w-6 h-6 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                    ></path>
+                  </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">
+                  Thông tin mô tả
+                </h2>
+              </div>
+
+              <div class="space-y-6">
+                <div>
+                  <label
+                    class="flex items-center text-sm font-semibold text-gray-700 mb-3"
+                  >
+                    <svg
+                      class="w-4 h-4 mr-2 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                      ></path>
+                    </svg>
+                    Tiêu đề <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    v-model="formData.title"
+                    type="text"
+                    placeholder="Nhập tiêu đề tài liệu..."
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-all duration-300 text-gray-700"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    class="flex items-center text-sm font-semibold text-gray-700 mb-3"
+                  >
+                    <svg
+                      class="w-4 h-4 mr-2 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h7"
+                      ></path>
+                    </svg>
+                    Nội dung mô tả <span class="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    v-model="formData.content"
+                    placeholder="Mô tả chi tiết về tài liệu, nội dung, tác giả, năm xuất bản..."
+                    rows="5"
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-all duration-300 text-gray-700 resize-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Document Upload Card -->
+            <div
+              class="bg-white rounded-3xl shadow-xl p-8"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+            >
+              <div class="flex items-center mb-6">
+                <div
+                  class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-4"
+                >
+                  <svg
+                    class="w-6 h-6 text-purple-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">
+                  Tài liệu đính kèm
+                </h2>
+              </div>
+
+              <div class="mb-6">
+                <label
+                  class="group flex flex-col items-center justify-center w-full h-40 px-4 transition-all bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-dashed border-blue-300 rounded-2xl cursor-pointer hover:from-blue-100 hover:to-purple-100 hover:border-blue-400 focus:outline-none"
+                  @dragover="handleDragOver"
+                  @drop="handleDrop"
+                >
+                  <div class="flex flex-col items-center space-y-3">
+                    <div
+                      class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors"
+                    >
+                      <svg
+                        class="w-6 h-6 text-blue-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div class="text-center">
+                      <span class="font-semibold text-gray-700 text-lg"
+                        >Tải lên tài liệu</span
+                      >
+                      <p class="text-sm text-gray-500 mt-1">
+                        Kéo thả hoặc click để chọn file
+                      </p>
+                    </div>
+                  </div>
+                  <input
+                    type="file"
+                    name="documents"
+                    class="hidden"
+                    multiple
+                    accept=".pdf,.docx,.ppt,.pptx,.xlsx,.zip"
+                    @change="handleDocumentChange"
+                  />
+                </label>
+              </div>
+
+              <!-- Document List -->
+              <div v-if="selectedDocuments.length > 0" class="space-y-3 mb-6">
+                <div
+                  v-for="(doc, index) in selectedDocuments"
+                  :key="index"
+                  class="group flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-300"
+                >
+                  <div class="flex items-center space-x-4">
+                    <div
+                      class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-6 h-6 text-blue-600"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M4 18h12V6l-4-4H4v16z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <span class="font-semibold text-gray-800 text-sm">{{
+                        doc.name
+                      }}</span>
+                      <p class="text-xs text-gray-500">
+                        {{ formatFileSize(doc.size) }}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    @click="removeDocument(index)"
+                    class="opacity-0 group-hover:opacity-100 p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-all duration-300"
+                  >
+                    <Trash2 class="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <p class="text-sm text-gray-500">
+                  <span class="font-semibold">Hỗ trợ:</span> PDF, Word (.docx),
+                  PowerPoint (.ppt, .pptx), Excel (.xlsx), ZIP
+                </p>
+                <p class="text-xs text-gray-400 mt-1">Tối đa 50MB mỗi file</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Sidebar -->
+          <div class="lg:col-span-1 space-y-6">
+            <!-- Image Upload Card -->
+            <div
+              class="bg-white rounded-3xl shadow-xl p-6"
+              data-aos="fade-left"
+              data-aos-duration="800"
+            >
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center mr-3"
+                >
+                  <svg
+                    class="w-4 h-4 text-yellow-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Hình ảnh</h3>
+              </div>
+
+              <div
+                v-if="!file"
+                class="relative border-2 border-dashed border-blue-300 rounded-2xl h-48 flex flex-col justify-center items-center cursor-pointer hover:bg-blue-50 transition-all duration-300 bg-gradient-to-br from-blue-25 to-purple-25"
+              >
+                <div
+                  class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3"
+                >
+                  <FolderUp class="w-6 h-6 text-blue-600" />
+                </div>
+                <span class="text-gray-600 text-sm font-medium"
+                  >Tải ảnh từ thiết bị</span
+                >
+                <p class="text-xs text-gray-400 mt-1">Tối đa 10MB</p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  @change="handleFileChange"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+              </div>
+
+              <div
+                v-else
+                class="relative h-48 rounded-2xl overflow-hidden group"
+              >
+                <img
+                  :src="file.preview"
+                  alt="preview"
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center"
+                >
+                  <button
+                    @click="removeImage"
+                    class="opacity-0 group-hover:opacity-100 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2"
+                  >
+                    <Trash2 class="w-4 h-4" />
+                    <span>Xóa ảnh</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upload Guidelines -->
+            <div
+              class="bg-gradient-to-br from-green-50 to-blue-50 rounded-3xl p-6 border border-green-200"
+              data-aos="fade-left"
+              data-aos-duration="900"
+            >
+              <div class="flex items-center mb-4">
+                <div
+                  class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3"
+                >
+                  <svg
+                    class="w-4 h-4 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">Hướng dẫn</h3>
+              </div>
+
+              <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>Chọn đúng loại và chuyên ngành tài liệu</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>Tiêu đề ngắn gọn, súc tích</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>Mô tả chi tiết nội dung tài liệu</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>Đính kèm file tài liệu gốc</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Submit Button -->
+            <div
+              class="sticky top-6"
+              data-aos="fade-left"
+              data-aos-duration="1000"
+            >
+              <button
+                @click="handleCreatePost"
+                :disabled="loading"
+                class="w-full bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center space-x-3 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                <div
+                  v-if="loading"
+                  class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"
+                ></div>
+                <svg
+                  v-else
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                  ></path>
+                </svg>
+                <span>{{ loading ? "Đang tạo..." : "Đăng tài liệu" }}</span>
+              </button>
+            </div>
           </div>
         </div>
-
-        <small class="text-gray-500">
-          Hỗ trợ: PDF, Word (.docx), PowerPoint (.ppt, .pptx). Tối đa 50MB mỗi
-          file.
-        </small>
-
-      </div>
-
-      <div class="text-white font-semibold mt-4">
-        <button
-          class="submit-btn bg-sky-500 px-4 py-2 rounded hover:bg-sky-600 w-full flex items-center justify-center"
-          :disabled="loading"
-          @click="handleCreatePost"
-        >
-          <div
-            v-if="loading"
-            class="loader mr-2 animate-spin rounded-full h-5 w-5 border-b-2 border-white"
-          ></div>
-          <span>
-            <span v-if="!loading">Đăng tin</span>
-            <span v-if="loading">Đang tạo...</span>
-          </span>
-        </button>
       </div>
     </div>
   </ProfileLayout>
@@ -562,7 +568,6 @@ import { Check as CheckIcon, FolderUp, Trash2 } from "lucide-vue-next";
 import ProfileLayout from "@/layouts/ProfileLayout.vue";
 import { uploadDocument } from "@/apis/documentService.js";
 
-// Import các component của Ant Design Vue trực tiếp trong setup
 const ASelect = Select;
 const ASelectOptionComponent = ASelectOption;
 const ASpin = Spin;
@@ -620,7 +625,7 @@ function formatFileSize(bytes) {
 const formData = reactive({
   title: "",
   content: "",
-  accomodation: {
+  criteria: {
     motel: "TAI_LIEU",
     price: "",
     acreage: "",
@@ -695,7 +700,7 @@ const displayMapAddress = computed(() => {
 
 // Watchers
 watch(
-  () => formData.accomodation.address,
+  () => formData.criteria.address,
   (newAddress) => {
     if (addressTimer.value) clearTimeout(addressTimer.value);
     addressTimer.value = setTimeout(() => {
@@ -707,12 +712,12 @@ watch(
 // Computed property to check if all 4 images are required based on property type
 const isImagesRequired = computed(() => {
   return (
-    formData.accomodation.motel === "PHONG_TRO" ||
-    formData.accomodation.motel === "O_GHEP" ||
-    formData.accomodation.motel === "QUAN_AN" ||
-    formData.accomodation.motel === "QUAN_NUOC" ||
-    formData.accomodation.motel === "CUA_HANG" ||
-    formData.accomodation.motel === "TIEN_ICH"
+    formData.criteria.motel === "PHONG_TRO" ||
+    formData.criteria.motel === "O_GHEP" ||
+    formData.criteria.motel === "QUAN_AN" ||
+    formData.criteria.motel === "QUAN_NUOC" ||
+    formData.criteria.motel === "CUA_HANG" ||
+    formData.criteria.motel === "TIEN_ICH"
   );
 });
 
@@ -728,7 +733,7 @@ const handleFileChange = (e) => {
 
     file.value = {
       file: selectedFile,
-      preview: URL.createObjectURL(selectedFile)
+      preview: URL.createObjectURL(selectedFile),
     };
   }
   e.target.value = null;
@@ -755,15 +760,15 @@ const handleTimeChange = (time) => {
     const endTime = formatTime(time[1]);
 
     // Lưu trực tiếp dưới dạng chuỗi
-    formData.accomodation.openHours = `${startTime} - ${endTime}`;
+    formData.criteria.openHours = `${startTime} - ${endTime}`;
   }
 };
 
 const handleCreatePost = () => {
   // Validate tiêu đề chỉ khi là PHONG_TRO hoặc O_GHEP
   if (
-    formData.accomodation.motel === "PHONG_TRO" ||
-    formData.accomodation.motel === "O_GHEP"
+    formData.criteria.motel === "PHONG_TRO" ||
+    formData.criteria.motel === "O_GHEP"
   ) {
     // Validate tiêu đề:
     if (!formData.title.trim()) {
@@ -790,27 +795,27 @@ const handleCreatePost = () => {
       message.error("Nội dung mô tả phải từ 50 đến 500 ký tự");
       return;
     }
-    if (!formData.accomodation.price) {
+    if (!formData.criteria.price) {
       message.error("Giá cho thuê không được để trống");
       return;
     }
-    if (!formData.accomodation.acreage) {
+    if (!formData.criteria.acreage) {
       message.error("Diện tích không được để trống");
       return;
     }
-    if (!formData.accomodation.electricPrice) {
+    if (!formData.criteria.electricPrice) {
       message.error("Giá điện không được để trống");
       return;
     }
-    if (!formData.accomodation.waterPrice) {
+    if (!formData.criteria.waterPrice) {
       message.error("Giá nước không được để trống");
       return;
     }
-    if (!formData.accomodation.idDistrict) {
+    if (!formData.criteria.idDistrict) {
       message.error("Khu vực không được để trống");
       return;
     }
-    if (!formData.accomodation.address.trim()) {
+    if (!formData.criteria.address.trim()) {
       message.error("Địa chỉ không được để trống");
       return;
     }
@@ -828,10 +833,10 @@ const handleCreatePost = () => {
   }
 
   if (
-    formData.accomodation.motel === "QUAN_AN" ||
-    formData.accomodation.motel === "QUAN_NUOC" ||
-    formData.accomodation.motel === "CUA_HANG" ||
-    formData.accomodation.motel === "TIEN_ICH"
+    formData.criteria.motel === "QUAN_AN" ||
+    formData.criteria.motel === "QUAN_NUOC" ||
+    formData.criteria.motel === "CUA_HANG" ||
+    formData.criteria.motel === "TIEN_ICH"
   ) {
     // Validate tiêu đề:
     if (!formData.title.trim()) {
@@ -858,16 +863,16 @@ const handleCreatePost = () => {
       message.error("Nội dung mô tả phải từ 50 đến 500 ký tự");
       return;
     }
-    if (!formData.accomodation.openHours) {
+    if (!formData.criteria.openHours) {
       message.error("Giờ mở cửa không được để trống");
       return;
     }
 
-    if (!formData.accomodation.idDistrict) {
+    if (!formData.criteria.idDistrict) {
       message.error("Khu vực không được để trống");
       return;
     }
-    if (!formData.accomodation.address.trim()) {
+    if (!formData.criteria.address.trim()) {
       message.error("Địa chỉ không được để trống");
       return;
     }
@@ -912,7 +917,9 @@ const handleCreatePost = () => {
       } catch (error) {
         const errorMessage = error.message;
         if (errorMessage.includes("Số dư không đủ")) {
-          message.error("Không thể đăng bài: Số dư không đủ 2000 đồng. Vui lòng nạp thêm tiền để có thể Đăng tin!");
+          message.error(
+            "Không thể đăng bài: Số dư không đủ 2000 đồng. Vui lòng nạp thêm tiền để có thể Đăng tin!"
+          );
         } else {
           message.error("Đã có lỗi xảy ra");
         }
@@ -927,14 +934,14 @@ const handleCreatePost = () => {
 };
 
 const toggleFeature = (featureValue) => {
-  formData.accomodation[featureValue] = !formData.accomodation[featureValue];
+  formData.criteria[featureValue] = !formData.criteria[featureValue];
 };
 
 const resetForm = () => {
   Object.assign(formData, {
     title: "",
     content: "",
-    accomodation: {
+    criteria: {
       motel: "TAI_LIEU",
       price: "",
       acreage: "",

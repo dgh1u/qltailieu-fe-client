@@ -1,75 +1,107 @@
 <template>
-  <div class="bg-white rounded-lg p-6 shadow mt-4">
-    <div class="pb-6">
-      <span class="text-xl font-bold">Bình luận</span>
+  <div class="comment-container">
+    <!-- Header -->
+    <div class="comment-header">
+      <div class="header-content">
+        <h3 class="title">Bình luận</h3>
+        <span class="badge">{{ pagination.total }}</span>
+      </div>
     </div>
-    <!-- Thêm bình luận mới -->
-    <div class="flex items-start space-x-4 mb-6">
-      <img
-        v-if="currentUser?.avatar || currentUser?.b64"
-        :src="currentUser.avatar || `data:image/png;base64,${currentUser.b64}`"
-        class="w-10 h-10 rounded-full object-cover bg-gray-200"
-      />
-      <div class="relative flex-1">
+
+    <!-- New Comment Form -->
+    <div class="new-comment-form">
+      <div class="avatar-wrapper">
+        <div class="avatar">
+          <img
+            v-if="currentUser?.avatar || currentUser?.b64"
+            :src="
+              currentUser.avatar || `data:image/png;base64,${currentUser.b64}`
+            "
+            alt="Your avatar"
+          />
+          <div v-else class="avatar-placeholder">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="input-wrapper">
         <textarea
           v-model="newComment"
-          rows="2"
-          class="w-full bg-gray-100 rounded-3xl px-6 py-4 pr-12 focus:ring-2 focus:ring-sky-300 resize-none"
+          rows="1"
+          class="comment-input"
           placeholder="Viết bình luận..."
         />
-
         <button
           @click="handleAddComment"
-          class="absolute right-4 bottom-4 focus:outline-none"
+          class="submit-btn"
+          :disabled="!newComment.trim()"
         >
-          <SendHorizontal class="w-5 h-5 text-blue-500 hover:text-blue-600" />
+          <SendHorizontal class="icon" />
         </button>
       </div>
     </div>
 
-    <!-- Danh sách bình luận -->
-    <div v-if="comments.length">
-      <div
-        v-for="comment in comments"
-        :key="comment.id"
-        class="flex space-x-4 py-3"
-      >
-        <img
-          v-if="comment.userDTO?.avatar || comment.userDTO?.b64"
-          :src="
-            comment.userDTO.avatar ||
-            `data:image/png;base64,${comment.userDTO.b64}`
-          "
-          class="w-10 h-10 rounded-full object-cover bg-gray-200"
-        />
-        <div class="flex-1">
-          <div class="flex justify-between items-start">
-            <div class="flex flex-col items-start space-y-2">
-              <div class="bg-blue-50 rounded-2xl px-3 py-2">
-                <span class="font-semibold text-gray-800">
-                  {{ comment.userDTO.fullName }}
-                </span>
-                <span class="block text-gray-700">{{ comment.content }}</span>
-              </div>
+    <!-- Comments List -->
+    <div class="comments-section">
+      <!-- Empty State -->
+      <div v-if="!comments.length" class="empty-state">
+        <div class="empty-icon">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+            />
+          </svg>
+        </div>
+        <p class="empty-text">Chưa có bình luận nào</p>
+      </div>
 
-              <div
-                class="flex items-center pl-2 space-x-4 text-xs text-gray-500"
-              >
-                <span>{{ formatDate(comment.lastUpdate) }}</span>
-                <button
-                  @click="handleLike(comment)"
-                  class="flex items-center space-x-1 hover:text-blue-600"
-                >
-                  <ThumbsUpIcon
-                    :class="[comment.liked ? 'text-blue-600' : 'text-gray-500']"
-                    class="w-4 h-4"
-                  />
-                  <span>{{ comment.rate }}</span>
-                </button>
+      <!-- Comments -->
+      <div v-else class="comments-list">
+        <div v-for="comment in comments" :key="comment.id" class="comment-item">
+          <!-- Comment Header -->
+          <div class="comment-meta">
+            <div class="user-info">
+              <div class="avatar small">
+                <img
+                  v-if="comment.userDTO?.avatar || comment.userDTO?.b64"
+                  :src="
+                    comment.userDTO.avatar ||
+                    `data:image/png;base64,${comment.userDTO.b64}`
+                  "
+                  alt="User avatar"
+                />
+                <div v-else class="avatar-placeholder">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="user-details">
+                <span class="username">{{ comment.userDTO.fullName }}</span>
+                <span class="timestamp">{{
+                  formatDate(comment.lastUpdate)
+                }}</span>
               </div>
             </div>
 
-            <!-- Menu dropdown cho chỉnh sửa/xóa bình luận của chính người dùng -->
+            <!-- Actions Menu -->
             <a-dropdown
               v-if="
                 currentUser &&
@@ -77,66 +109,81 @@
                 currentUser.id === comment.userDTO.id
               "
               trigger="click"
+              placement="bottomRight"
             >
               <template #overlay>
-                <a-menu>
+                <a-menu class="actions-menu">
                   <a-menu-item @click="startEditing(comment)">
-                    Chỉnh sửa
+                    <span>Chỉnh sửa</span>
                   </a-menu-item>
-                  <a-menu-item @click="confirmDelete(comment.id)">
-                    Xóa
+                  <a-menu-item
+                    @click="confirmDelete(comment.id)"
+                    class="delete-action"
+                  >
+                    <span>Xóa</span>
                   </a-menu-item>
                 </a-menu>
               </template>
-              <MoreHorizontalIcon
-                class="w-5 h-5 text-gray-400 hover:text-gray-600 cursor-pointer"
-              />
+              <button class="menu-trigger">
+                <MoreHorizontalIcon class="icon" />
+              </button>
             </a-dropdown>
           </div>
 
-          <!-- Form chỉnh sửa bình luận -->
-          <div
-            v-if="editingComment && editingComment.id === comment.id"
-            class="mt-3 relative"
-          >
-            <textarea
-              v-model="editingComment.content"
-              rows="2"
-              class="w-full bg-gray-100 rounded-3xl px-6 py-4 pr-12 focus:ring-2 focus:ring-sky-300 resize-none"
-            />
-            <button
-              @click="cancelEditing"
-              class="absolute right-10 bottom-4 focus:outline-none"
+          <!-- Comment Content -->
+          <div class="comment-content">
+            <!-- Edit Mode -->
+            <div
+              v-if="editingComment && editingComment.id === comment.id"
+              class="edit-mode"
             >
-              <CircleX class="w-5 h-5 text-red-500 hover:text-red-600" />
-            </button>
+              <div class="edit-wrapper">
+                <textarea
+                  v-model="editingComment.content"
+                  rows="2"
+                  class="edit-input"
+                />
+                <div class="edit-actions">
+                  <button @click="cancelEditing" class="cancel-btn">
+                    <CircleX class="icon" />
+                  </button>
+                  <button @click="submitEditing(comment.id)" class="save-btn">
+                    <SendHorizontal class="icon" />
+                  </button>
+                </div>
+              </div>
+            </div>
 
+            <!-- Display Mode -->
+            <div v-else class="content-text">
+              {{ comment.content }}
+            </div>
+          </div>
+
+          <!-- Comment Actions -->
+          <div class="comment-actions">
             <button
-              @click="submitEditing(comment.id)"
-              class="absolute right-4 bottom-4 focus:outline-none"
+              @click="handleLike(comment)"
+              class="like-button"
+              :class="{ active: comment.liked }"
             >
-              <SendHorizontal
-                class="w-5 h-5 text-blue-500 hover:text-blue-600"
-              />
+              <ThumbsUpIcon class="icon" />
+              <span class="count">{{ comment.rate || 0 }}</span>
             </button>
           </div>
         </div>
       </div>
-      <!-- Phân trang -->
-      <div class="pt-5 items-center justify-center flex">
+
+      <!-- Pagination -->
+      <div v-if="comments.length > 0" class="pagination-section">
         <a-pagination
-          size="small"
+          simple
           :current="pagination.current"
           :pageSize="pagination.pageSize"
           :total="pagination.total"
           @change="handlePageChange"
         />
       </div>
-    </div>
-
-    <!-- Hiển thị khi không có bình luận -->
-    <div v-else class="text-center py-6 text-gray-400">
-      Chưa có bình luận nào.
     </div>
   </div>
 </template>
@@ -366,3 +413,431 @@ watch(
   }
 );
 </script>
+
+<style scoped>
+/* Container */
+.comment-container {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+/* Header */
+.comment-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #fafafa;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.badge {
+  background: #e2e8f0;
+  color: #64748b;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* New Comment Form */
+.new-comment-form {
+  display: flex;
+  gap: 16px;
+  padding: 20px 24px;
+  background: #fafafa;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.avatar-wrapper {
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f1f5f9;
+  border: 2px solid #e2e8f0;
+}
+
+.avatar.small {
+  width: 32px;
+  height: 32px;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  background: #f8fafc;
+}
+
+.input-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.comment-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 50px 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comment-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.comment-input::placeholder {
+  color: #9ca3af;
+}
+
+.submit-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  background: #f8fafc;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Comments Section */
+.comments-section {
+  padding: 0;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: #94a3b8;
+}
+
+.empty-icon {
+  margin: 0 auto 16px;
+  opacity: 0.5;
+}
+
+.empty-text {
+  margin: 0;
+  font-size: 15px;
+  color: #64748b;
+}
+
+/* Comments List */
+.comments-list {
+  padding: 0;
+}
+
+.comment-item {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f8fafc;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+/* Comment Meta */
+.comment-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.menu-trigger {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: #f8fafc;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.menu-trigger:hover {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* Comment Content */
+.comment-content {
+  margin: 8px 0 16px 44px;
+}
+
+.content-text {
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+/* Edit Mode */
+.edit-mode {
+  position: relative;
+}
+
+.edit-wrapper {
+  position: relative;
+}
+
+.edit-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px 80px 12px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.edit-actions {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  gap: 4px;
+}
+
+.cancel-btn,
+.save-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.cancel-btn {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.cancel-btn:hover {
+  background: #fee2e2;
+}
+
+.save-btn {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.save-btn:hover {
+  background: #dbeafe;
+}
+
+/* Comment Actions */
+.comment-actions {
+  margin-left: 44px;
+}
+
+.like-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.like-button:hover {
+  background: #f1f5f9;
+  color: #374151;
+}
+
+.like-button.active {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.count {
+  font-weight: 500;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* Pagination */
+.pagination-section {
+  padding: 20px 24px;
+  border-top: 1px solid #f8fafc;
+  display: flex;
+  justify-content: center;
+  background: #fafafa;
+}
+
+/* Icons */
+.icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Custom Dropdown Styles */
+:deep(.actions-menu) {
+  min-width: 120px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+:deep(.actions-menu .ant-dropdown-menu-item) {
+  padding: 10px 16px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+:deep(.actions-menu .delete-action) {
+  color: #ef4444;
+}
+
+:deep(.actions-menu .delete-action:hover) {
+  background: #fef2f2;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .comment-container {
+    border-radius: 8px;
+    margin-top: 16px;
+  }
+
+  .comment-header,
+  .new-comment-form,
+  .comment-item,
+  .pagination-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .comment-content,
+  .comment-actions {
+    margin-left: 36px;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .avatar.small {
+    width: 28px;
+    height: 28px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+}
+
+/* Smooth Transitions */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus States for Accessibility */
+.submit-btn:focus,
+.menu-trigger:focus,
+.like-button:focus,
+.cancel-btn:focus,
+.save-btn:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+</style>

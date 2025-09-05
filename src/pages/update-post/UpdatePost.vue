@@ -11,105 +11,13 @@
         <div class="py-2">
           <span class="font-bold text-base">Phân loại</span>
         </div>
-       
+
         <!-- Selection phụ cho QUAN_AN -->
-        <div v-if="formData.accomodation.motel === 'QUAN_AN'" >
-          <label>Loại quán ăn <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.secondMotel"
-              placeholder="Chọn loại quán ăn"
-              class="w-full"
-            >
-              <a-select-option value="Cơm">Cơm</a-select-option>
-              <a-select-option value="Món nước">Món nước</a-select-option>
-              <a-select-option value="Xôi và Bánh mì"
-                >Xôi và Bánh mì</a-select-option
-              >
-              <a-select-option value="Cháo">Cháo</a-select-option>
-              <a-select-option value="Ăn vặt">Ăn vặt</a-select-option>
-              <a-select-option value="Đồ ăn nhanh">Đồ ăn nhanh</a-select-option>
-              <a-select-option value="Quán nhậu">Quán nhậu</a-select-option>
-            </a-select>
-          </div>
-        </div>
-
-        <!-- Selection phụ cho QUán nước -->
-        <div v-if="formData.accomodation.motel === 'QUAN_NUOC'" class="mt-3">
-          <label>Loại quán nước <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.secondMotel"
-              placeholder="Chọn loại quán nước"
-              class="w-full"
-            >
-              <a-select-option value="Quán Cà phê">Quán Cà phê</a-select-option>
-              <a-select-option value="Quán Trà chanh"
-                >Quán Trà chanh</a-select-option
-              >
-              <a-select-option value="Trà đá vỉa hè"
-                >Trà đá vỉa hè</a-select-option
-              >
-              <a-select-option value="Quán Trà sữa"
-                >Quán Trà sữa</a-select-option
-              >
-            </a-select>
-          </div>
-        </div>
-
-        <!-- Selection phụ cho CUA_HANG -->
-        <div v-if="formData.accomodation.motel === 'CUA_HANG'" class="mt-3">
-          <label>Loại cửa hàng <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.secondMotel"
-              placeholder="Chọn loại cửa hàng"
-              class="w-full"
-            >
-              <a-select-option value="Tạp hóa">Tạp hóa</a-select-option>
-              <a-select-option value="Cửa hàng tiện lợi"
-                >Cửa hàng tiện lợi</a-select-option
-              >
-              <a-select-option value="Văn phòng phẩm"
-                >Văn phòng phẩm</a-select-option
-              >
-              <a-select-option value="Điện lạnh">Điện lạnh</a-select-option>
-              <a-select-option value="Gia dụng">Gia dụng</a-select-option>
-              <a-select-option value="Hiệu thuốc">Hiệu thuốc</a-select-option>
-              <a-select-option value="Quần áo">Quần áo</a-select-option>
-              <a-select-option value="Hiệu sách">Hiệu sách</a-select-option>
-              <a-select-option value="Điện thoại">Điện thoại</a-select-option>
-              <a-select-option value="Máy tính">Máy tính</a-select-option>
-              <a-select-option value="Đồng hồ">Đồng hồ</a-select-option>
-              <a-select-option value="Kính mắt">Kính mắt</a-select-option>
-            </a-select>
-          </div>
-        </div>
-
-        <!-- Selection phụ cho Tiện ích -->
-        <div v-if="formData.accomodation.motel === 'TIEN_ICH'" class="mt-3">
-          <label>Loại Tiện ích <span class="text-red-500">*</span> </label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.secondMotel"
-              placeholder="Chọn loại Tiện ích"
-              class="w-full"
-            >
-              <a-select-option value="Photocopy">Photocopy</a-select-option>
-              <a-select-option value="Giặt là">Giặt là</a-select-option>
-              <a-select-option value="Học ngoại ngữ"
-                >Học ngoại ngữ</a-select-option
-              >
-              <a-select-option value="Chụp ảnh">Chụp ảnh</a-select-option>
-            </a-select>
-          </div>
-        </div>
-        <!-- Selection phụ cho QUAN_AN -->
-        <div v-if="formData.accomodation.motel === 'TAI_LIEU'" >
+        <div v-if="formData.criteria.motel === 'TAI_LIEU'">
           <label>Loại tài liệu <span class="text-red-500">*</span> </label>
           <div class="flex rounded-lg mt-1">
             <a-select
-              v-model:value="formData.accomodation.secondMotel"
+              v-model:value="formData.criteria.secondMotel"
               placeholder="Chọn loại tài liệu"
               class="w-full"
             >
@@ -136,11 +44,11 @@
           </div>
         </div>
         <!-- Selection phụ cho QUAN_AN -->
-        <div v-if="formData.accomodation.motel === 'TAI_LIEU'" class="mt-3">
+        <div v-if="formData.criteria.motel === 'TAI_LIEU'" class="mt-3">
           <label>Chuyên ngành <span class="text-red-500">*</span> </label>
           <div class="flex rounded-lg mt-1">
             <a-select
-              v-model:value="formData.accomodation.major"
+              v-model:value="formData.criteria.major"
               placeholder="Chọn chuyên ngành"
               class="w-full"
             >
@@ -176,28 +84,6 @@
         </div>
       </div>
 
-      <!-- PHẦN GIỚI TÍNH (nếu O_GHEP) -->
-      <div
-        v-if="formData.accomodation.motel === 'O_GHEP'"
-        class="block bg-white p-4 rounded-xl"
-      >
-        <div class="py-2">
-          <span class="font-bold text-base">Giới tính</span>
-        </div>
-        <label>Giới tính yêu cầu</label>
-        <div class="flex rounded-lg mt-1">
-          <a-select
-            v-model:value="formData.accomodation.gender"
-            placeholder="Chọn giới tính"
-            class="w-full"
-          >
-            <a-select-option :value="true">Nam</a-select-option>
-            <a-select-option :value="false">Nữ</a-select-option>
-            <a-select-option :value="null">Không yêu cầu</a-select-option>
-          </a-select>
-        </div>
-      </div>
-
       <!-- PHẦN THÔNG TIN MÔ TẢ -->
       <div class="block bg-white p-4 rounded-xl">
         <div class="py-2">
@@ -227,290 +113,7 @@
             />
           </div>
         </div>
-        <div
-          v-if="
-            formData.accomodation.motel === 'PHONG_TRO' ||
-            formData.accomodation.motel === 'O_GHEP'
-          "
-          class="py-2"
-        >
-          <label>Giá cho thuê <span class="text-red-500">*</span></label>
-          <div class="flex border border-gray-300 rounded-lg mt-1 w-120">
-            <input
-              v-model.number="formData.accomodation.price"
-              type="number"
-              placeholder="VD: 1000000 (cho 1 triệu)"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-            <span class="p-2 border-l border-gray-300">đồng/tháng</span>
-          </div>
-          <small class="text-gray-500">
-            Nhập đầy đủ số, ví dụ 1 triệu thì nhập là 1000000
-          </small>
-        </div>
-        <div
-          v-if="
-            formData.accomodation.motel === 'PHONG_TRO' ||
-            formData.accomodation.motel === 'O_GHEP'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700">
-            Diện tích <span class="text-red-500">*</span>
-          </label>
-          <div
-            class="flex items-center border border-gray-300 rounded-lg mt-1 w-120"
-          >
-            <input
-              v-model.number="formData.accomodation.acreage"
-              type="number"
-              placeholder="Nhập diện tích"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-            <span class="p-2 border-l border-gray-300">m²</span>
-          </div>
-        </div>
-        <div
-          v-if="
-            formData.accomodation.motel === 'PHONG_TRO' ||
-            formData.accomodation.motel === 'O_GHEP'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700">
-            Giá điện <span class="text-red-500">*</span>
-          </label>
-          <div
-            class="flex items-center border border-gray-300 rounded-lg mt-1 w-120"
-          >
-            <input
-              v-model.number="formData.accomodation.electricPrice"
-              type="number"
-              placeholder="VD: 3500"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-            <span class="p-2 border-l border-gray-300">đồng/kWh</span>
-          </div>
-        </div>
-        <div
-          v-if="
-            formData.accomodation.motel === 'PHONG_TRO' ||
-            formData.accomodation.motel === 'O_GHEP'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700">
-            Giá nước <span class="text-red-500">*</span>
-          </label>
-          <div
-            class="flex items-center border border-gray-300 rounded-lg mt-1 w-120"
-          >
-            <input
-              v-model.number="formData.accomodation.waterPrice"
-              type="number"
-              placeholder="VD: 30000"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-            <span class="p-2 border-l border-gray-300">đồng/m³</span>
-          </div>
-        </div>
-        <div
-          v-if="
-            formData.accomodation.motel === 'QUAN_AN' ||
-            formData.accomodation.motel === 'QUAN_NUOC' ||
-            formData.accomodation.motel === 'CUA_HANG' ||
-            formData.accomodation.motel === 'TIEN_ICH'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700"
-            >Giờ mở cửa <span class="text-red-500">*</span></label
-          >
-          <div
-            class="flex items-center border border-gray-300 rounded-lg mt-1 w-36"
-          >
-            <a-time-range-picker
-              v-model:value="openHoursValue"
-              type="number"
-              format="HH:mm"
-              placeholder="Nhập giờ mở cửa"
-              class="w-full border-none outline-none rounded-lg"
-              @change="handleTimeChange"
-            />
-          </div>
-        </div>
-
-        <div
-          v-if="
-            formData.accomodation.motel === 'QUAN_AN' ||
-            formData.accomodation.motel === 'QUAN_NUOC'
-          "
-          class="py-2"
-        >
-          <label class="block text-gray-700"
-            >Link ShopeeFood <span class="text-red-500">*</span></label
-          >
-          <div class="flex items-center border border-gray-300 rounded-lg mt-1">
-            <input
-              v-model.number="formData.accomodation.linkShopeeFood"
-              type="text"
-              placeholder="Nhập link ShopeeFood (nếu có)"
-              class="w-full p-2 border-none outline-none rounded-lg"
-            />
-          </div>
-        </div>
       </div>
-
-      <!-- PHẦN KHU VỰC -->
-      <div
-        v-if="
-          formData.accomodation.motel === 'PHONG_TRO' ||
-          formData.accomodation.motel === 'O_GHEP' ||
-          formData.accomodation.motel === 'QUAN_AN' ||
-          formData.accomodation.motel === 'QUAN_NUOC' ||
-          formData.accomodation.motel === 'CUA_HANG' ||
-          formData.accomodation.motel === 'TIEN_ICH'
-        "
-        class="block bg-white p-4 rounded-xl"
-      >
-        <div class="py-2">
-          <span class="font-bold text-base">Khu vực</span>
-        </div>
-        <div class="py-2">
-          <label>Khu vực <span class="text-red-500">*</span></label>
-          <div class="flex rounded-lg mt-1">
-            <a-select
-              v-model:value="formData.accomodation.idDistrict"
-              placeholder="Chọn khu vực"
-              class="w-full"
-            >
-              <a-select-option
-                v-for="district in districtList"
-                :key="district.id"
-                :value="district.id"
-              >
-                {{ district.name }}
-              </a-select-option>
-            </a-select>
-          </div>
-        </div>
-        <div class="py-2">
-          <label class="block text-gray-700">
-            Địa chỉ <span class="text-red-500">*</span>
-          </label>
-          <div class="flex items-center rounded-lg mt-1 w-120">
-            <input
-              v-model="formData.accomodation.address"
-              type="text"
-              placeholder="VD: Số 12, Ngõ 34..."
-              class="w-full p-2 mt-1 border border-gray-300 rounded-lg"
-            />
-          </div>
-        </div>
-        <div class="map-wrapper py-2">
-          <label class="block text-gray-700">Bản đồ</label>
-          <div class="flex items-center border border-gray-300 rounded-lg mt-1">
-            <iframe
-              width="100%"
-              height="300"
-              class="border-0"
-              :src="`https://www.google.com/maps?q=${encodeURIComponent(
-                displayMapAddress
-              )}&output=embed`"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
-          </div>
-        </div>
-      </div>
-
-      <!-- PHẦN ĐẶC ĐIỂM NỔI BẬT -->
-      <div
-        v-if="
-          formData.accomodation.motel === 'PHONG_TRO' ||
-          formData.accomodation.motel === 'O_GHEP'
-        "
-        class="block bg-white p-4 rounded-xl"
-      >
-        <div class="py-2">
-          <span class="font-bold text-base">Đặc điểm nổi bật</span>
-        </div>
-        <div class="grid grid-cols-2 gap-y-3">
-          <div
-            v-for="(feature, idx) in featureOptionsMotel"
-            :key="idx"
-            class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
-            :class="{ 'text-sky-500': formData.accomodation[feature.value] }"
-            @click="toggleFeature(feature.value)"
-          >
-            <div class="relative">
-              <input
-                type="checkbox"
-                class="hidden"
-                :checked="formData.accomodation[feature.value]"
-                readonly
-              />
-              <div
-                class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center"
-                :class="{
-                  'bg-sky-500 border-sky-500':
-                    formData.accomodation[feature.value],
-                }"
-              >
-                <CheckIcon
-                  v-if="formData.accomodation[feature.value]"
-                  class="w-3 h-3 text-white"
-                />
-              </div>
-            </div>
-            <span class="ml-2 text-sm">{{ feature.label }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div
-        v-if="
-          formData.accomodation.motel === 'QUAN_AN' ||
-          formData.accomodation.motel === 'QUAN_NUOC'
-        "
-        class="block bg-white p-4 rounded-xl"
-      >
-        <div class="py-2">
-          <span class="font-bold text-base">Đặc điểm nổi bật</span>
-        </div>
-        <div class="grid grid-cols-2 gap-y-3">
-          <div
-            v-for="(feature, idx) in featureOptionsStore"
-            :key="idx"
-            class="flex items-center p-2 rounded-lg cursor-pointer hover:text-sky-500"
-            :class="{ 'text-sky-500': formData.accomodation[feature.value] }"
-            @click="toggleFeature(feature.value)"
-          >
-            <div class="relative">
-              <input
-                type="checkbox"
-                class="hidden"
-                :checked="formData.accomodation[feature.value]"
-                readonly
-              />
-              <div
-                class="w-5 h-5 border border-gray-300 rounded flex items-center justify-center"
-                :class="{
-                  'bg-sky-500 border-sky-500':
-                    formData.accomodation[feature.value],
-                }"
-              >
-                <CheckIcon
-                  v-if="formData.accomodation[feature.value]"
-                  class="w-3 h-3 text-white"
-                />
-              </div>
-            </div>
-            <span class="ml-2 text-sm">{{ feature.label }}</span>
-          </div>
-        </div>
-      </div>
-
       <!-- PHẦN HÌNH ẢNH (UPLOAD, PREVIEW, XOÁ) -->
       <div class="block bg-white p-4 rounded-xl">
         <div class="py-2 pb-6">
@@ -656,8 +259,6 @@
         </div>
       </div>
 
-    
-
       <!-- NÚT SUBMIT VÀ TRỞ VỀ -->
       <div class="text-white font-semibold">
         <button
@@ -676,17 +277,7 @@
         </button>
         <router-link
           :to="
-            formData.accomodation.motel === 'PHONG_TRO'
-              ? `/post/motel/${postId}`
-              : formData.accomodation.motel === 'QUAN_AN'
-              ? `/post/restaurant/${postId}`
-              : formData.accomodation.motel === 'QUAN_NUOC'
-              ? `/post/beverage/${postId}`
-              : formData.accomodation.motel === 'CUA_HANG'
-              ? `/post/store/${postId}`
-              : formData.accomodation.motel === 'TIEN_ICH'
-              ? `/post/utility/${postId}`
-              : formData.accomodation.motel === 'TAI_LIEU'
+            formData.criteria.motel === 'TAI_LIEU'
               ? `/post/document/${postId}`
               : `/post/roommate/${postId}`
           "
@@ -712,7 +303,7 @@ import {
   deleteImagesByPost,
   uploadMultipleImages,
 } from "@/apis/imageService.js";
-import { Download } from "lucide-vue-next";
+
 import {
   getDocumentsByPost,
   uploadDocument,
@@ -744,81 +335,22 @@ const ASelectOption = ASelect.Option;
 const formData = reactive({
   title: "",
   content: "",
-  accomodation: {
+  criteria: {
     id: null,
     motel: "TAI_LIEU",
-    price: "",
-    acreage: "",
-    electricPrice: "",
-    waterPrice: "",
-    gender: "",
-    address: "",
-    idDistrict: "",
-    interior: "",
-    airConditioner: "",
-    heater: "",
-    internet: "",
-    toilet: "",
-    time: "",
-    parking: "",
-    security: "",
-    owner: "",
-    kitchen: "",
+
     secondMotel: "",
-    openHours: "",
-    delivery: "",
-    dineIn: "",
-    takeAway: "",
-    bigSpace: "",
-    linkShopeeFood: "",
+
     major: "",
-    referenceUrl: "",
   },
 });
-
-const districtList = ref([
-  { id: 1, name: "An Đào" },
-  { id: 4, name: "Đào Nguyên" },
-  { id: 5, name: "Cửu Việt" },
-  { id: 6, name: "Thành Chung" },
-  { id: 7, name: "Ngô Xuân Quảng" },
-  { id: 8, name: "Vinhomes Ocean Park" },
-  { id: 9, name: "Khác" },
-]);
-
-const featureOptionsMotel = ref([
-  { label: "Đầy đủ nội thất", value: "interior" },
-  { label: "Có điều hòa", value: "airConditioner" },
-  { label: "Có nóng lạnh", value: "heater" },
-  { label: "Có internet", value: "internet" },
-  { label: "Vệ sinh khép kín", value: "toilet" },
-  { label: "Giờ giấc tự do", value: "time" },
-  { label: "Có chỗ để xe", value: "parking" },
-  { label: "An ninh tốt", value: "security" },
-  { label: "Không chung chủ", value: "owner" },
-  { label: "Kệ bếp", value: "kitchen" },
-]);
-
-const featureOptionsStore = ref([
-  { label: "Có giao hàng", value: "delivery" },
-  { label: "Phục vụ tại chỗ", value: "dineIn" },
-  { label: "Mua mang đi", value: "takeAway" },
-  { label: "Không gian rộng", value: "bigSpace" },
-  { label: "Có chỗ để xe", value: "parking" },
-  { label: "Có điều hòa", value: "airConditioner" },
-  { label: "Wifi miễn phí", value: "internet" },
-]);
 
 const mapAddress = ref("");
 const addressTimer = ref(null);
 const loading = ref(false);
 
-const displayMapAddress = computed(() => {
-  return mapAddress.value.trim() || "VNUA";
-});
-
 watch(
-  () => formData.accomodation.address,
+  () => formData.criteria.address,
   (newAddress) => {
     if (addressTimer.value) clearTimeout(addressTimer.value);
     addressTimer.value = setTimeout(() => {
@@ -854,16 +386,16 @@ onMounted(async () => {
     formData.title = data.title;
     formData.content = data.content;
 
-    if (data.accomodationDTO) {
-      Object.assign(formData.accomodation, data.accomodationDTO);
-      if (data.accomodationDTO.district && data.accomodationDTO.district.id) {
-        formData.accomodation.idDistrict = data.accomodationDTO.district.id;
+    if (data.criteriaDTO) {
+      Object.assign(formData.criteria, data.criteriaDTO);
+      if (data.criteriaDTO.district && data.criteriaDTO.district.id) {
+        formData.criteria.idDistrict = data.criteriaDTO.district.id;
       }
     }
 
-    if (data.accomodationDTO && data.accomodationDTO.openHours) {
+    if (data.criteriaDTO && data.criteriaDTO.openHours) {
       // Parse giờ mở cửa từ string để hiển thị trong time picker
-      const timeStr = data.accomodationDTO.openHours;
+      const timeStr = data.criteriaDTO.openHours;
       const parts = timeStr.split("-").map((t) => t.trim());
 
       if (parts.length === 2) {
@@ -1023,35 +555,14 @@ function buildPayload() {
   return {
     title: formData.title,
     content: formData.content,
-    accomodation: {
-      id: formData.accomodation.id,
-      acreage: formData.accomodation.acreage,
-      address: formData.accomodation.address,
-      airConditioner: formData.accomodation.airConditioner,
-      interior: formData.accomodation.interior,
-      electricPrice: formData.accomodation.electricPrice,
-      heater: formData.accomodation.heater,
-      internet: formData.accomodation.internet,
-      motel: formData.accomodation.motel,
-      parking: formData.accomodation.parking,
-      price: formData.accomodation.price,
-      owner: formData.accomodation.owner,
-      toilet: formData.accomodation.toilet,
-      time: formData.accomodation.time,
-      waterPrice: formData.accomodation.waterPrice,
-      gender: formData.accomodation.gender,
-      district: { id: formData.accomodation.idDistrict },
-      kitchen: formData.accomodation.kitchen,
-      security: formData.accomodation.security,
-      secondMotel: formData.accomodation.secondMotel,
-      openHours: formData.accomodation.openHours,
-      delivery: formData.accomodation.delivery,
-      dineIn: formData.accomodation.dineIn,
-      takeAway: formData.accomodation.takeAway,
-      bigSpace: formData.accomodation.bigSpace,
-      linkShopeeFood: formData.accomodation.linkShopeeFood,
-      major: formData.accomodation.major,
-      referenceUrl: formData.accomodation.referenceUrl,
+    criteria: {
+      id: formData.criteria.id,
+
+      motel: formData.criteria.motel,
+
+      secondMotel: formData.criteria.secondMotel,
+
+      major: formData.criteria.major,
     },
   };
 }
@@ -1070,7 +581,7 @@ const handleTimeChange = (time) => {
     const endTime = formatTime(time[1]);
 
     // Lưu trực tiếp dưới dạng chuỗi
-    formData.accomodation.openHours = `${startTime} - ${endTime}`;
+    formData.criteria.openHours = `${startTime} - ${endTime}`;
   }
 };
 
@@ -1078,11 +589,7 @@ const handleTimeChange = (time) => {
  * Khi nhấn "Cập nhật bài đăng"
  */
 async function handleUpdatePost() {
-  // Validate tiêu đề chỉ khi là PHONG_TRO hoặc O_GHEP
-  if (
-    formData.accomodation.motel === "PHONG_TRO" ||
-    formData.accomodation.motel === "O_GHEP"
-  ) {
+  {
     // Validate tiêu đề:
     if (!formData.title.trim()) {
       message.error("Tiêu đề không được để trống");
@@ -1108,82 +615,30 @@ async function handleUpdatePost() {
       message.error("Nội dung mô tả phải từ 50 đến 500 ký tự");
       return;
     }
-    if (!formData.accomodation.price) {
+    if (!formData.criteria.price) {
       message.error("Giá cho thuê không được để trống");
       return;
     }
-    if (!formData.accomodation.acreage) {
+    if (!formData.criteria.acreage) {
       message.error("Diện tích không được để trống");
       return;
     }
-    if (!formData.accomodation.electricPrice) {
+    if (!formData.criteria.electricPrice) {
       message.error("Giá điện không được để trống");
       return;
     }
-    if (!formData.accomodation.waterPrice) {
+    if (!formData.criteria.waterPrice) {
       message.error("Giá nước không được để trống");
       return;
     }
-    if (!formData.accomodation.idDistrict) {
+    if (!formData.criteria.idDistrict) {
       message.error("Khu vực không được để trống");
       return;
     }
-    if (!formData.accomodation.address.trim()) {
+    if (!formData.criteria.address.trim()) {
       message.error("Địa chỉ không được để trống");
       return;
     }
-  }
-
-  if (
-    formData.accomodation.motel === "QUAN_AN" ||
-    formData.accomodation.motel === "QUAN_NUOC" ||
-    formData.accomodation.motel === "CUA_HANG" ||
-    formData.accomodation.motel === "TIEN_ICH"
-  ) {
-    // Validate tiêu đề:
-    if (!formData.title.trim()) {
-      message.error("Tiêu đề không được để trống");
-      return;
-    }
-    if (
-      formData.title.trim().length < 10 ||
-      formData.title.trim().length > 50
-    ) {
-      message.error("Tiêu đề phải từ 10 đến 50 ký tự");
-      return;
-    }
-
-    // Validate nội dung mô tả:
-    if (!formData.content.trim()) {
-      message.error("Nội dung mô tả không được để trống");
-      return;
-    }
-    if (
-      formData.content.trim().length < 50 ||
-      formData.content.trim().length > 500
-    ) {
-      message.error("Nội dung mô tả phải từ 50 đến 500 ký tự");
-      return;
-    }
-    if (!formData.accomodation.openHours) {
-      message.error("Giờ mở cửa không được để trống");
-      return;
-    }
-
-    if (!formData.accomodation.idDistrict) {
-      message.error("Khu vực không được để trống");
-      return;
-    }
-    if (!formData.accomodation.address.trim()) {
-      message.error("Địa chỉ không được để trống");
-      return;
-    }
-  }
-
-  // Validate phải có đủ 4 ảnh
-  if (!imageBox.value) {
-    message.error("Bạn phải tải ảnh cho bài đăng");
-    return;
   }
 
   loading.value = true;
@@ -1198,7 +653,11 @@ async function handleUpdatePost() {
     // Upload new image
     if (imageBox.value) {
       const fileToUpload = imageBox.value.isExisting
-        ? base64ToFile(imageBox.value.base64, imageBox.value.fileName, imageBox.value.fileType)
+        ? base64ToFile(
+            imageBox.value.base64,
+            imageBox.value.fileName,
+            imageBox.value.fileType
+          )
         : imageBox.value.file;
 
       await uploadMultipleImages(postId, [fileToUpload]);
@@ -1237,20 +696,8 @@ async function handleUpdatePost() {
     documentsToDelete.value = [];
 
     message.success("Cập nhật tin thành công!");
-    if (formData.accomodation.motel === "PHONG_TRO") {
-      router.push(`/post/motel/${postId}`);
-    } else if (formData.accomodation.motel === "O_GHEP") {
-      router.push(`/post/roommate/${postId}`);
-    } else if (formData.accomodation.motel === "QUAN_AN") {
-      router.push(`/post/restaurant/${postId}`);
-    } else if (formData.accomodation.motel === "QUAN_NUOC") {
-      router.push(`/post/beverage/${postId}`);
-    } else if (formData.accomodation.motel === "CUA_HANG") {
-      router.push(`/post/store/${postId}`);
-    } else if (formData.accomodation.motel === "TAI_LIEU") {
+    if (formData.criteria.motel === "TAI_LIEU") {
       router.push(`/post/document/${postId}`);
-    } else {
-      router.push(`/post/utility/${postId}`);
     }
   } catch (error) {
     console.error("Lỗi khi cập nhật bài đăng:", error);
@@ -1264,12 +711,8 @@ async function handleUpdatePost() {
  * Toggle feature
  */
 function toggleFeature(featureValue) {
-  formData.accomodation[featureValue] = !formData.accomodation[featureValue];
-  console.log(
-    "Toggle feature:",
-    featureValue,
-    formData.accomodation[featureValue]
-  );
+  formData.criteria[featureValue] = !formData.criteria[featureValue];
+  console.log("Toggle feature:", featureValue, formData.criteria[featureValue]);
 }
 </script>
 

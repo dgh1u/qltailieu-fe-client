@@ -17,18 +17,17 @@
             exact-active-class="text-blue-500"
             class="flex items-center gap-3"
           >
-            <img
-              :src="logo"
-              alt="Logo"
-              class="h-10 md:h-12"
-            
-            />
+            <img :src="logo" alt="Logo" class="h-10 md:h-12" />
             <!-- Title column -->
             <div class="flex flex-col">
-              <span class="text-xs md:text-sm font-bold text-gray-800 whitespace-nowrap">
+              <span
+                class="text-xs md:text-sm font-bold text-gray-800 whitespace-nowrap"
+              >
                 HỌC VIỆN NÔNG NGHIỆP VIỆT NAM
               </span>
-              <span class="text-[10px] md:text-xs text-gray-600 whitespace-nowrap">
+              <span
+                class="text-[10px] md:text-xs text-gray-600 whitespace-nowrap"
+              >
                 PHẦN MỀM QUẢN LÝ TÀI LIỆU
               </span>
             </div>
@@ -36,9 +35,10 @@
         </div>
 
         <!-- Navigation ở cột 3-8 -->
-        <div class="col-span-5 flex items-center justify-center space-x-4 md:space-x-6 lg:space-x-8">
+        <div
+          class="col-span-5 flex items-center justify-center space-x-4 md:space-x-6 lg:space-x-8"
+        >
           <router-link
-        
             to="/home"
             exact-active-class="text-blue-500"
             class="hover:text-sky-500 transition duration-150 text-sm lg:text-base flex items-center gap-2"
@@ -144,7 +144,6 @@
             </div>
           </div> -->
           <router-link
-          
             to="/post/document"
             exact-active-class="text-blue-500"
             class="hover:text-sky-500 transition duration-150 text-sm lg:text-base flex items-center gap-2"
@@ -154,7 +153,6 @@
           </router-link>
 
           <router-link
-            
             to="/contact"
             exact-active-class="text-blue-500"
             class="hover:text-sky-500 transition duration-150 text-sm lg:text-base flex items-center gap-2"
@@ -167,22 +165,25 @@
         <!-- Phần đăng nhập / dropdown user bên phải -->
         <div class="col-span-4 flex justify-end items-center">
           <div v-if="authStore.isAuthenticated" class="flex items-center">
-         
-
-            <!-- Component thông báo -->
+            <!-- Component thông báo với style mới -->
             <div class="relative ml-2 md:ml-3 lg:ml-5">
-              <ActionNotificationsDropdown />
+              <div
+                class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors cursor-pointer"
+              >
+                <ActionNotificationsDropdown />
+              </div>
             </div>
 
-            <!-- Dropdown thông tin người dùng -->
-            <DropdownMenu />
+            <!-- Dropdown thông tin người dùng với style mới -->
+            <div class="ml-2 md:ml-3 lg:ml-4">
+              <DropdownMenu />
+            </div>
           </div>
 
           <!-- Hiển thị khi chưa đăng nhập -->
           <div v-else class="flex items-center">
             <router-link
               to="/create-post"
-             
               exact-active-class="bg-red-600"
               class="flex items-center bg-red-500 hover:bg-red-600 text-white px-2 py-1 md:px-3 md:py-2 rounded-xl transition duration-150 text-xs md:text-sm lg:text-base"
             >
@@ -191,7 +192,6 @@
             </router-link>
             <router-link
               to="/login"
-              
               exact-active-class="bg-blue-600"
               class="px-2 py-1 md:px-3 md:py-2 bg-blue-500 hover:bg-blue-600 text-white rounded ml-2 md:ml-3 lg:ml-5 text-xs md:text-sm lg:text-base"
             >
@@ -208,12 +208,7 @@
           exact-active-class="text-blue-500"
           class="flex items-center gap-2"
         >
-          <img
-            :src="logo"
-            alt="Logo"
-            class="h-8"
-           
-          />
+          <img :src="logo" alt="Logo" class="h-8" />
           <div class="flex flex-col">
             <span class="text-[11px] font-bold text-gray-800 whitespace-nowrap">
               HỌC VIỆN NÔNG NGHIỆP VIỆT NAM
@@ -651,6 +646,4 @@ body.menu-open {
     padding-right: 3.75rem;
   }
 }
-
-
 </style>
