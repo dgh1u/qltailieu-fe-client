@@ -8,23 +8,7 @@
           data-aos="fade-down"
           data-aos-duration="600"
         >
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center"
-          >
-            <svg
-              class="w-10 h-10 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              ></path>
-            </svg>
-          </div>
+      
           <h1 class="text-4xl font-bold text-gray-800 mb-2">
             Đăng tải tài liệu
           </h1>
@@ -396,76 +380,48 @@
 
           <!-- Right Sidebar -->
           <div class="lg:col-span-1 space-y-6">
-            <!-- Image Upload Card -->
-            <div
-              class="bg-white rounded-3xl shadow-xl p-6"
-              data-aos="fade-left"
-              data-aos-duration="800"
-            >
-              <div class="flex items-center mb-4">
-                <div
-                  class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center mr-3"
-                >
-                  <svg
-                    class="w-4 h-4 text-yellow-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    ></path>
-                  </svg>
-                </div>
-                <h3 class="text-lg font-bold text-gray-800">Hình ảnh</h3>
-              </div>
+             <!-- Hình ảnh -->
+      <div class="block bg-white p-4 rounded-xl">
+        <div class="py-2 pb-6">
+          <span class="font-bold text-base">Hình ảnh</span>
+        </div>
 
-              <div
-                v-if="!file"
-                class="relative border-2 border-dashed border-blue-300 rounded-2xl h-48 flex flex-col justify-center items-center cursor-pointer hover:bg-blue-50 transition-all duration-300 bg-gradient-to-br from-blue-25 to-purple-25"
-              >
-                <div
-                  class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3"
-                >
-                  <FolderUp class="w-6 h-6 text-blue-600" />
-                </div>
-                <span class="text-gray-600 text-sm font-medium"
-                  >Tải ảnh từ thiết bị</span
-                >
-                <p class="text-xs text-gray-400 mt-1">Tối đa 10MB</p>
-                <input
-                  type="file"
-                  accept="image/*"
-                  @change="handleFileChange"
-                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                />
-              </div>
+        <!-- Single Image Upload Box -->
+        <div class="mb-4">
+          <div v-if="!file" class="relative border-2 border-dashed border-sky-500 rounded-lg h-40 flex flex-col justify-center items-center cursor-pointer hover:bg-sky-50 transition">
+            <FolderUp class="w-10 h-10 text-sky-500" />
+            <span class="mt-2 text-gray-500 text-sm text-center">
+              Tải ảnh từ thiết bị
+            </span>
+            <input
+              type="file"
+              accept="image/*"
+              @change="handleFileChange"
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            />
+          </div>
+          <div v-else class="relative h-40 rounded-lg overflow-hidden">
+            <img
+              :src="file.preview"
+              alt="preview"
+              class="w-full h-full object-cover"
+            />
+          <button
+            @click="removeImage"
+            class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex items-center space-x-1 px-2 py-1 bg-white bg-opacity-70 rounded-md text-red-500 hover:text-red-600"
+          >
+            <Trash2 class="w-4 h-4" />
+            <span class="text-xs">Xóa</span>
+          </button>
+          </div>
+        </div>
 
-              <div
-                v-else
-                class="relative h-48 rounded-2xl overflow-hidden group"
-              >
-                <img
-                  :src="file.preview"
-                  alt="preview"
-                  class="w-full h-full object-cover"
-                />
-                <div
-                  class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center"
-                >
-                  <button
-                    @click="removeImage"
-                    class="opacity-0 group-hover:opacity-100 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2"
-                  >
-                    <Trash2 class="w-4 h-4" />
-                    <span>Xóa ảnh</span>
-                  </button>
-                </div>
-              </div>
-            </div>
+        <small class="text-gray-500">
+          Dung lượng ảnh tối đa 10MB
+        </small>
+      </div>
+  
+     
 
             <!-- Upload Guidelines -->
             <div

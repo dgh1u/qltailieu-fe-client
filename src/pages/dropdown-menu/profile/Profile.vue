@@ -10,13 +10,7 @@
         >
           <div class="text-center">
             <!-- Avatar placeholder -->
-            <div
-              class="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center"
-            >
-              <span class="text-white text-2xl font-bold">{{
-                getInitials(profileData.fullName)
-              }}</span>
-            </div>
+           
             <h1 class="text-3xl font-bold text-gray-800 mb-2">
               Thông tin tài khoản
             </h1>
@@ -174,12 +168,13 @@
 
             <!-- Action Buttons -->
             <div
-              class="flex justify-end space-x-4 mt-10 pt-6 border-t border-gray-200"
+              class="flex justify-end  mt-10 pt-6 border-t border-gray-200"
             >
+            <div class="mr-6">
               <button
                 type="button"
                 @click="onCancel"
-                class="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-all duration-300 font-medium flex items-center space-x-2"
+                class=" px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-all duration-300 font-medium flex items-center space-x-2"
               >
                 <svg
                   class="w-4 h-4"
@@ -196,7 +191,7 @@
                 </svg>
                 <span>Hủy bỏ</span>
               </button>
-
+</div>
               <button
                 type="submit"
                 class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 font-medium flex items-center space-x-2 shadow-lg hover:shadow-xl"

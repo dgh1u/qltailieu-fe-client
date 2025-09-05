@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-sky-50 border-t border-sky-50 font-medium">
+  <footer class="bg-gray-800  font-medium">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Main Footer Content -->
       <div class="py-12">
@@ -9,11 +9,11 @@
             <div class="flex items-center mb-4">
               <img src="@/assets/logo.png" width="50" alt="Logo" class="mr-3" />
               <div>
-                <h3 class="text-xl font-bold text-gray-900">VNUA Documents</h3>
-                <p class="text-base text-gray-600">Quản lý tài liệu</p>
+                <h3 class="text-xl font-bold text-white">VNUA Documents</h3>
+                <p class="text-base text-white">Quản lý tài liệu</p>
               </div>
             </div>
-            <p class="text-gray-600 leading-relaxed mb-6 max-w-md">
+            <p class="text-white leading-relaxed mb-6 max-w-md">
               Hệ thống quản lý tài liệu dành cho sinh viên và giảng viên Học
               viện Nông nghiệp Việt Nam. Chia sẻ và tìm kiếm tài liệu học tập
               hiệu quả.
@@ -22,14 +22,14 @@
 
           <!-- Quick Links -->
           <div>
-            <h4 class="text-lg font-semibold text-gray-900 mb-4">
+            <h4 class="text-lg font-semibold text-white mb-4">
               Liên kết nhanh
             </h4>
             <ul class="space-y-3">
               <li>
                 <a
                   href="/profile"
-                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                  class="text-white hover:text-blue-600 transition-colors"
                 >
                   Thông tin tài khoản
                 </a>
@@ -37,7 +37,7 @@
               <li>
                 <a
                   href="/create-post"
-                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                  class="text-white hover:text-blue-600 transition-colors"
                 >
                   Đăng tài liệu
                 </a>
@@ -45,7 +45,7 @@
               <li>
                 <a
                   href="/contact"
-                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                  class="text-white hover:text-blue-600 transition-colors"
                 >
                   Liên hệ
                 </a>
@@ -53,7 +53,7 @@
               <li>
                 <a
                   href="/privacy-policy"
-                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                  class="text-white hover:text-blue-600 transition-colors"
                 >
                   Chính sách bảo mật
                 </a>
@@ -63,19 +63,19 @@
 
           <!-- Contact Info -->
           <div>
-            <h4 class="text-lg font-semibold text-gray-900 mb-4">Liên hệ</h4>
+            <h4 class="text-lg font-semibold text-white mb-4">Liên hệ</h4>
             <div class="space-y-3">
               <div class="flex items-center">
-                <Phone class="w-4 h-4 mr-3 text-gray-500" />
-                <span class="text-gray-600">+849 3636 3636</span>
+                <Phone class="w-4 h-4 mr-3 text-white" />
+                <span class="text-white">+849 3636 3636</span>
               </div>
               <div class="flex items-center">
-                <Mail class="w-4 h-4 mr-3 text-gray-500" />
-                <span class="text-gray-600">nkduong@gmail.com</span>
+                <Mail class="w-4 h-4 mr-3 text-white" />
+                <span class="text-white">nkduong@gmail.com</span>
               </div>
               <div class="flex items-start">
-                <MapPin class="w-4 h-4 mr-3 text-gray-500 mt-0.5" />
-                <span class="text-gray-600">36 Đan Phượng, Hà Nội</span>
+                <MapPin class="w-4 h-4 mr-3 text-white mt-0.5" />
+                <span class="text-white">36 Đan Phượng, Hà Nội</span>
               </div>
             </div>
 
@@ -101,7 +101,7 @@
       <!-- Copyright -->
       <div class="border-t border-gray-200 py-6">
         <div class="text-center">
-          <p class="text-gray-500 text-sm">
+          <p class="text-white text-sm">
             © 2025 Nguyễn Khắc Dương. Tất cả quyền được bảo lưu.
           </p>
         </div>
