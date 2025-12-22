@@ -845,10 +845,10 @@ const handleCreatePost = () => {
     }
   }
 
-  // Hiển thị confirm trước khi trừ 2000 số dư
+  // Hiển thị confirm trước khi 
   confirm({
     title: "Xác nhận đăng bài",
-    content: "Bạn có chắc chắn muốn đăng bài viết này không? (Phí: 2000₫/lần)",
+    content: "Bạn có chắc chắn muốn đăng tài liệu này không?",
     async onOk() {
       loading.value = true;
       try {
@@ -872,9 +872,9 @@ const handleCreatePost = () => {
         file.value = null; // Reset single file
       } catch (error) {
         const errorMessage = error.message;
-        if (errorMessage.includes("Số dư không đủ")) {
+        if (errorMessage.includes("Sai")) {
           message.error(
-            "Không thể đăng bài: Số dư không đủ 2000 đồng. Vui lòng nạp thêm tiền để có thể Đăng tài liệu!"
+            "Không thể đăng  Đăng tài liệu!"
           );
         } else {
           message.error("Đã có lỗi xảy ra");

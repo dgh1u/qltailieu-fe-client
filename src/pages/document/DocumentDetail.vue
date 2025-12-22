@@ -37,9 +37,7 @@
 
             <!-- Các nút thao tác dành cho chủ tài liệu -->
             <div v-if="isOwner" class="p-5">
-              <div class="mb-4">
-                <h3 class="font-semibold text-lg text-gray-800">Quản lý tài liệu</h3>
-              </div>
+           
               
               <div class="space-y-3">
                 <div

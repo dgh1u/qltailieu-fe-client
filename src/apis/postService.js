@@ -1,6 +1,6 @@
 import axios from "@/axios";
 
-//Lấy tất cả bài viết
+//Lấy tất cả tài liệu
 export const getListPost = async (params) => {
   return axios({
     url: "/api/posts",
@@ -9,7 +9,7 @@ export const getListPost = async (params) => {
   });
 };
 
-//Lấy chi tiết 1 bài viết
+//Lấy chi tiết 1 tài liệu
 export const getDetailPost = async (id) => {
   return axios({
     url: `api/post/${id}`,

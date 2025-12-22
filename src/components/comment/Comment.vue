@@ -248,7 +248,7 @@ async function fetchComments() {
 
   try {
     const { data } = await getListComment(params);
-    // Lọc bình luận theo bài viết
+    // Lọc bình luận theo tài liệu
     const filtered = data.items || [];
 
     // Gán trạng thái đã like
