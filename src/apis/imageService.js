@@ -1,7 +1,7 @@
 // src/services/imageService.js
 import axios from "@/axios";
 
-// Upload một ảnh cho một bài đăng
+// Upload một ảnh cho một tài liệu
 export const uploadImage = async (idPost, file) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -14,7 +14,7 @@ export const uploadImage = async (idPost, file) => {
   });
 };
 
-// Upload nhiều ảnh cho một bài đăng
+// Upload nhiều ảnh cho một tài liệu
 export const uploadMultipleImages = async (idPost, files) => {
   const formData = new FormData();
   files.forEach((file) => formData.append("files", file));
@@ -27,7 +27,7 @@ export const uploadMultipleImages = async (idPost, files) => {
   });
 };
 
-// Xóa tất cả ảnh của một bài đăng
+// Xóa tất cả ảnh của một tài liệu
 export const deleteImagesByPost = async (idPost) => {
   return axios({
     url: `/api/deleteImage/post/${idPost}`,
@@ -35,7 +35,7 @@ export const deleteImagesByPost = async (idPost) => {
   });
 };
 
-// Lấy danh sách ImageDto (Base64) của một bài đăng (dùng khi chỉnh sửa)
+// Lấy danh sách ImageDto (Base64) của một tài liệu (dùng khi chỉnh sửa)
 export const getImageDTOByPost = async (idPost) => {
   return axios({
     url: `/api/imageByte/post/${idPost}`,
@@ -43,7 +43,7 @@ export const getImageDTOByPost = async (idPost) => {
   });
 };
 
-// Lấy danh sách URL ảnh của một bài đăng (dùng khi xem chi tiết)
+// Lấy danh sách URL ảnh của một tài liệu (dùng khi xem chi tiết)
 export const getImageByPost = async (idPost) => {
   return axios({
     url: `/api/image/post/${idPost}`,

@@ -33,7 +33,7 @@ const pagination = ref({
   total: 0,
 });
 
-// Xử lý chuyển đến trang chi tiết bài đăng và đánh dấu thông báo đã đọc
+// Xử lý chuyển đến trang chi tiết tài liệu và đánh dấu thông báo đã đọc
 function goToPost(action) {
   markActionAsRead(action.id)
     .then(() => {
@@ -46,7 +46,7 @@ function goToPost(action) {
     });
 }
 
-// Điều hướng tới trang chi tiết bài đăng theo loại
+// Điều hướng tới trang chi tiết tài liệu theo loại
 function navigateToPostDetail(action) {
 router.push(`/post/document/${action.postId}`);
 }
@@ -58,7 +58,7 @@ function fetchActions() {
     return;
   }
 
-  // Lấy danh sách bài đăng của người dùng
+  // Lấy danh sách tài liệu của người dùng
   getPostsByUserId(userId, { start: 0, limit: 50 })
     .then((postRes) => {
       const postData = postRes.data.data || postRes.data;
@@ -66,7 +66,7 @@ function fetchActions() {
       const postIdsCsv = postItems.map((p) => p.id).join(",");
 
       if (!postIdsCsv) {
-        console.info("User chưa có bài đăng -> không có thông báo.");
+        console.info("User chưa có tài liệu -> không có thông báo.");
         return;
       }
 
@@ -86,7 +86,7 @@ function fetchActions() {
         });
     })
     .catch((error) => {
-      console.error("Lỗi khi lấy danh sách bài đăng:", error);
+      console.error("Lỗi khi lấy danh sách tài liệu:", error);
     });
 }
 
@@ -179,19 +179,19 @@ function actionColor(type) {
             >
               <p>
                 <template v-if="action.action === 'CREATE'">
-                  <strong>Bạn</strong> đã tạo bài đăng
+                  <strong>Bạn</strong> đã tạo tài liệu
                   <span class="text-sky-500">{{ action.postTitle }}</span>
                   (ID: <span class="text-amber-400">{{ action.postId }}</span
                   >) đang chờ kiểm duyệt.
                 </template>
                 <template v-else-if="action.action === 'APPROVE'">
-                  <strong>ADMIN</strong> đã duyệt bài đăng
+                  <strong>ADMIN</strong> đã duyệt tài liệu
                   <span class="text-sky-500">{{ action.postTitle }}</span>
                   (ID: <span class="text-amber-400">{{ action.postId }}</span
                   >).
                 </template>
                 <template v-else-if="action.action === 'BLOCK'">
-                  <strong>ADMIN</strong> đã khóa bài đăng
+                  <strong>ADMIN</strong> đã khóa tài liệu
                   <span class="text-sky-500">{{ action.postTitle }}</span>
                   (ID: <span class="text-amber-400">{{ action.postId }}</span
                   >).

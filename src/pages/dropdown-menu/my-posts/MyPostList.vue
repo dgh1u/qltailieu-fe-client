@@ -9,10 +9,10 @@
           <h1
             class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
           >
-            Quản lý bài đăng của tôi
+            Quản lý tài liệu của tôi
           </h1>
           <p class="text-gray-600 mt-2">
-            Theo dõi và quản lý tất cả bài đăng của bạn
+            Theo dõi và quản lý tất cả tài liệu của bạn
           </p>
         </div>
 
@@ -36,7 +36,7 @@
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     ></path>
                   </svg>
-                  Trạng thái bài đăng
+                  Trạng thái tài liệu
                 </span>
               </label>
               <div class="grid grid-cols-3 gap-2 p-1 bg-gray-100 rounded-xl">
@@ -124,91 +124,12 @@
               </div>
             </div>
 
-            <!-- Visibility Filter -->
-            <div class="flex-1">
-              <label class="block text-sm font-semibold text-gray-700 mb-3">
-                <span class="flex items-center gap-2">
-                  <svg
-                    class="w-5 h-5 text-purple-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    ></path>
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                    ></path>
-                  </svg>
-                  Trạng thái hiển thị
-                </span>
-              </label>
-              <div class="grid grid-cols-2 gap-2 p-1 bg-gray-100 rounded-xl">
-                <button
-                  @click="(selectedDel = false), resetPage(), fetchPosts()"
-                  :class="
-                    selectedDel === false
-                      ? 'px-4 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold text-sm shadow-lg transform scale-105 transition-all duration-200'
-                      : 'px-4 py-3 rounded-lg text-gray-600 font-medium text-sm hover:bg-white hover:text-blue-600 transition-all duration-200'
-                  "
-                >
-                  <span class="flex items-center justify-center gap-2">
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      ></path>
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                      ></path>
-                    </svg>
-                    Hiển thị
-                  </span>
-                </button>
-                <button
-                  @click="(selectedDel = true), resetPage(), fetchPosts()"
-                  :class="
-                    selectedDel === true
-                      ? 'px-4 py-3 rounded-lg bg-gradient-to-r from-gray-500 to-slate-500 text-white font-semibold text-sm shadow-lg transform scale-105 transition-all duration-200'
-                      : 'px-4 py-3 rounded-lg text-gray-600 font-medium text-sm hover:bg-white hover:text-gray-600 transition-all duration-200'
-                  "
-                >
-                  <span class="flex items-center justify-center gap-2">
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
-                      ></path>
-                    </svg>
-                    Bị ẩn
-                  </span>
-                </button>
-              </div>
-            </div>
+            
+             
+                
+               
+             
+         
           </div>
         </div>
       </div>
@@ -221,7 +142,7 @@
             <div class="flex items-center gap-3">
               
               <div>
-                <p class="text-sm text-gray-500">Tổng số bài đăng</p>
+                <p class="text-sm text-gray-500">Tổng số tài liệu</p>
                 <p class="text-xl font-bold text-gray-900">
                   {{ pagination.total }}
                 </p>
@@ -316,15 +237,15 @@
             </svg>
           </div>
           <h3 class="text-xl font-semibold text-gray-700 mb-2">
-            Chưa có bài đăng nào
+            Chưa có tài liệu nào
           </h3>
           <p class="text-gray-500 mb-6">
-            Bạn chưa có bài đăng nào với bộ lọc đã chọn
+            Bạn chưa có tài liệu nào với bộ lọc đã chọn
           </p>
           <button
             class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg font-semibold hover:from-indigo-600 hover:to-purple-600 transition-all duration-200 transform hover:scale-105"
           >
-            Tạo bài đăng mới
+            Tạo tài liệu mới
           </button>
         </div>
       </div>
@@ -341,7 +262,7 @@ import { getPostsByUserId } from "@/apis/postService";
 import { Empty } from "ant-design-vue";
 import DocumentCard from "../../../components/card/DocumentCard.vue";
 
-// State cho bài đăng và bộ lọc
+// State cho tài liệu và bộ lọc
 const posts = ref([]);
 const userId = ref(null);
 const selectedStatus = ref("APPROVED");
@@ -361,7 +282,7 @@ function resetPage() {
 }
 
 /**
- * Lấy danh sách bài đăng theo userId và các bộ lọc đã chọn
+ * Lấy danh sách tài liệu theo userId và các bộ lọc đã chọn
  */
 async function fetchPosts() {
   if (!userId.value) return;
@@ -442,7 +363,7 @@ function handlePageChange(page) {
 }
 
 /**
- * Khởi tạo component: lấy thông tin người dùng và danh sách bài đăng
+ * Khởi tạo component: lấy thông tin người dùng và danh sách tài liệu
  */
 onMounted(async () => {
   try {

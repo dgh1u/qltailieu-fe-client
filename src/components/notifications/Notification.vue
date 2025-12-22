@@ -76,7 +76,7 @@ async function fetchActions() {
       console.warn("Chưa có userId -> không thể tải thông báo.");
       return;
     }
-    // Lấy danh sách bài đăng của người dùng
+    // Lấy danh sách tài liệu của người dùng
     const postRes = await getPostsByUserId(userId, {
       start: pagination.value.current - 1,
       limit: 50,
@@ -86,11 +86,11 @@ async function fetchActions() {
     const postIdsCsv = postItems.map((p) => p.id).join(",");
 
     if (!postIdsCsv) {
-      console.info("User chưa có bài đăng -> không có action nào.");
+      console.info("User chưa có tài liệu -> không có action nào.");
       return;
     }
 
-    // Lấy các thông báo liên quan đến bài đăng
+    // Lấy các thông báo liên quan đến tài liệu
     const actionRes = await getListAction({
       start: pagination.value.current - 1,
       limit: pagination.value.pageSize,
@@ -219,19 +219,19 @@ function actionColor(type) {
               >
                 <p>
                   <template v-if="action.action === 'CREATE'">
-                    <strong>Bạn</strong> đã tạo bài đăng
+                    <strong>Bạn</strong> đã tạo tài liệu
                     <span class="text-sky-500">{{ action.postTitle }}</span>
                     (ID: <span class="text-amber-400">{{ action.postId }}</span>
                     ) đang chờ kiểm duyệt.
                   </template>
                   <template v-else-if="action.action === 'APPROVE'">
-                    <strong>ADMIN</strong> đã duyệt bài đăng
+                    <strong>ADMIN</strong> đã duyệt tài liệu
                     <span class="text-sky-500">{{ action.postTitle }}</span>
                     (ID: <span class="text-amber-400">{{ action.postId }}</span>
                     ).
                   </template>
                   <template v-else-if="action.action === 'BLOCK'">
-                    <strong>ADMIN</strong> đã khóa bài đăng
+                    <strong>ADMIN</strong> đã khóa tài liệu
                     <span class="text-sky-500">{{ action.postTitle }}</span>
                     (ID: <span class="text-amber-400">{{ action.postId }}</span>
                     ).

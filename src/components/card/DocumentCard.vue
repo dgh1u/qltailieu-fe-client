@@ -60,16 +60,6 @@
             </div>
           </div>
         </div>
-
-        <!-- View Count Badge -->
-        <div
-          class="absolute bottom-3 right-3 bg-white/90 text-gray-700 px-2 py-1 rounded-md flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        >
-          <Eye class="w-3 h-3" />
-          <span class="text-xs">{{
-            Math.floor(Math.random() * 1000) + 100
-          }}</span>
-        </div>
       </div>
 
       <!-- Content Section -->
@@ -161,7 +151,7 @@ const placeholder =
   "https://dummyimage.com/400x300/cccccc/000000.png&text=No+Image";
 const fetchedImages = ref([]);
 
-// Lấy danh sách hình ảnh của bài đăng
+// Lấy danh sách hình ảnh của tài liệu
 async function fetchImages() {
   if (!props.post.id) return;
   try {

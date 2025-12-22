@@ -68,69 +68,81 @@ const clearError = (field) => {
 </script>
 
 <template>
-  <div class="min-h-screen flex">
-    <!-- Cột trái: Form đăng nhập -->
+  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-400 to-sky-300 p-4">
+    <!-- Forgot Password Form Container -->
     <div
-      class="w-full xl:w-1/2 flex flex-col items-center px-8 py-8 bg-white relative"
-      data-aos="fade-left"
+      class="w-full max-w-lg bg-white rounded-xl shadow-2xl p-8"
+      data-aos="fade-up"
       data-aos-duration="800"
     >
-      <div class="flex-grow flex flex-col items-center justify-center w-full">
-        <div class="max-w-lg w-full text-center md:text-left">
-          <!-- Tiêu đề + Link đăng ký -->
-          <div class="mb-12">
-            <h1 class="text-3xl md:text-4xl font-bold mb-4">
-              Đặt lại mật khẩu
-            </h1>
-            <p class="text-gray-600 text-base md:text-base">
-              Vui lòng nhập Email của bạn để lấy lại mật khẩu!
+      <div class="flex flex-col items-center w-full">
+        <!-- Tiêu đề -->
+        <div class="mb-12 w-full text-center">
+          <h1 class="text-3xl md:text-4xl font-bold mb-4">
+            Đặt lại mật khẩu
+          </h1>
+          <p class="text-gray-600 text-base md:text-base">
+            Vui lòng nhập Email của bạn để lấy lại mật khẩu!
+          </p>
+        </div>
+
+        <!-- Form nhập email -->
+        <form @submit.prevent="handleSubmitEmail" class="space-y-7 w-full">
+          <!-- Email -->
+          <div>
+            <label
+              for="email"
+              class="block text-gray-700 font-medium mb-2 text-sm md:text-base"
+            >
+              Email
+            </label>
+            <input
+              v-model="email"
+              type="email"
+              id="email"
+              required
+              @input="clearError('email')"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400 focus:shadow-md focus:shadow-blue-200 outline-none transition duration-300 text-base"
+            />
+            <p v-if="errors.email" class="text-red-500 text-base mt-1">
+              {{ errors.email }}
             </p>
           </div>
 
-          <!-- Form đăng nhập -->
-          <form @submit.prevent="handleSubmitEmail" class="space-y-7">
-            <!-- Email -->
-            <div>
-              <label
-                for="email"
-                class="block text-gray-700 font-medium mb-2 text-sm md:text-base"
-              >
-                Email
-              </label>
-              <input
-                v-model="email"
-                type="email"
-                id="email"
-                required
-                @input="clearError('email')"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400 focus:shadow-md focus:shadow-blue-200 outline-none transition duration-300 text-base"
-              />
-              <p v-if="errors.email" class="text-red-500 text-base mt-1">
-                {{ errors.email }}
-              </p>
-            </div>
+          <!-- Hiển thị lỗi chung -->
+          <p
+            v-if="generalError"
+            class="text-red-500 text-center md:text-center text-base mb-4"
+          >
+            {{ generalError }}
+          </p>
 
-            <p v-if="generalError" class="text-red-500 text-center mb-4">
-              {{ generalError }}
-            </p>
+          <!-- Nút xác nhận -->
+          <div>
+            <button
+              type="submit"
+              :disabled="loading"
+              class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg flex items-center justify-center disabled:opacity-75 disabled:cursor-not-allowed text-base"
+            >
+              <span v-if="loading" class="loader mr-2"></span>
+              Xác nhận
+            </button>
+          </div>
 
-            <!-- Button -->
-            <div class="mt-6">
-              <button
-                type="submit"
-                :disabled="loading"
-                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center"
-              >
-                <span v-if="loading" class="loader"></span>
-                Xác nhận
-              </button>
-            </div>
-          </form>
-        </div>
+          <!-- Link quay lại đăng nhập -->
+          <div>
+            <router-link
+              to="/login"
+              class="text-blue-500 text-base flex items-center justify-center hover:font-bold"
+            >
+              Quay lại đăng nhập
+            </router-link>
+          </div>
+        </form>
       </div>
 
       <!-- Footer -->
-      <div class="text-sm text-gray-500 text-center">
+      <div class="text-sm text-gray-500 text-center mt-6">
         &copy; Toàn bộ bản quyền thuộc
         <router-link to="/home" class="text-blue-500 text-sm hover:font-bold">
           Nguyen Khac Duong
@@ -138,47 +150,7 @@ const clearError = (field) => {
       </div>
     </div>
 
-    <!-- Cột phải: Nền gradient (chỉ hiển thị trên màn hình lớn) -->
-    <div
-      class="hidden xl:flex w-1/2 bg-gradient-to-br from-sky-400 to-sky-300 items-center justify-center"
-    >
-      <div class="text-center text-white px-8">
-        <!-- Tên trường -->
-
-        <h2 class="text-xl font-bold">HỌC VIỆN NÔNG NGHIỆP VIỆT NAM</h2>
-        <h3 class="text-2xl font-semibold">KHOA CÔNG NGHỆ THÔNG TIN</h3>
-
-        <!-- Logo -->
-
-        <div class="flex items-center justify-center gap-8">
-          <img
-            src="@/assets/marquee-items/vnua-logo.png"
-            alt="VNUA Logo"
-            class="w-22 h-22 object-contain"
-          />
-          <img
-            src="@/assets/vnua-services-logo.png"
-            alt="Second Logo"
-            class="w-48 h-48 object-contain"
-          />
-        </div>
-
-        <!-- Tên dịch vụ -->
-        <div class="mb-6">
-          <h4 class="text-3xl font-bold mb-4">VNUA Services</h4>
-          <p class="text-xl">
-            Kênh thông tin dịch vụ khu vực Học viện Nông nghiệp Việt Nam
-          </p>
-        </div>
-
-        <!-- Thông tin sinh viên -->
-        <div class="text-lg">
-          <p>(*) Dương Minh Hiếu - 6667537</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Nút Zalo cố định -->
+    <!-- Nút liên hệ Zalo -->
     <a
       href="https://zalo.me/0981266403"
       target="_blank"

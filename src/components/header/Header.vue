@@ -182,14 +182,7 @@
 
           <!-- Hiển thị khi chưa đăng nhập -->
           <div v-else class="flex items-center">
-            <router-link
-              to="/create-post"
-              exact-active-class="bg-red-600"
-              class="flex items-center bg-red-500 hover:bg-red-600 text-white px-2 py-1 md:px-3 md:py-2 rounded-xl transition duration-150 text-xs md:text-sm lg:text-base"
-            >
-              <Edit size="14" class="mr-1 md:mr-2" />
-              <span>Đăng tin</span>
-            </router-link>
+      
             <router-link
               to="/login"
               exact-active-class="bg-blue-600"
@@ -399,7 +392,7 @@
               class="flex items-center justify-center w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl transition duration-150 mb-4 text-base"
             >
               <Edit size="18" class="mr-2" />
-              <span>Đăng tin</span>
+              <span>Đăng tài liệu</span>
             </router-link>
 
             <!-- Simplified User Profile Menu for Mobile -->
@@ -417,7 +410,7 @@
               class="flex items-center justify-center w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl transition duration-150 text-base"
             >
               <Edit size="18" class="mr-2" />
-              <span>Đăng tin</span>
+              <span>Đăng tài liệu</span>
             </router-link>
             <router-link
               to="/login"

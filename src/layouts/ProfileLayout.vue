@@ -41,7 +41,7 @@
       </main>
     </div>
 
-    <Chatbot />
+    
 
     <!-- Footer -->
     <Footer class="bg-gray-300 p-4" />

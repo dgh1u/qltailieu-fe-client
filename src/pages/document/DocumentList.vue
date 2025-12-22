@@ -25,7 +25,7 @@
         <div v-if="errorMsg" class="p-4 text-red-600">
           {{ errorMsg }}
         </div>
-        <!-- Danh sách tin đăng -->
+        <!-- Danh sách tài liệu -->
         <div class="p-2 pb-20 flex-1 overflow-y-auto">
           <template v-if="posts.length">
             <!-- Grid 1 cột trên mobile, 2 cột từ md trở lên -->
@@ -58,7 +58,7 @@
           </template>
           <template v-else>
             <div class="flex items-center font-semibold justify-center py-10">
-              <a-empty description="Không tìm thấy tin đăng nào!" />
+              <a-empty description="Không tìm thấy tài liệu nào!" />
             </div>
           </template>
         </div>
@@ -90,7 +90,7 @@ const filters = ref({
   secondMotelSelected: null,
 });
 
-// Danh sách bài đăng
+// Danh sách tài liệu
 const posts = ref([]);
 
 // Thông báo lỗi
@@ -148,7 +148,7 @@ function buildQueryParams() {
   return params;
 }
 
-// Gọi API và cập nhật danh sách bài đăng
+// Gọi API và cập nhật danh sách tài liệu
 async function fetchPosts() {
   try {
     errorMsg.value = "";
@@ -166,7 +166,7 @@ async function fetchPosts() {
   } catch (error) {
     console.error("Error fetching posts:", error);
     errorMsg.value =
-      "Có lỗi xảy ra khi lấy danh sách bài đăng. Vui lòng kiểm tra lại log!";
+      "Có lỗi xảy ra khi lấy danh sách tài liệu. Vui lòng kiểm tra lại log!";
   }
 }
 

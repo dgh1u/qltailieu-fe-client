@@ -17,7 +17,7 @@ export const getDetailPost = async (id) => {
   });
 };
 
-// Lấy danh sách tin đăng của một người dùng theo userId
+// Lấy danh sách tài liệu của một người dùng theo userId
 export const getPostsByUserId = async (idUser, params) => {
   return axios({
     url: `/api/posts/${idUser}`,

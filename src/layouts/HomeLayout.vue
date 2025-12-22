@@ -14,7 +14,6 @@
         <slot />
         <!-- Khu vực hiển thị nội dung trang -->
       </main>
-      <Chatbot />
 
       <!-- Sidebar Right -->
       <div class="col-span-1 bg-white text-center"></div>

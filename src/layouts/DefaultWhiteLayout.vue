@@ -7,8 +7,7 @@
       <slot />
       <!-- Khu vực hiển thị nội dung trang -->
     </main>
-    <!-- Chatbot floating component -->
-    <Chatbot />
+    
     <!-- Footer -->
     <Footer class="bg-gray-300 p-4" />
   </div>

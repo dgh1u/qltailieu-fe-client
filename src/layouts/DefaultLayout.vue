@@ -3,12 +3,11 @@
     <!-- Header -->
     <Header class="bg-gray-300 p-2" />
 
-    <main class="px-4 bg-sky-50 md:px-2 lg:px-16 xl:px-40">
+    <main class="px-4 bg-gray-50 md:px-2 lg:px-16 xl:px-40">
       <slot />
       <!-- Khu vực hiển thị nội dung trang -->
     </main>
-    <!-- Chatbot floating component -->
-    <Chatbot />
+   
     <!-- Footer -->
     <Footer class="bg-gray-300 p-4" />
   </div>

@@ -867,14 +867,14 @@ const handleCreatePost = () => {
           }
         }
 
-        message.success("Đăng tin thành công!");
+        message.success("Đăng tài liệu thành công!");
         resetForm();
         file.value = null; // Reset single file
       } catch (error) {
         const errorMessage = error.message;
         if (errorMessage.includes("Số dư không đủ")) {
           message.error(
-            "Không thể đăng bài: Số dư không đủ 2000 đồng. Vui lòng nạp thêm tiền để có thể Đăng tin!"
+            "Không thể đăng bài: Số dư không đủ 2000 đồng. Vui lòng nạp thêm tiền để có thể Đăng tài liệu!"
           );
         } else {
           message.error("Đã có lỗi xảy ra");
@@ -884,7 +884,7 @@ const handleCreatePost = () => {
       }
     },
     onCancel() {
-      message.info("Đã hủy đăng tin");
+      message.info("Đã hủy Đăng tài liệu");
     },
   });
 };

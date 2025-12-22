@@ -96,73 +96,99 @@ const clearError = () => {
 </script>
 
 <template>
-  <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
-    <h2 class="text-2xl font-bold text-center mb-4">XÁC THỰC TÀI KHOẢN</h2>
-    <p class="text-center mb-4">
-      Mã OTP đã được gửi tới <strong>{{ email }}</strong>
-    </p>
+  <div class="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+      <!-- Main Card -->
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">Xác thực tài khoản</h2>
+          <p class="text-gray-600 text-sm">
+            Nhập mã OTP đã được gửi đến<br />
+            <span class="font-semibold text-gray-900">{{ email }}</span>
+          </p>
+        </div>
 
-    <form @submit.prevent="handleVerify">
-      <div class="flex justify-center gap-2 mb-4">
-        <input
-          v-for="(digit, index) in otpInputs"
-          :key="index"
-          :id="'otp-' + index"
-          v-model="otpInputs[index]"
-          maxlength="1"
-          type="text"
-          class="w-12 h-12 text-center text-xl border rounded-lg"
-          @input="
-            (e) => {
-              clearError();
-              if (e.target.value) focusNext(index);
-            }
-          "
-          @keydown.backspace="
-            (e) => {
-              if (!otpInputs[index]) focusPrev(index);
-            }
-          "
-        />
+        <!-- Form -->
+        <form @submit.prevent="handleVerify">
+          <!-- OTP Input -->
+          <div class="mb-6">
+            <div class="flex justify-center gap-2">
+              <input
+                v-for="(digit, index) in otpInputs"
+                :key="index"
+                :id="'otp-' + index"
+                v-model="otpInputs[index]"
+                maxlength="1"
+                type="text"
+                class="w-12 h-12 text-center text-xl font-semibold border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                :class="{
+                  'border-red-400': otpError
+                }"
+                @input="
+                  (e) => {
+                    clearError();
+                    if (e.target.value) focusNext(index);
+                  }
+                "
+                @keydown.backspace="
+                  (e) => {
+                    if (!otpInputs[index]) focusPrev(index);
+                  }
+                "
+              />
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div v-if="otpError || generalError" class="mb-6">
+            <p class="text-red-600 text-sm text-center">
+              {{ otpError || generalError }}
+            </p>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            :disabled="loading"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {{ loading ? 'Đang xác thực...' : 'Xác nhận' }}
+          </button>
+        </form>
+
+        <!-- Timer -->
+        <div class="mt-6 text-center">
+          <p class="text-gray-600 text-sm">
+            Mã có hiệu lực trong: <span class="font-semibold text-gray-900">{{ timer }}</span>
+          </p>
+        </div>
+
+        <!-- Resend -->
+        <div class="mt-4 text-center">
+          <button
+            @click="handleRegenerateOTP"
+            :disabled="loading"
+            class="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors disabled:opacity-50"
+          >
+            Gửi lại mã OTP
+          </button>
+        </div>
       </div>
-
-      <p v-if="otpError" class="text-red-500 text-center text-sm mb-2">
-        {{ otpError }}
-      </p>
-      <p v-if="generalError" class="text-red-500 text-center text-sm mb-2">
-        {{ generalError }}
-      </p>
-
-      <!-- Button -->
-      <div class="mt-6">
-        <button
-          type="submit"
-          :disabled="loading"
-          class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center"
-        >
-          <span v-if="loading" class="loader"></span>
-          Xác nhận
-        </button>
-      </div>
-    </form>
-
-    <div class="text-center mt-4">
-      <span class="text-gray-700">Mã có hiệu lực trong:</span>
-      <span class="text-gray-900 font-bold ml-1">{{ timer }}</span>
-    </div>
-
-    <div class="text-center mt-4">
-      <span class="text-gray-700">Không nhận được mã? </span>
-      <button
-        @click="handleRegenerateOTP"
-        class="text-blue-500 font-bold hover:underline"
-      >
-        Gửi lại
-      </button>
     </div>
   </div>
 </template>
 
 <style scoped>
-@import "@/style.css";
+/* Remove number input arrows */
+input[type="text"]::-webkit-outer-spin-button,
+input[type="text"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 </style>
