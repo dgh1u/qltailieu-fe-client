@@ -1,12 +1,19 @@
 <script setup>
+// Import các thư viện Vue cần thiết
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
+
+// Import icons cho các loại thông báo
 import { PlusCircle, CheckCircle2, XCircle } from "lucide-vue-next";
+
+// Import API services
 import { getListAction, markActionAsRead } from "@/apis/actionService";
 import { getPostsByUserId } from "@/apis/postService";
+
+// Import layout
 import DefaultLayout from "../../layouts/DefaultLayout.vue";
 
-// Lấy userId từ localStorage
+// Lấy ID người dùng từ localStorage để load thông báo
 let userId = null;
 try {
   const authStr = localStorage.getItem("auth");
@@ -18,13 +25,11 @@ try {
   console.error("Lỗi parse JSON auth:", err);
 }
 
-const actions = ref([]);
+// Router để điều hướng đến trang chi tiết
 const router = useRouter();
 
-// Tính số thông báo chưa đọc
-const unreadCount = computed(
-  () => actions.value.filter((action) => !action.isRead).length
-);
+// Danh sách thông báo
+const actions = ref([]);
 
 // Cấu hình phân trang
 const pagination = ref({
@@ -33,7 +38,7 @@ const pagination = ref({
   total: 0,
 });
 
-// Xử lý chuyển đến trang chi tiết tài liệu và đánh dấu thông báo đã đọc
+// Hàm xử lý khi click vào thông báo: đánh dấu đã đọc và chuyển đến trang chi tiết
 function goToPost(action) {
   markActionAsRead(action.id)
     .then(() => {
@@ -46,19 +51,19 @@ function goToPost(action) {
     });
 }
 
-// Điều hướng tới trang chi tiết tài liệu theo loại
+// Hàm điều hướng đến trang chi tiết tài liệu
 function navigateToPostDetail(action) {
-router.push(`/post/document/${action.postId}`);
+  router.push(`/post/document/${action.postId}`);
 }
 
-// Lấy danh sách thông báo
+// Hàm tải danh sách thông báo từ API
 function fetchActions() {
   if (!userId) {
-    console.warn("Chưa có userId -> không thể tải thông báo.");
+    console.warn("Chưa có userId, không thể tải thông báo.");
     return;
   }
 
-  // Lấy danh sách tài liệu của người dùng
+  // Bước 1: Lấy danh sách tài liệu của người dùng
   getPostsByUserId(userId, { start: 0, limit: 50 })
     .then((postRes) => {
       const postData = postRes.data.data || postRes.data;
@@ -66,11 +71,11 @@ function fetchActions() {
       const postIdsCsv = postItems.map((p) => p.id).join(",");
 
       if (!postIdsCsv) {
-        console.info("User chưa có tài liệu -> không có thông báo.");
+        console.info("Người dùng chưa có tài liệu nào.");
         return;
       }
 
-      // Lấy danh sách thông báo theo các postId với phân trang
+      // Bước 2: Lấy danh sách thông báo dựa trên các postId
       getListAction({
         start: pagination.value.current - 1,
         limit: pagination.value.pageSize,
@@ -90,20 +95,18 @@ function fetchActions() {
     });
 }
 
-// Xử lý thay đổi trang
+// Hàm xử lý khi người dùng chuyển trang
 function handlePageChange(page) {
   pagination.value.current = page;
   fetchActions();
 }
 
-// Khởi tạo dữ liệu khi component được tạo
+// Khi component được mount, tải danh sách thông báo
 onMounted(() => {
   fetchActions();
 });
 
-/**
- * Chuyển đổi thời gian từ mảng [YYYY,MM,DD,hh,mm,ss] sang định dạng "X phút/giờ/ngày trước"
- */
+// Hàm chuyển đổi mảng thời gian [YYYY,MM,DD,hh,mm,ss] sang dạng "X phút/giờ/ngày trước"
 function formatTime(arr) {
   if (!Array.isArray(arr) || arr.length !== 6) return "";
   const [year, month, day, hour, minute, second] = arr;
@@ -131,7 +134,7 @@ function formatTime(arr) {
   }
 }
 
-// Lấy icon theo loại thông báo
+// Hàm lấy component icon tương ứng với loại thông báo
 function actionIcon(type) {
   return (
     {
@@ -142,7 +145,7 @@ function actionIcon(type) {
   );
 }
 
-// Lấy màu nền cho icon theo loại thông báo
+// Hàm lấy class màu nền tương ứng với loại thông báo
 function actionColor(type) {
   return (
     {

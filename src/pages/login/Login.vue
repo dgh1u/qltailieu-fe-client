@@ -126,22 +126,41 @@
 </template>
 
 <script setup>
+// Import các thư viện Vue cần thiết
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+
+// Import store quản lý authentication
 import { useAuthStore } from "../../stores/store";
+
+// Import icons hiển thị/ẩn mật khẩu
 import { Eye, EyeOff } from "lucide-vue-next";
 
-// Khai báo các biến reactive
+// Email người dùng nhập vào
 const email = ref("");
+
+// Mật khẩu người dùng nhập vào
 const password = ref("");
+
+// Trạng thái hiển thị/ẩn mật khẩu
 const showPassword = ref(false);
+
+// Trạng thái loading khi đang xử lý đăng nhập
 const loading = ref(false);
+
+// Object chứa các lỗi validation cho từng trường
 const errors = ref({});
+
+// Thông báo lỗi chung (từ server hoặc lỗi đăng nhập)
 const generalError = ref("");
+
+// Router để điều hướng trang
 const router = useRouter();
+
+// Store quản lý trạng thái đăng nhập
 const authStore = useAuthStore();
 
-// Kiểm tra tính hợp lệ của dữ liệu đầu vào
+// Hàm kiểm tra tính hợp lệ của email và mật khẩu trước khi đăng nhập
 const validateInput = () => {
   errors.value = {};
 
@@ -160,7 +179,7 @@ const validateInput = () => {
   return Object.keys(errors.value).length === 0;
 };
 
-// Xóa thông báo lỗi khi người dùng nhập lại
+// Hàm xóa thông báo lỗi khi người dùng bắt đầu nhập lại
 const clearError = (field) => {
   if (errors.value[field]) {
     errors.value[field] = "";
@@ -168,35 +187,39 @@ const clearError = (field) => {
   generalError.value = "";
 };
 
-// Bật/tắt hiển thị mật khẩu
+// Hàm chuyển đổi giữa hiển thị và ẩn mật khẩu
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
-// Xử lý đăng nhập
+// Hàm xử lý đăng nhập khi người dùng submit form
 const handleLogin = async () => {
   loading.value = true;
   generalError.value = "";
 
+  // Kiểm tra validation trước khi gọi API
   if (!validateInput()) {
     loading.value = false;
     return;
   }
 
   try {
+    // Gọi API đăng nhập thông qua store
     await authStore.login(email.value, password.value);
 
-    // Lấy URL chuyển hướng từ localStorage (nếu có)
+    // Lấy URL chuyển hướng từ localStorage (dùng khi user truy cập trang yêu cầu đăng nhập)
     const redirectPath = localStorage.getItem("redirectAfterLogin") || "/home";
 
-    // Xóa dữ liệu chuyển hướng
+    // Xóa dữ liệu chuyển hướng sau khi đã lấy
     localStorage.removeItem("redirectAfterLogin");
 
-    // Chuyển hướng người dùng
+    // Chuyển hướng đến trang đã lưu hoặc trang home
     router.push(redirectPath);
   } catch (err) {
+    // Hiển thị thông báo lỗi nếu đăng nhập thất bại
     generalError.value = err?.message || "Đăng nhập thất bại!";
   } finally {
+    // Tắt trạng thái loading
     loading.value = false;
   }
 };

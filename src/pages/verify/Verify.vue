@@ -1,8 +1,10 @@
-div
 <script setup>
+// Import các hàm reactive và lifecycle hooks từ Vue
 import { ref, reactive, onMounted, onUnmounted } from "vue";
+// Import service xử lý xác thực OTP
 import * as authService from "@/apis/authService";
 
+// Nhận email từ component cha
 const props = defineProps({
   email: {
     type: String,
@@ -10,23 +12,33 @@ const props = defineProps({
   },
 });
 
+// Phát sự kiện về component cha khi xác thực thành công
 const emit = defineEmits(["verified"]);
-const otpInputs = reactive(["", "", "", "", "", ""]);
-const loading = ref(false);
-const generalError = ref("");
-const otpError = ref("");
-const timer = ref("02:00");
-const countdown = ref(120);
-let timerInterval;
 
+// Mảng chứa 6 ô nhập OTP
+const otpInputs = reactive(["", "", "", "", "", ""]);
+
+// Trạng thái UI và xử lý lỗi
+const loading = ref(false); // Trạng thái loading
+const generalError = ref(""); // Lỗi chung từ server
+const otpError = ref(""); // Lỗi OTP không hợp lệ
+
+// Xử lý đếm ngược thời gian
+const timer = ref("02:00"); // Hiển thị thời gian còn lại
+const countdown = ref(120); // Số giây còn lại (2 phút)
+let timerInterval; // Interval để đếm ngược // Interval để đếm ngược
+
+// Khởi động đếm ngược khi component được mount
 onMounted(() => {
   startCountdown();
 });
 
+// Dọn dẹp interval khi component bị unmount
 onUnmounted(() => {
   clearInterval(timerInterval);
 });
 
+// Hàm bắt đầu đếm ngược thời gian OTP (2 phút)
 const startCountdown = () => {
   timerInterval = setInterval(() => {
     countdown.value--;
@@ -40,20 +52,24 @@ const startCountdown = () => {
   }, 1000);
 };
 
+// Hàm chuyển focus sang ô nhập OTP tiếp theo
 const focusNext = (index) => {
   if (index < otpInputs.length - 1) {
     document.getElementById(`otp-${index + 1}`).focus();
   }
 };
 
+// Hàm chuyển focus về ô nhập OTP trước đó
 const focusPrev = (index) => {
   if (index > 0) {
     document.getElementById(`otp-${index - 1}`).focus();
   }
 };
 
+// Hàm ghép 6 ô nhập thành chuỗi OTP hoàn chỉnh
 const getOtp = () => otpInputs.join("");
 
+// Hàm xử lý xác thực OTP
 const handleVerify = async () => {
   const otp = getOtp();
   if (otp.length !== 6) {
@@ -73,6 +89,7 @@ const handleVerify = async () => {
   }
 };
 
+// Hàm xử lý gửi lại mã OTP mới
 const handleRegenerateOTP = async () => {
   loading.value = true;
   try {
@@ -89,6 +106,7 @@ const handleRegenerateOTP = async () => {
   }
 };
 
+// Hàm xóa thông báo lỗi
 const clearError = () => {
   otpError.value = "";
   generalError.value = "";

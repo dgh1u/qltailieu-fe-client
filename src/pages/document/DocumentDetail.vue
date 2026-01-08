@@ -314,58 +314,52 @@
 </template>
 
 <script setup>
+// Import các thư viện Vue cần thiết
 import { ref, onMounted, computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
+
+// Import layouts và components
 import DefaultLayout from "../../layouts/DefaultLayout.vue";
 import Comment from "../../components/comment/Comment.vue";
-import { getDetailPost, hidePost } from "@/apis/postService.js";
+
+// Import các API services
+import { getDetailPost } from "@/apis/postService.js";
 import { getImageByPost } from "@/apis/imageService.js";
+import { getProfile } from "@/apis/authService.js";
+import { downloadDoc } from "@/apis/documentService.js";
 import { useAuthStore } from "@/stores/store";
 
-import { getProfile } from "@/apis/authService.js";
+// Import message notification
 import { message } from "ant-design-vue";
+
+// Import icons
 import {
   Phone,
-  MapPin,
   Mail,
   Clock,
-  CircleParking,
-  Truck,
-  UtensilsCrossed,
-  ShoppingBag,
-  Expand,
   Tag,
   GraduationCap,
 } from "lucide-vue-next";
-import {
-  MapPin as MapPinIcon,
-  Snowflake as SnowflakeIcon,
-  Wifi as WifiIcon,
-} from "lucide-vue-next";
-import { getDocumentsByPost, downloadDoc } from "@/apis/documentService.js";
 
+// Danh sách tài liệu đính kèm
 const documents = ref([]);
 
+// Router để lấy params từ URL
 const route = useRoute();
-const router = useRouter();
 
+// Thông tin bài đăng tài liệu
 const post = ref(null);
-const errorMsg = ref("");
+
+// Thông tin người dùng hiện tại
 const currentUser = ref(null);
 
-// Định dạng ngày tháng
+// Hàm chuyển đổi định dạng ngày tháng
 function formatDate(dateStr) {
   const date = new Date(dateStr);
   return date.toLocaleDateString();
 }
 
-// Tạo URL Google Maps
-const mapUrl = computed(() => {
-  if (!post.value?.criteriaDTO?.address) return "";
-  const encodedAddress = encodeURIComponent(post.value.criteriaDTO.address);
-  return `https://maps.google.com/maps?q=${encodedAddress}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
-});
-
+// Tính toán trạng thái hiển thị của bài đăng (Đã duyệt/Chờ duyệt/Bị khóa)
 const displayStatus = computed(() => {
   if (!post.value) return "";
 
@@ -379,7 +373,7 @@ const displayStatus = computed(() => {
   return "";
 });
 
-// Xử lý hiển thị avatar
+// Xử lý và format avatar để hiển thị (thêm prefix base64 nếu cần)
 const finalAvatar = computed(() => {
   const avatar = post.value?.userDTO?.b64;
   if (avatar) {
@@ -390,23 +384,23 @@ const finalAvatar = computed(() => {
   return null;
 });
 
-// Quản lý thư viện ảnh
-const mainImage = ref(""); // Will store the primary image URL
+// Ảnh đại diện chính của tài liệu
+const mainImage = ref("");
 
-// Lấy thông tin chi tiết tài liệu
+// Hàm lấy thông tin chi tiết bài đăng tài liệu từ API
 async function fetchPost() {
   const id = route.params.id;
   try {
     const { data: result } = await getDetailPost(id);
     post.value = result;
-    await loadMainImage(result.id); // Replace loadGalleryImages with loadMainImage
+    await loadMainImage(result.id);
     documents.value = result.documents || [];
   } catch (error) {
-    errorMsg.value = "Có lỗi khi tải tài liệu";
+    console.error("Có lỗi khi tải tài liệu:", error);
   }
 }
 
-// Tải các hình ảnh của tài liệu
+// Hàm tải ảnh đại diện của bài đăng
 async function loadMainImage(postId) {
   try {
     const urls = await getImageByPost(postId);
@@ -415,25 +409,25 @@ async function loadMainImage(postId) {
         ? urls[0]
         : "https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image";
   } catch (err) {
-    console.error("Error loading image:", err);
+    console.error("Lỗi khi tải ảnh:", err);
     mainImage.value =
       "https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image";
   }
 }
 
-// Add error handler for image
+// Xử lý khi ảnh bị lỗi không tải được
 function handleImageError(e) {
   e.target.src =
     "https://dummyimage.com/800x600/cccccc/000000.png&text=No+Image";
 }
 
-// Hàm tải tài liệu đã được cập nhật để sử dụng API downloadDoc
+// Hàm xử lý khi click vào tài liệu để tải xuống
 async function handleDocumentClick(doc) {
   try {
     console.log("💾 Tải tài liệu:", doc.file_name);
     console.log("🆔 Document ID:", doc.id);
 
-    // Gọi API downloadDoc thay vì fetch trực tiếp
+    // Gọi API để tải tài liệu
     const response = await downloadDoc(doc.id);
 
     console.log("📡 Response:", response);
@@ -441,9 +435,9 @@ async function handleDocumentClick(doc) {
     console.log("📡 Is Blob:", response instanceof Blob);
 
     let blob;
-    let downloadFileName = doc.fileName; // Fallback filename
+    let downloadFileName = doc.fileName;
 
-    // Kiểm tra nếu response là Blob trực tiếp
+    // Xử lý response để lấy blob data
     if (response instanceof Blob) {
       blob = response;
       console.log(
@@ -486,19 +480,19 @@ async function handleDocumentClick(doc) {
       throw new Error("File rỗng");
     }
 
-    // Tạo URL tạm từ blob và tải về
+    // Tạo link download tự động và kích hoạt
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = downloadFileName; // ⭐ Quan trọng: download attribute
-    link.style.display = "none"; // Ẩn link
+    link.download = downloadFileName;
+    link.style.display = "none";
 
-    // Thêm vào DOM, click, rồi xóa ngay
+    // Thêm link vào DOM, click tự động, sau đó xóa
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    // Cleanup URL sau 1 giây
+    // Giải phóng bộ nhớ sau khi tải xong
     setTimeout(() => {
       window.URL.revokeObjectURL(url);
       console.log("🗑️ Cleaned up blob URL");
@@ -515,6 +509,7 @@ async function handleDocumentClick(doc) {
   }
 }
 
+// Hàm lấy tên hiển thị loại file dựa trên fileType hoặc fileName
 function getFileTypeText(fileTypeOrName) {
   if (typeof fileTypeOrName === "string") {
     const lower = fileTypeOrName.toLowerCase();
@@ -527,17 +522,17 @@ function getFileTypeText(fileTypeOrName) {
   return "Document";
 }
 
-// Lấy thông tin người dùng hiện tại
+// Hàm lấy thông tin profile của người dùng đang đăng nhập
 async function fetchProfile() {
   try {
     const response = await getProfile();
     currentUser.value = response.data;
   } catch (error) {
-    // Xử lý lỗi khi tải thông tin người dùng
+    console.error("Lỗi khi tải thông tin người dùng:", error);
   }
 }
 
-// Kiểm tra người xem có phải là chủ tài liệu
+// Kiểm tra người dùng hiện tại có phải là chủ sở hữu bài đăng không
 const isOwner = computed(() => {
   return (
     currentUser.value &&
@@ -547,20 +542,12 @@ const isOwner = computed(() => {
   );
 });
 
-// Xử lý ẩn/hiện tài liệu
-async function toggleHidePost() {
-  try {
-    const response = await hidePost(post.value.id);
-    message.success(response.data.message);
-    post.value.del = post.value.del === false ? true : false;
-  } catch (error) {
-    message.error("Có lỗi xảy ra khi ẩn/hiện tài liệu");
-  }
-}
-
+// Khi component được mount, tải dữ liệu tài liệu và thông tin người dùng
 onMounted(() => {
+  // Tải thông tin chi tiết tài liệu
   fetchPost();
 
+  // Nếu đã đăng nhập, tải thông tin người dùng để kiểm tra quyền sở hữu
   const authStore = useAuthStore();
   if (authStore.isAuthenticated && authStore.token?.trim() !== "") {
     fetchProfile();

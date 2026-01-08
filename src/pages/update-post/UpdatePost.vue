@@ -240,11 +240,16 @@
 </template>
 
 <script setup>
+// Import các thư viện Vue cần thiết
 import { ref, reactive, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+
+// Import layout và components
 import DefaultLayout from "../../layouts/DefaultLayout.vue";
 import { message } from "ant-design-vue";
 import { FolderUp, Trash2, ChevronDown, FileText } from "lucide-vue-next";
+
+// Import API services
 import { updatePost, getDetailPost } from "@/apis/postService.js";
 import {
   getImageDTOByPost,
@@ -256,11 +261,13 @@ import {
   deleteSingleDocument,
 } from "@/apis/documentService.js";
 
-
-const openHoursValue = ref(null);
+// Danh sách tài liệu hiện có của bài đăng
 const existingDocuments = ref([]);
+
+// Danh sách tài liệu mới được chọn để upload
 const selectedDocuments = ref([]);
 
+// Hàm chuyển đổi chuỗi base64 thành File object
 function base64ToFile(base64, fileName, fileType) {
   const byteString = atob(base64);
   const arrayBuffer = new ArrayBuffer(byteString.length);
@@ -271,6 +278,7 @@ function base64ToFile(base64, fileName, fileType) {
   return new File([intArray], fileName, { type: fileType });
 }
 
+// Dữ liệu form cập nhật tài liệu
 const formData = reactive({
   title: "",
   content: "",
@@ -282,25 +290,35 @@ const formData = reactive({
   },
 });
 
-const mapAddress = ref("");
+// Trạng thái loading khi đang cập nhật
 const loading = ref(false);
 
+// Lấy route và router để thao tác với URL
 const route = useRoute();
 const router = useRouter();
+
+// ID của bài đăng cần cập nhật
 const postId = route.params.id;
+
+// Ảnh đại diện hiện tại của bài đăng
 const imageBox = ref(null);
+
+// Danh sách ID của các tài liệu sẽ bị xóa
 const documentsToDelete = ref([]);
 
-
+// Khi component được mount, tải thông tin bài đăng hiện tại
 onMounted(async () => {
   try {
+    // Lấy thông tin chi tiết của bài đăng
     const resp = await getDetailPost(postId);
     console.log("Detail post:", resp.data);
     const data = resp.data;
 
+    // Gán dữ liệu vào form
     formData.title = data.title;
     formData.content = data.content;
 
+    // Gán dữ liệu criteria nếu có
     if (data.criteriaDTO) {
       Object.assign(formData.criteria, data.criteriaDTO);
       if (data.criteriaDTO.district && data.criteriaDTO.district.id) {
@@ -308,6 +326,7 @@ onMounted(async () => {
       }
     }
 
+    // Tải ảnh đại diện nếu có
     const imgRes = await getImageDTOByPost(postId);
     console.log("Response từ getImageDTOByPost:", imgRes);
 
@@ -324,6 +343,7 @@ onMounted(async () => {
       };
     }
 
+    // Tải danh sách tài liệu đính kèm
     console.log("📄 Loading documents...");
 
     if (data.documents && Array.isArray(data.documents)) {
@@ -340,7 +360,7 @@ onMounted(async () => {
   }
 });
 
-
+// Hàm xử lý khi người dùng chọn tài liệu mới
 function handleDocumentChange(event) {
   const files = Array.from(event.target.files);
   const allowedTypes = [".pdf", ".docx", ".ppt", ".pptx"];
@@ -358,6 +378,7 @@ function handleDocumentChange(event) {
   event.target.value = "";
 }
 
+// Hàm xóa tài liệu hiện có (chỉ đánh dấu, chưa xóa thật)
 function removeExistingDocument(docId) {
   existingDocuments.value = existingDocuments.value.filter(
     (doc) => doc.id !== docId
@@ -372,11 +393,13 @@ function removeExistingDocument(docId) {
   message.success("Đã xóa tài liệu khỏi danh sách");
 }
 
+// Hàm xóa tài liệu mới khỏi danh sách chọn
 function removeDocument(index) {
   selectedDocuments.value.splice(index, 1);
   console.log(`Đã xóa tài liệu mới tại vị trí ${index}`);
 }
 
+// Hàm định dạng kích thước file
 function formatFileSize(bytes) {
   if (bytes === 0) return "0 Bytes";
   const k = 1024;
@@ -385,6 +408,7 @@ function formatFileSize(bytes) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 }
 
+// Hàm xử lý khi người dùng chọn ảnh đại diện mới
 function handleFileChange(e) {
   const file = e.target.files[0];
   if (file) {
@@ -407,6 +431,7 @@ function handleFileChange(e) {
   e.target.value = null;
 }
 
+// Hàm xóa ảnh đại diện
 function removeImage() {
   if (imageBox.value) {
     if (imageBox.value.preview && !imageBox.value.isExisting) {
@@ -416,6 +441,7 @@ function removeImage() {
   }
 }
 
+// Hàm xây dựng payload để gửi lên API
 function buildPayload() {
   return {
     title: formData.title,
@@ -429,8 +455,9 @@ function buildPayload() {
   };
 }
 
-
+// Hàm xử lý cập nhật bài đăng
 async function handleUpdatePost() {
+  // Validate tiêu đề
   if (!formData.title.trim()) {
     message.error("Tiêu đề không được để trống");
     return;
@@ -440,6 +467,7 @@ async function handleUpdatePost() {
     return;
   }
 
+  // Validate nội dung mô tả
   if (!formData.content.trim()) {
     message.error("Nội dung mô tả không được để trống");
     return;
@@ -451,10 +479,12 @@ async function handleUpdatePost() {
 
   loading.value = true;
   try {
+    // Cập nhật thông tin bài đăng
     console.log("Cập nhật tài liệu với payload:", buildPayload());
     await updatePost(postId, buildPayload());
     console.log("Cập nhật tài liệu thành công.");
 
+    // Xóa ảnh cũ và upload ảnh mới
     await deleteImagesByPost(postId);
 
     if (imageBox.value) {
@@ -469,6 +499,7 @@ async function handleUpdatePost() {
       await uploadMultipleImages(postId, [fileToUpload]);
     }
 
+    // Xóa các tài liệu đã đánh dấu xóa
     if (documentsToDelete.value.length > 0) {
       console.log("Xóa các tài liệu:", documentsToDelete.value);
 
@@ -482,6 +513,7 @@ async function handleUpdatePost() {
       }
     }
 
+    // Upload các tài liệu mới
     if (selectedDocuments.value.length > 0) {
       console.log("Upload tài liệu mới:", selectedDocuments.value);
       for (const doc of selectedDocuments.value) {
@@ -494,9 +526,12 @@ async function handleUpdatePost() {
       }
     }
 
+    // Xóa danh sách tài liệu đã xóa
     documentsToDelete.value = [];
 
     message.success("Cập nhật tin thành công!");
+    
+    // Chuyển về trang chi tiết tài liệu
     if (formData.criteria.motel === "TAI_LIEU") {
       router.push(`/post/document/${postId}`);
     }

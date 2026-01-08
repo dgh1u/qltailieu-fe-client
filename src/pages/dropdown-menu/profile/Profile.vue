@@ -253,12 +253,15 @@
 </template>
 
 <script setup>
+// Import các thư viện Vue cần thiết
 import { ref, onMounted } from "vue";
+
+// Import layout và API services
 import ProfileLayout from "../../../layouts/ProfileLayout.vue";
 import { getProfile, updateProfile } from "@/apis/authService.js";
 import { message } from "ant-design-vue";
 
-// Khởi tạo dữ liệu form
+// Dữ liệu thông tin tài khoản của người dùng
 const profileData = ref({
   email: "",
   fullName: "",
@@ -266,26 +269,16 @@ const profileData = ref({
   phone: "",
 });
 
-// Lưu trữ bản sao ban đầu của dữ liệu profile để khôi phục khi hủy
+// Lưu trữ bản sao ban đầu để khôi phục khi hủy thay đổi
 let initialProfileData = {};
 
-// Hàm lấy chữ cái đầu của tên để hiển thị avatar
-const getInitials = (name) => {
-  if (!name) return "U";
-  const names = name.split(" ");
-  if (names.length >= 2) {
-    return (names[0][0] + names[names.length - 1][0]).toUpperCase();
-  }
-  return name[0].toUpperCase();
-};
-
-// Lấy thông tin profile khi component được tạo
+// Hàm lấy thông tin profile từ API khi component được mount
 onMounted(async () => {
   try {
     const response = await getProfile();
     const { email, fullName, address, phone } = response.data;
     profileData.value = { email, fullName, address, phone };
-    // Lưu lại bản sao ban đầu cho chức năng hủy
+    // Lưu bản sao ban đầu cho chức năng hủy
     initialProfileData = { ...profileData.value };
   } catch (error) {
     message.error("Lỗi khi lấy thông tin tài khoản!");
@@ -293,7 +286,7 @@ onMounted(async () => {
   }
 });
 
-// Xử lý cập nhật thông tin profile
+// Hàm xử lý cập nhật thông tin profile
 const onSubmit = async () => {
   try {
     await updateProfile(profileData.value);
@@ -305,12 +298,11 @@ const onSubmit = async () => {
   }
 };
 
-// Khôi phục dữ liệu về trạng thái ban đầu
+// Hàm khôi phục dữ liệu về trạng thái ban đầu
 const onCancel = () => {
   profileData.value = { ...initialProfileData };
 };
 </script>
 
 <style scoped>
-/* CSS sẽ được thêm khi cần */
 </style>

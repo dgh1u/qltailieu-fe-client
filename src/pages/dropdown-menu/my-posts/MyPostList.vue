@@ -163,20 +163,7 @@
             v-for="(post, index) in posts"
             :key="post.id"
             :to="{
-              name:
-                selectedMotelType === 'O_GHEP'
-                  ? 'RoommateFindDetail'
-                  : selectedMotelType === 'QUAN_AN'
-                  ? 'RestaurantDetail'
-                  : selectedMotelType === 'QUAN_NUOC'
-                  ? 'BeverageDetail'
-                  : selectedMotelType === 'CUA_HANG'
-                  ? 'StoreDetail'
-                  : selectedMotelType === 'TIEN_ICH'
-                  ? 'UtilityDetail'
-                  : selectedMotelType === 'TAI_LIEU'
-                  ? 'DocumentDetail'
-                  : 'DocumentDetail',
+              name: 'DocumentDetail',
               params: { id: post.id },
             }"
             class="group block transform transition-all duration-300 hover:scale-[1.02]"
@@ -186,7 +173,6 @@
               class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:border-indigo-200 transition-all duration-300"
             >
               <DocumentCard
-                v-if="['TAI_LIEU'].includes(selectedMotelType)"
                 :post="post"
                 data-aos="fade-up"
                 :data-aos-delay="index * 100"
@@ -254,40 +240,49 @@
 </template>
 
 <script setup>
+// Import các thư viện Vue cần thiết
 import { ref, onMounted } from "vue";
-import ProfileLayout from "../../../layouts/ProfileLayout.vue";
 
-import { getProfile } from "@/apis/authService";
-import { getPostsByUserId } from "@/apis/postService";
-import { Empty } from "ant-design-vue";
+// Import layouts và components
+import ProfileLayout from "../../../layouts/ProfileLayout.vue";
 import DocumentCard from "../../../components/card/DocumentCard.vue";
 
-// State cho tài liệu và bộ lọc
+// Import các API services
+import { getProfile } from "@/apis/authService";
+import { getPostsByUserId } from "@/apis/postService";
+
+// Danh sách bài đăng tài liệu của người dùng
 const posts = ref([]);
+
+// ID của người dùng đang đăng nhập
 const userId = ref(null);
+
+// Trạng thái được chọn (APPROVED, BLOCKED, PENDING)
 const selectedStatus = ref("APPROVED");
+
+// Loại bài đăng (mặc định là TAI_LIEU)
 const selectedMotelType = ref("TAI_LIEU");
+
+// Trạng thái xóa (mặc định là false - chưa xóa)
 const selectedDel = ref(false);
 
-// State phân trang
+// Cấu hình phân trang
 const pagination = ref({
   current: 1,
   pageSize: 5,
   total: 0,
 });
 
-// Hàm reset lại trang hiện tại về 1 khi thay đổi bộ lọc
+// Hàm reset về trang 1 khi thay đổi bộ lọc
 function resetPage() {
   pagination.value.current = 1;
 }
 
-/**
- * Lấy danh sách tài liệu theo userId và các bộ lọc đã chọn
- */
+// Hàm gọi API lấy danh sách tài liệu theo bộ lọc
 async function fetchPosts() {
   if (!userId.value) return;
 
-  // Tạo params dựa vào bộ lọc trạng thái
+  // Xây dựng params dựa trên trạng thái được chọn
   let params = {};
   switch (selectedStatus.value) {
     case "APPROVED":
@@ -302,12 +297,12 @@ async function fetchPosts() {
       params.notApproved = true;
       break;
   }
-  // Thêm param cho hình thức
+  // Loại bài đăng (TAI_LIEU)
   params.motel = selectedMotelType.value;
-  // Thêm param cho trạng thái hiển thị
+  // Trạng thái xóa
   params.del = selectedDel.value;
 
-  // Thêm tham số phân trang
+  // Tham số phân trang
   params.start = Math.max(pagination.value.current - 1, 0);
   params.limit = pagination.value.pageSize;
 
@@ -316,7 +311,7 @@ async function fetchPosts() {
     const responseData =
       postResponse && postResponse.data ? postResponse.data : {};
 
-    // Xử lý dữ liệu trả về
+    // Xử lý dữ liệu trả về từ API
     if (typeof responseData.success !== "undefined") {
       if (responseData.success) {
         if (responseData.data && responseData.data.items) {
@@ -350,21 +345,18 @@ async function fetchPosts() {
   }
 }
 
-/**
- * Xử lý sự kiện chuyển trang và cuộn lên đầu trang
- */
+// Hàm xử lý khi chuyển trang
 function handlePageChange(page) {
   pagination.value.current = page;
   fetchPosts();
+  // Cuộn lên đầu trang một cách mượt mà
   window.scrollTo({
     top: 0,
     behavior: "smooth",
   });
 }
 
-/**
- * Khởi tạo component: lấy thông tin người dùng và danh sách tài liệu
- */
+// Khi component được mount, lấy thông tin người dùng và tải danh sách tài liệu
 onMounted(async () => {
   try {
     const profileResponse = await getProfile();
@@ -372,7 +364,7 @@ onMounted(async () => {
     userId.value = profileData.data ? profileData.data.id : profileData.id;
     await fetchPosts();
   } catch (error) {
-    // Xử lý lỗi khi không lấy được thông tin người dùng
+    console.error("Lỗi khi tải thông tin người dùng:", error);
   }
 });
 </script>

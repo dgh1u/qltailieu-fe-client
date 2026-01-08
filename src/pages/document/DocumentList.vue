@@ -50,8 +50,6 @@
                 :pageSize="pagination.pageSize"
                 :total="pagination.total"
                 show-quick-jumper
-                :locale="paginationLocale"
-                :itemRender="itemRender"
                 @change="handlePageChange"
               />
             </div>
@@ -68,32 +66,37 @@
 </template>
 
 <script setup>
+// Import các thư viện Vue cần thiết
 import { ref, watch, onMounted, onUnmounted } from "vue";
-import { useRouter } from 'vue-router';
-import DefaultWhiteLayout from "../../layouts/DefaultWhiteLayout.vue";
-import { getListPost } from "@/apis/postService.js";
-import { Empty } from "ant-design-vue";
 
-import { Search } from "lucide-vue-next";
+// Import layouts và components
+import DefaultWhiteLayout from "../../layouts/DefaultWhiteLayout.vue";
 import DocumentFilter from "../../components/filter/DocumentFilter.vue";
 import DocumentCard from "../../components/card/DocumentCard.vue";
+
+// Import API service
+import { getListPost } from "@/apis/postService.js";
+
+// Import icon
+import { Search } from "lucide-vue-next";
+
+// Import store quản lý bộ lọc
 import { useFilterStore } from '@/stores/filterStore';
 
-const router = useRouter();
+// Store quản lý bộ lọc
 const filterStore = useFilterStore();
-const initialFilter = ref(null);
 
-// Khởi tạo bộ lọc
+// Khởi tạo bộ lọc tài liệu
 const filters = ref({
   keywords: "",
   majorSelected: null,
   secondMotelSelected: null,
 });
 
-// Danh sách tài liệu
+// Danh sách bài đăng tài liệu
 const posts = ref([]);
 
-// Thông báo lỗi
+// Thông báo lỗi nếu có
 const errorMsg = ref("");
 
 // Cấu hình phân trang
@@ -103,7 +106,7 @@ const pagination = ref({
   total: 0,
 });
 
-// Xử lý cập nhật bộ lọc từ component BeverageFilter
+// Hàm xử lý cập nhật bộ lọc từ component DocumentFilter
 function handleFilterUpdate(newFilters) {
   filters.value = {
     ...filters.value,
@@ -115,32 +118,32 @@ function handleFilterUpdate(newFilters) {
   fetchPosts();
 }
 
-// Chuyển đổi bộ lọc thành query params cho API
+// Hàm chuyển đổi bộ lọc thành tham số query cho API
 function buildQueryParams() {
   const params = {};
-  // Mặc định là quán nước
+  // Mặc định là tài liệu
   params.motel = "TAI_LIEU";
 
-  // Chỉ lấy tin đã duyệt và đang hiển thị
+  // Chỉ lấy bài đăng đã duyệt và đang hiển thị
   params.approved = true;
   params.notApproved = false;
   params.del = false;
 
-  // Tham số phân trang
+  // Tham số phân trang (trang hiện tại và số item trên trang)
   params.start = Math.max(pagination.value.current - 1, 0);
   params.limit = pagination.value.pageSize;
 
-  // Thêm từ khóa tìm kiếm
+  // Thêm từ khóa tìm kiếm nếu có
   if (filters.value.keywords && filters.value.keywords.trim() !== "") {
     params.keywords = filters.value.keywords.trim();
   }
 
-  // Thêm khu vực
+  // Thêm chuyên ngành
   if (filters.value.majorSelected) {
     params.major = filters.value.majorSelected;
   }
 
-  // Thêm loại quán
+  // Thêm loại tài liệu
   if (filters.value.secondMotelSelected) {
     params.secondMotel = filters.value.secondMotelSelected;
   }
@@ -148,7 +151,7 @@ function buildQueryParams() {
   return params;
 }
 
-// Gọi API và cập nhật danh sách tài liệu
+// Hàm gọi API để lấy danh sách tài liệu
 async function fetchPosts() {
   try {
     errorMsg.value = "";
@@ -156,6 +159,7 @@ async function fetchPosts() {
     const response = await getListPost(queryParams);
     const data = response.data;
 
+    // Cập nhật danh sách và tổng số tài liệu
     if (data && data.items) {
       posts.value = data.items;
       pagination.value.total = data.total || 0;
@@ -170,7 +174,7 @@ async function fetchPosts() {
   }
 }
 
-// Xử lý chuyển trang
+// Hàm xử lý khi chuyển trang
 function handlePageChange(page) {
   pagination.value.current = page;
   fetchPosts();
@@ -181,7 +185,7 @@ function handlePageChange(page) {
   });
 }
 
-// Khởi tạo dữ liệu khi component được mount
+// Khi component được mount, kiểm tra và áp dụng bộ lọc từ store (nếu có)
 onMounted(() => {
   const activeFilter = filterStore.activeFilter;
   if (activeFilter.type && activeFilter.value) {
@@ -194,7 +198,7 @@ onMounted(() => {
   fetchPosts();
 });
 
-// Tự động cập nhật dữ liệu khi bộ lọc thay đổi
+// Tự động tải lại dữ liệu khi bộ lọc thay đổi
 watch(
   filters,
   () => {
@@ -203,6 +207,7 @@ watch(
   { deep: true }
 );
 
+// Khi component bị unmount, xóa bộ lọc khỏi store
 onUnmounted(() => {
   filterStore.clearFilter();
 });

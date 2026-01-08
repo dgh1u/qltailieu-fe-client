@@ -1,24 +1,37 @@
 <script setup>
+// Import các hàm reactive từ Vue
 import { ref } from "vue";
+// Import router để điều hướng trang
 import { useRouter } from "vue-router";
+// Import service xử lý đăng ký
 import * as authService from "@/apis/authService";
+// Import component popup xác thực OTP
 import Verify from "../verify/Verify.vue";
+// Import icon hiển thị/ẩn mật khẩu
 import { Eye, EyeOff } from "lucide-vue-next";
 
-const email = ref("");
-const password = ref("");
-const fullName = ref("");
-const address = ref("");
-const phone = ref("");
-const showPassword = ref(false);
-const loading = ref(false);
-const generalError = ref("");
-const errors = ref({});
-const showVerifyPopup = ref(false);
-const showSuccessAlert = ref(false);
+// Các trường dữ liệu form đăng ký
+const email = ref(""); // Email người dùng
+const password = ref(""); // Mật khẩu
+const fullName = ref(""); // Họ tên
+const address = ref(""); // Địa chỉ
+const phone = ref(""); // Số điện thoại
+const agreeTerms = ref(false); // Đồng ý điều khoản
 
+// Trạng thái UI
+const showPassword = ref(false); // Hiển thị/ẩn mật khẩu
+const loading = ref(false); // Trạng thái loading khi đăng ký
+const showVerifyPopup = ref(false); // Hiển thị popup xác thực OTP
+const showSuccessAlert = ref(false); // Hiển thị thông báo xác thực thành công
+
+// Xử lý lỗi
+const generalError = ref(""); // Lỗi chung từ server
+const errors = ref({}); // Object chứa lỗi từng trường
+
+// Router để điều hướng
 const router = useRouter();
 
+// Hàm kiểm tra validation tất cả các trường
 const validateInput = () => {
   errors.value = {};
   if (!email.value) {
@@ -50,6 +63,7 @@ const validateInput = () => {
   return Object.keys(errors.value).length === 0;
 };
 
+// Hàm xử lý đăng ký tài khoản
 const handleRegister = async () => {
   loading.value = true;
   generalError.value = "";
@@ -75,10 +89,12 @@ const handleRegister = async () => {
   }
 };
 
+// Hàm bật/tắt hiển thị mật khẩu
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
+// Hàm xử lý sau khi xác thực OTP thành công
 const handleVerified = () => {
   showVerifyPopup.value = false;
   showSuccessAlert.value = true;
@@ -87,6 +103,7 @@ const handleVerified = () => {
   }, 1700);
 };
 
+// Hàm xóa lỗi của một trường khi người dùng nhập lại
 const clearError = (field) => {
   if (errors.value[field]) {
     delete errors.value[field];

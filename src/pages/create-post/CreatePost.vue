@@ -510,36 +510,42 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch } from "vue";
+// Import các thư viện Vue cần thiết
+import { ref, reactive } from "vue";
+
+// Import các API service
 import { createPost } from "@/apis/postService.js";
 import { uploadMultipleImages } from "@/apis/imageService.js";
+import { uploadDocument } from "@/apis/documentService.js";
 
 // Import các component của Ant Design Vue
-import { Select, message, Spin, Modal } from "ant-design-vue";
-
+import { Select, message, Modal } from "ant-design-vue";
 const { confirm } = Modal;
-
 const { Option: ASelectOption } = Select;
-import { Check as CheckIcon, FolderUp, Trash2 } from "lucide-vue-next";
+
+// Import icons
+import { FolderUp, Trash2 } from "lucide-vue-next";
+
+// Import layout
 import ProfileLayout from "@/layouts/ProfileLayout.vue";
-import { uploadDocument } from "@/apis/documentService.js";
 
 const ASelect = Select;
 const ASelectOptionComponent = ASelectOption;
-const ASpin = Spin;
 
+// Biến lưu trữ ảnh đại diện
 const file = ref(null);
 
-// Thêm vào reactive data
+// Danh sách tài liệu đính kèm
 const selectedDocuments = ref([]);
 
-// Thêm các functions
+// Hàm xử lý khi người dùng chọn file tài liệu
 function handleDocumentChange(event) {
   const files = Array.from(event.target.files);
   processFiles(files);
   event.target.value = "";
 }
 
+// Hàm kiểm tra và xử lý các file được chọn
 function processFiles(files) {
   const allowedTypes = [".pdf", ".docx", ".ppt", ".pptx", ".xlsx", ".zip"];
   const validFiles = files.filter((file) => {
@@ -555,20 +561,24 @@ function processFiles(files) {
   selectedDocuments.value = [...selectedDocuments.value, ...validFiles];
 }
 
+// Hàm xử lý khi kéo file vào vùng upload
 function handleDragOver(event) {
   event.preventDefault();
 }
 
+// Hàm xử lý khi thả file vào vùng upload
 function handleDrop(event) {
   event.preventDefault();
   const files = Array.from(event.dataTransfer.files);
   processFiles(files);
 }
 
+// Hàm xóa một tài liệu khỏi danh sách
 function removeDocument(index) {
   selectedDocuments.value.splice(index, 1);
 }
 
+// Hàm định dạng kích thước file
 function formatFileSize(bytes) {
   if (bytes === 0) return "0 Bytes";
   const k = 1024;
@@ -577,110 +587,29 @@ function formatFileSize(bytes) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 }
 
-// Khai báo các biến reactive
+// Dữ liệu form tạo bài đăng tài liệu
 const formData = reactive({
   title: "",
   content: "",
   criteria: {
     motel: "TAI_LIEU",
-    price: "",
-    acreage: "",
-    electricPrice: "",
-    waterPrice: "",
-    gender: "",
-    address: "",
-    idDistrict: "",
-    interior: "",
-    airConditioner: "",
-    heater: "",
-    internet: "",
-    toilet: "",
-    time: "",
-    parking: "",
-    security: "",
-    owner: "",
-    kitchen: "",
+    
     secondMotel: "",
-    openHours: "",
-    delivery: "",
-    dineIn: "",
-    takeAway: "",
-    bigSpace: "",
-    linkShopeeFood: "",
+
     major: "",
     referenceUrl: "",
   },
 });
 
-const districtList = ref([
-  { id: 1, name: "An Đào" },
-  { id: 4, name: "Đào Nguyên" },
-  { id: 5, name: "Cửu Việt" },
-  { id: 6, name: "Thành Chung" },
-  { id: 7, name: "Ngô Xuân Quảng" },
-  { id: 8, name: "Vinhomes Ocean Park" },
-  { id: 9, name: "Khác" },
-]);
-
-const featureOptionsMotel = ref([
-  { label: "Đầy đủ nội thất", value: "interior" },
-  { label: "Có điều hòa", value: "airConditioner" },
-  { label: "Có nóng lạnh", value: "heater" },
-  { label: "Có internet", value: "internet" },
-  { label: "Vệ sinh khép kín", value: "toilet" },
-  { label: "Giờ giấc tự do", value: "time" },
-  { label: "Có chỗ để xe", value: "parking" },
-  { label: "An ninh tốt", value: "security" },
-  { label: "Không chung chủ", value: "owner" },
-  { label: "Kệ bếp", value: "kitchen" },
-]);
-
-const featureOptionsStore = ref([
-  { label: "Có giao hàng", value: "delivery" },
-  { label: "Phục vụ tại chỗ", value: "dineIn" },
-  { label: "Mua mang đi", value: "takeAway" },
-  { label: "Không gian rộng", value: "bigSpace" },
-  { label: "Có chỗ để xe", value: "parking" },
-  { label: "Có điều hòa", value: "airConditioner" },
-  { label: "Wifi miễn phí", value: "internet" },
-]);
-
-const mapAddress = ref("");
-const addressTimer = ref(null);
+// Trạng thái loading khi đang xử lý
 const loading = ref(false);
 
-// Computed properties
-const displayMapAddress = computed(() => {
-  return mapAddress.value.trim() || "VNUA";
-});
-
-// Watchers
-watch(
-  () => formData.criteria.address,
-  (newAddress) => {
-    if (addressTimer.value) clearTimeout(addressTimer.value);
-    addressTimer.value = setTimeout(() => {
-      mapAddress.value = newAddress;
-    }, 1000);
-  }
-);
-
-// Computed property to check if all 4 images are required based on property type
-const isImagesRequired = computed(() => {
-  return (
-    formData.criteria.motel === "PHONG_TRO" ||
-    formData.criteria.motel === "O_GHEP" ||
-    formData.criteria.motel === "QUAN_AN" ||
-    formData.criteria.motel === "QUAN_NUOC" ||
-    formData.criteria.motel === "CUA_HANG" ||
-    formData.criteria.motel === "TIEN_ICH"
-  );
-});
-
+// Hàm xử lý khi chọn ảnh đại diện
 const handleFileChange = (e) => {
   const selectedFile = e.target.files[0];
 
   if (selectedFile) {
+    // Kiểm tra dung lượng file (tối đa 10MB)
     if (selectedFile.size > 10 * 1024 * 1024) {
       message.error("Dung lượng ảnh không được vượt quá 10MB");
       e.target.value = null;
@@ -695,6 +624,7 @@ const handleFileChange = (e) => {
   e.target.value = null;
 };
 
+// Hàm xóa ảnh đại diện
 const removeImage = () => {
   if (file.value) {
     URL.revokeObjectURL(file.value.preview);
@@ -702,165 +632,57 @@ const removeImage = () => {
   }
 };
 
-const handleTimeChange = (time) => {
-  if (time && Array.isArray(time) && time.length === 2) {
-    const formatTime = (timeValue) => {
-      if (!timeValue) return "";
-      const date = new Date(timeValue);
-      const hours = date.getHours().toString().padStart(2, "0");
-      const minutes = date.getMinutes().toString().padStart(2, "0");
-      return `${hours}:${minutes}`;
-    };
-
-    const startTime = formatTime(time[0]);
-    const endTime = formatTime(time[1]);
-
-    // Lưu trực tiếp dưới dạng chuỗi
-    formData.criteria.openHours = `${startTime} - ${endTime}`;
-  }
-};
-
+// Hàm xử lý tạo bài đăng tài liệu
 const handleCreatePost = () => {
-  // Validate tiêu đề chỉ khi là PHONG_TRO hoặc O_GHEP
-  if (
-    formData.criteria.motel === "PHONG_TRO" ||
-    formData.criteria.motel === "O_GHEP"
-  ) {
-    // Validate tiêu đề:
-    if (!formData.title.trim()) {
-      message.error("Tiêu đề không được để trống");
-      return;
-    }
-    if (
-      formData.title.trim().length < 10 ||
-      formData.title.trim().length > 50
-    ) {
-      message.error("Tiêu đề phải từ 10 đến 50 ký tự");
-      return;
-    }
-
-    // Validate nội dung mô tả:
-    if (!formData.content.trim()) {
-      message.error("Nội dung mô tả không được để trống");
-      return;
-    }
-    if (
-      formData.content.trim().length < 50 ||
-      formData.content.trim().length > 500
-    ) {
-      message.error("Nội dung mô tả phải từ 50 đến 500 ký tự");
-      return;
-    }
-    if (!formData.criteria.price) {
-      message.error("Giá cho thuê không được để trống");
-      return;
-    }
-    if (!formData.criteria.acreage) {
-      message.error("Diện tích không được để trống");
-      return;
-    }
-    if (!formData.criteria.electricPrice) {
-      message.error("Giá điện không được để trống");
-      return;
-    }
-    if (!formData.criteria.waterPrice) {
-      message.error("Giá nước không được để trống");
-      return;
-    }
-    if (!formData.criteria.idDistrict) {
-      message.error("Khu vực không được để trống");
-      return;
-    }
-    if (!formData.criteria.address.trim()) {
-      message.error("Địa chỉ không được để trống");
-      return;
-    }
-    if (isImagesRequired.value) {
-      if (
-        !files.value[0] ||
-        !files.value[1] ||
-        !files.value[2] ||
-        !files.value[3]
-      ) {
-        message.error("Bạn phải tải lên đủ 4 ảnh theo yêu cầu");
-        return;
-      }
-    }
+  // Kiểm tra tiêu đề
+  if (!formData.title.trim()) {
+    message.error("Tiêu đề không được để trống");
+    return;
+  }
+  if (formData.title.trim().length < 10 || formData.title.trim().length > 100) {
+    message.error("Tiêu đề phải từ 10 đến 100 ký tự");
+    return;
   }
 
-  if (
-    formData.criteria.motel === "QUAN_AN" ||
-    formData.criteria.motel === "QUAN_NUOC" ||
-    formData.criteria.motel === "CUA_HANG" ||
-    formData.criteria.motel === "TIEN_ICH"
-  ) {
-    // Validate tiêu đề:
-    if (!formData.title.trim()) {
-      message.error("Tiêu đề không được để trống");
-      return;
-    }
-    if (
-      formData.title.trim().length < 10 ||
-      formData.title.trim().length > 50
-    ) {
-      message.error("Tiêu đề phải từ 10 đến 100 ký tự");
-      return;
-    }
-
-    // Validate nội dung mô tả:
-    if (!formData.content.trim()) {
-      message.error("Nội dung mô tả không được để trống");
-      return;
-    }
-    if (
-      formData.content.trim().length < 50 ||
-      formData.content.trim().length > 500
-    ) {
-      message.error("Nội dung mô tả phải từ 50 đến 500 ký tự");
-      return;
-    }
-    if (!formData.criteria.openHours) {
-      message.error("Giờ mở cửa không được để trống");
-      return;
-    }
-
-    if (!formData.criteria.idDistrict) {
-      message.error("Khu vực không được để trống");
-      return;
-    }
-    if (!formData.criteria.address.trim()) {
-      message.error("Địa chỉ không được để trống");
-      return;
-    }
-    if (isImagesRequired.value) {
-      if (
-        !files.value[0] ||
-        !files.value[1] ||
-        !files.value[2] ||
-        !files.value[3]
-      ) {
-        message.error("Bạn phải tải lên đủ 4 ảnh theo yêu cầu");
-        return;
-      }
-    }
+  // Kiểm tra nội dung mô tả
+  if (!formData.content.trim()) {
+    message.error("Nội dung mô tả không được để trống");
+    return;
+  }
+  if (formData.content.trim().length < 50 || formData.content.trim().length > 500) {
+    message.error("Nội dung mô tả phải từ 50 đến 500 ký tự");
+    return;
   }
 
-  // Hiển thị confirm trước khi 
+  // Kiểm tra loại tài liệu
+  if (!formData.criteria.secondMotel) {
+    message.error("Vui lòng chọn loại tài liệu");
+    return;
+  }
+
+  // Kiểm tra chuyên ngành
+  if (!formData.criteria.major) {
+    message.error("Vui lòng chọn chuyên ngành");
+    return;
+  }
+
+  // Hiển thị hộp thoại xác nhận trước khi đăng 
   confirm({
     title: "Xác nhận đăng bài",
     content: "Bạn có chắc chắn muốn đăng tài liệu này không?",
     async onOk() {
       loading.value = true;
       try {
+        // Tạo bài đăng
         const { data: post } = await createPost(formData);
         const postId = post.id;
 
-        // Upload single image if exists
+        // Upload ảnh đại diện nếu có
         if (file.value) {
           await uploadMultipleImages(postId, [file.value.file]);
         }
 
-        // Upload documents if any
+        // Upload các tài liệu đính kèm
         if (selectedDocuments.value.length > 0) {
           for (const doc of selectedDocuments.value) {
             await uploadDocument(postId, doc);
@@ -869,13 +691,12 @@ const handleCreatePost = () => {
 
         message.success("Đăng tài liệu thành công!");
         resetForm();
-        file.value = null; // Reset single file
+        file.value = null;
       } catch (error) {
+        // Xử lý lỗi khi đăng tài liệu
         const errorMessage = error.message;
         if (errorMessage.includes("Sai")) {
-          message.error(
-            "Không thể đăng  Đăng tài liệu!"
-          );
+          message.error("Không thể đăng tài liệu!");
         } else {
           message.error("Đã có lỗi xảy ra");
         }
@@ -884,15 +705,12 @@ const handleCreatePost = () => {
       }
     },
     onCancel() {
-      message.info("Đã hủy Đăng tài liệu");
+      message.info("Đã hủy đăng tài liệu");
     },
   });
 };
 
-const toggleFeature = (featureValue) => {
-  formData.criteria[featureValue] = !formData.criteria[featureValue];
-};
-
+// Hàm reset form về trạng thái ban đầu
 const resetForm = () => {
   Object.assign(formData, {
     title: "",
